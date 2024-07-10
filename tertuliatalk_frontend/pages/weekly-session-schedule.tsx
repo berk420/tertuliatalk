@@ -8,70 +8,132 @@ import Button from 'components/Button';
 import RichText from 'components/RichText';
 
 
-export default function FeaturesPage() {
+const communityPrograms = [
+  {
+    id: '1',
+    title: 'Community Program1',
+    description: 'First Comunity Program',
+    date: '2024-07-12',
+    time: '15:00',
+    duration: '1 hour',
+    location: 'Zoom',
+    link: 'https://zoom.us/1234',
+    isCommunity: true
+  },
+  {
+    id: '2',
+    title: 'Comunity Program2',
+    description: 'Second Comunity Program',
+    date: '2024-07-30',
+    time: '16:00',
+    duration: '1 hour',
+    location: 'Zoom',
+    link: 'https://zoom.us/1234',
+    isCommunity: true
+  },
+  {
+    id: '3',
+    title: 'Comunity Program3',
+    description: 'Third Comunity Program',
+    date: '2024-07-27',
+    time: '16:00',
+    duration: '1 hour',
+    location: 'Zoom',
+    link: 'https://zoom.us/1234',
+    isCommunity: true
+  },
 
+];
+
+const nativePrograms = [
+  {
+    id: '3',
+    title: 'Individual Program1',
+    description: 'First Individual Program',
+    date: '2024-08-22',
+    time: '17:00',
+    duration: '1 hour',
+    location: 'Zoom',
+    link: 'https://zoom.us/1234',
+    isCommunity: false
+  },
+  {
+    id: '4',
+    title: 'Individual Program2',
+    description: 'Second Individual Program',
+    date: '2024-07-11',
+    time: '18:00',
+    duration: '1 hour',
+    location: 'Zoom',
+    link: 'https://zoom.us/1234',
+    isCommunity: false
+  },
+];
+
+
+export default function FeaturesPage() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [programs, setPrograms] = React.useState<any>(nativePrograms)
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
+
   return (
     <Page title="Haftalık oturum Programı">
-      
+
       {/*<FormSection/>*/}
 
       <WholeFrame>
 
 
-      <Wrapper>
-        <Header>
-          <Session>
+        <Wrapper>
+          <Header>
+            <Session>
 
-          <Button>Bireysel</Button>
-          <Button>Toplu</Button>
+              <Button onClick={() => setPrograms(nativePrograms)} >Bireysel</Button>
+              <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
 
-          </Session>
-          <PassWeek>
-            <Button>önceki hafta</Button>
-            <RichText>Tarih</RichText>
-            <Button>sonraki hafta</Button>
+            </Session>
+            <PassWeek>
+              <Button>önceki hafta</Button>
+              <RichText>Tarih</RichText>
+              <Button>sonraki hafta</Button>
 
 
-          </PassWeek>
+            </PassWeek>
 
-        </Header>
+          </Header>
 
-        <Days>
-          <Accordion title="Salı 09.07">
-            <Meetings>
-            </Meetings>
-            <Meetings>
-            </Meetings>
-          </Accordion>
-
-          <Accordion title="Çarşamba 10.07">
-            <Meetings>
-            </Meetings>
-            <Meetings>
-            </Meetings>
-          </Accordion>
-
-          <Accordion title="Perşemde 11.0">
-            <Meetings>
-            </Meetings>
-            <Meetings>
-            </Meetings>
-          </Accordion>
-
-          <Accordion title="Cuma 12.07">
-            <Meetings>
-            </Meetings>
-            <Meetings>
-            </Meetings>
-          </Accordion>
-        </Days>
-      </Wrapper>
+          <Days>
+            {
+              programs &&
+              communityPrograms.map((program, index) => (
+                <Accordion title={`${program.date} / ${program.time}`} key={index}>
+                  <Meetings>
+                    <div style={{ paddingInline: "3rem" }}>
+                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+                        <div>
+                          <h1>{program.title}</h1>
+                          <p>{program.description}</p>
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column" }}>
+                          <div style={{display: "flex", alignItems: "center"}}>
+                            <h2>{program.time} /&nbsp;</h2>
+                            <strong>{program.duration}</strong>
+                          </div>
+                          <strong>{program.location}</strong>
+                        </div>
+                      </div>
+                      <Button href={program.link} target='_blank'>Katıl</Button>
+                    </div>
+                  </Meetings>
+                </Accordion>
+              ))
+            }
+          </Days>
+        </Wrapper>
       </WholeFrame>
     </Page>
   );
@@ -127,8 +189,7 @@ const PassWeek = styled.div`
 
 
 const Meetings = styled.div`
-    background-color: #13AA25;
-
+    background-color: transparent;
     width:100%;
     height:15rem;
     margin-top: 1rem;
