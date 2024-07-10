@@ -112,22 +112,22 @@ export default function FeaturesPage() {
               communityPrograms.map((program, index) => (
                 <Accordion title={`${program.date} / ${program.time}`} key={index}>
                   <Meetings>
-                    <div style={{ paddingInline: "3rem" }}>
-                      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-                        <div>
+                    <Container>
+                      <FlexBetween>
+                        <TitleDescription>
                           <h1>{program.title}</h1>
                           <p>{program.description}</p>
-                        </div>
-                        <div style={{ display: "flex", flexDirection: "column" }}>
-                          <div style={{display: "flex", alignItems: "center"}}>
+                        </TitleDescription>
+                        <ColumnFlex>
+                          <FlexAlignCenter>
                             <h2>{program.time} /&nbsp;</h2>
                             <strong>{program.duration}</strong>
-                          </div>
-                          <strong>{program.location}</strong>
-                        </div>
-                      </div>
-                      <Button href={program.link} target='_blank'>Katıl</Button>
-                    </div>
+                          </FlexAlignCenter>
+                          <Location>{program.location}</Location>
+                        </ColumnFlex>
+                      </FlexBetween>
+                      <Button href={program.link} target="_blank">Katıl</Button>
+                    </Container>
                   </Meetings>
                 </Accordion>
               ))
@@ -232,5 +232,63 @@ const CustomAutofitGrid = styled(AutofitGrid)`
 
   ${media('<=phone')} {
     --autofit-grid-item-size: 100%;
+  }
+`;
+
+
+
+const Container = styled.div`
+  padding-inline: 3rem;
+`;
+
+const FlexBetween = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
+const TitleDescription = styled.div`
+  h1 {
+    margin: 0;
+  }
+  p {
+    margin: 0;
+  }
+`;
+
+const ColumnFlex = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const FlexAlignCenter = styled.div`
+  display: flex;
+  align-items: center;
+
+  h2 {
+    margin: 0;
+  }
+  strong {
+    margin-left: 0.5rem;
+  }
+`;
+
+const Location = styled.strong`
+  margin-top: 0.5rem;
+`;
+
+const StyledButton = styled.a`
+  display: inline-block;
+  padding: 10px 20px;
+  margin-top: 10px;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  color: #fff;
+  background-color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  &:hover {
+    background-color: #0056b3;
   }
 `;
