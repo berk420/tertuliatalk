@@ -5,16 +5,30 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from 'components/Input';
 import { getWeatherForecast } from 'services/WeatherForecastService';
+import { signUp } from 'services/AuthService';
+import Logo from '../../components/Logo';
+import { useRouter } from 'next/router';
 
 export default function SignupSection() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [exampleData, setExampleData] = useState<[]>([])
+  const [email, setEmail] = useState<string | null>(null);
+  const [password, setPassword] = useState<string | null>(null);
+  const [exampleData, setExampleData] = useState<[] | null>(null)
+  const router = useRouter();
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
     console.log(`Email: ${email}\nPassword: ${password}`);
-  };
+    if (email && password) {
+      try {
+        const res = await signUp(email, password);
+        console.log("data from backend: ", res); // login success
+        router.push('/');
+      }
+      catch (error) {
+        console.log(error);
+      }
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -36,7 +50,7 @@ export default function SignupSection() {
         </Row>
         <Row>
           {
-            exampleData.length > 0 ? (
+            exampleData ? (
               exampleData?.map((data: any, index: number) => (
                 <DataWrapper key={index}>
                   <p>{data.date}</p>
@@ -137,4 +151,4 @@ const DataWrapper = styled.div`
   border: 1px solid gray;
   border-radius: 0.6rem;
   width: 100%;
-`;
+  `

@@ -6,8 +6,18 @@
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Dtos\" />
+    <None Remove="Entities\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dtos\" />
+    <Folder Include="Entities\" />
+  </ItemGroup>
 </Project>
