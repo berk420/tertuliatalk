@@ -1,0 +1,6 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/5cee76de-f45f-4c9a-b9cb-5922db952a48.vsidx
+*.vsidx
