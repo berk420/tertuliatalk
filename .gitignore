@@ -2,8 +2,24 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
+<<<<<<< HEAD
 /TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
 /TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
 *.vsidx
 /TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfo.cs
 /TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfoInputs.cache
+=======
+/TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/5cee76de-f45f-4c9a-b9cb-5922db952a48.vsidx
+*.vsidx
+>>>>>>> fd852ba7cae47e3035b91a586606efbf9563bb52
+/TertuliatalkAPI/TertuliatalkAPI/Entities/User.cs
+/TertuliatalkAPI/TertuliatalkAPI/Entities/IEntitiy.cs
+/TertuliatalkAPI/TertuliatalkAPI/Dtos/SignUpDto.cs
+/TertuliatalkAPI/TertuliatalkAPI/Controllers/AuthController.cs
+/tertuliatalk_frontend/views/HomePage/Hero.tsx
+/tertuliatalk_frontend/services/weatherForecastService.ts
+/tertuliatalk_frontend/services/AuthService.ts
+/.gitignore
+/.gitignore
+/TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfo.cs
+/.gitignore
