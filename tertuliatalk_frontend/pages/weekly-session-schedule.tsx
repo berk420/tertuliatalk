@@ -170,25 +170,34 @@ export default function FeaturesPage() {
   const [programs, setPrograms] = React.useState<Program[]>(nativePrograms);
   const [weekIndex, setWeekIndex] = React.useState<number>(0);
 
+  const downloadExamplePdf = () => {
+    const aTag = document.createElement('a')
+    aTag.href = 'http://localhost:3000/example.pdf'
+    aTag.setAttribute("download", "example.pdf")
+    document.body.appendChild(aTag)
+    aTag.click()
+    aTag.remove()
+  }
+
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
-    const handleNextWeek = () => {
-      setWeekIndex((prevIndex) => (prevIndex + 1) % weeksArray.length);
-    };
-    
-    const handlePrevWeek = () => {
-      setWeekIndex((prevIndex) => {
-        if (prevIndex === 0) {
-          return weeksArray.length - 1; // Son haftaya dönmek için
-        } else {
-          return prevIndex - 1;
-        }
-      });
-    };
-    
+  const handleNextWeek = () => {
+    setWeekIndex((prevIndex) => (prevIndex + 1) % weeksArray.length);
+  };
+
+  const handlePrevWeek = () => {
+    setWeekIndex((prevIndex) => {
+      if (prevIndex === 0) {
+        return weeksArray.length - 1; // Son haftaya dönmek için
+      } else {
+        return prevIndex - 1;
+      }
+    });
+  };
+
 
   return (
     <Page title="Haftalık oturum Programı">
@@ -196,8 +205,14 @@ export default function FeaturesPage() {
         <Wrapper>
           <Header>
             <Session>
-              <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
-              <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+              <div>
+
+                <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+              </div>
+              <div>
+
+                <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+              </div>
             </Session>
             <PassWeek>
               <Button onClick={handlePrevWeek}>önceki hafta</Button>
@@ -229,9 +244,14 @@ export default function FeaturesPage() {
                                 <Location>{program.location}</Location>
                               </ColumnFlex>
                             </FlexBetween>
-                            <Button href={program.link} target="_blank">
-                              Katıl
-                            </Button>
+                            <FlexCenterBetween>
+                              <Button onClick={() => downloadExamplePdf()}>
+                                Metaryali indir
+                              </Button>
+                              <Button href={program.link} target="_blank">
+                                Randevu Oluştur
+                              </Button>
+                            </FlexCenterBetween>
                           </Container>
                         </Meetings>
                       ))}
@@ -246,6 +266,7 @@ export default function FeaturesPage() {
 
 const Days = styled.div`
   display: flex;
+  padding: 1rem;
   background-color: #f5f5dc;
   width: 100%;
   height: 100%;
@@ -258,28 +279,31 @@ const Header = styled.div`
   display: flex;
   background-color: #f5f5dc;
   width: 100%;
-  height: 15rem;
+  height: 100%;
   display: flex;
   flex-direction: column;
 `;
 
 
 const Session = styled.div`
-  background-color: #0fe728;
-  width: 98%;
-  height: 6rem;
+  background-color: #06142a;
+  border-radius: 0.5rem;
+  padding: 2rem;
+  width: 100%;
+  height: 100%;
   margin: 1rem;
-  padding-left: 1rem;
   display: flex;
+  justidy-content: center;
   gap: 1rem;
   align-items: center; /* Butonları dikeyde ortalamak için */
 `;
 
 const PassWeek = styled.div`
-  background-color: #0fe728;
-  width: 98%;
-  height: 6rem;
-  padding-top: 0rem;
+  background-color: #06142a;
+  border-radius: 0.5rem;
+  padding: 2rem;
+   width: 100%;
+  height: 100%;
   margin: 1rem;
   display: flex;
   justify-content: space-between;
@@ -287,9 +311,9 @@ const PassWeek = styled.div`
 `;
 
 const Meetings = styled.div`
-  background-color: transparent;
+  border-bottom: 1px solid #2c3540;
+  padding: 1rem;
   width: 100%;
-  height: 15rem;
   margin-top: 1rem;
 `;
 
@@ -300,7 +324,11 @@ const WholeFrame = styled.div`
 `;
 
 const Wrapper = styled.div`
-  background-color: #ff0;
+  display: flex;
+  flex-direction: column;
+  background-color: #06142a;
+  width: 100%;
+  height: 100%;
   & > *:not(:first-child) {
     margin-top: 1rem;
   }
@@ -323,12 +351,14 @@ const Container = styled.div`
 `;
 
 const FlexBetween = styled.div`
+padding: 1rem;
   display: flex;
   align-items: center;
   justify-content: space-between;
 `;
 
 const TitleDescription = styled.div`
+color: white;  
   h1 {
     margin: 0;
   }
@@ -343,6 +373,7 @@ const ColumnFlex = styled.div`
 `;
 
 const FlexAlignCenter = styled.div`
+  color: white;
   display: flex;
   align-items: center;
 
@@ -355,6 +386,7 @@ const FlexAlignCenter = styled.div`
 `;
 
 const Location = styled.strong`
+color: white;
   margin-top: 0.5rem;
 `;
 
@@ -373,3 +405,13 @@ const StyledButton = styled.a`
     background-color: #0056b3;
   }
 `;
+
+const FlexCenterBetween = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  height: 45px;
+  overflow: hidden;
+`;
+  
