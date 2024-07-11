@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TertuliatalkAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51bec15cb2cbbf90a27ab553bd0ff1e0237b2dc5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a3f44d8b09c7195ef6e7485c6191cf3173f99c20")]
 [assembly: System.Reflection.AssemblyProductAttribute("TertuliatalkAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TertuliatalkAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
