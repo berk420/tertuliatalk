@@ -4,3 +4,6 @@
 
 /TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
 /TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
+*.vsidx
+/TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfo.cs
+/TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfoInputs.cache
