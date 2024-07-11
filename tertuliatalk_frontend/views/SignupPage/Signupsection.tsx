@@ -4,7 +4,7 @@ import { media } from 'utils/media';
 import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from 'components/Input';
-import { getWeatherForecast } from 'services/weatherForeCastService';
+import { getWeatherForecast } from 'services/WeatherForecastService';
 
 export default function SignupSection() {
   const [email, setEmail] = useState('');
