@@ -263,6 +263,7 @@ const Header = styled.div`
   flex-direction: column;
 `;
 
+
 const Session = styled.div`
   background-color: #0fe728;
   width: 98%;
