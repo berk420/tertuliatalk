@@ -170,15 +170,6 @@ export default function FeaturesPage() {
   const [programs, setPrograms] = React.useState<Program[]>(nativePrograms);
   const [weekIndex, setWeekIndex] = React.useState<number>(0);
 
-  const downloadExamplePdf = () => {
-    const aTag = document.createElement('a')
-    aTag.href = 'http://localhost:3000/example.pdf'
-    aTag.setAttribute("download", "example.pdf")
-    document.body.appendChild(aTag)
-    aTag.click()
-    aTag.remove()
-  }
-
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
@@ -245,9 +236,11 @@ export default function FeaturesPage() {
                               </ColumnFlex>
                             </FlexBetween>
                             <FlexCenterBetween>
-                              <Button onClick={() => downloadExamplePdf()}>
-                                Metaryali indir
-                              </Button>
+                              <a href="http://localhost:3000/example.pdf" download="example">
+                                <Button>
+                                  Metaryali indir
+                                </Button>
+                              </a>
                               <Button href={program.link} target="_blank">
                                 Randevu Oluştur
                               </Button>
@@ -414,4 +407,3 @@ const FlexCenterBetween = styled.div`
   height: 45px;
   overflow: hidden;
 `;
-  
