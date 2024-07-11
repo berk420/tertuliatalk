@@ -6,48 +6,143 @@ import * as React from 'react';
 import Accordion from 'components/Accordion';
 import Button from 'components/Button';
 import RichText from 'components/RichText';
+import { times } from 'lodash';
 
+type Times = {
+  id: string;
+  date: string;
+  day: string;
+};
 
-const communityPrograms = [
+const week28: Times[] = [
   {
-    id: '1',
+    id: '28.1',
+    date: '08.11',
+    day: 'Pazartesi',
+  },
+  {
+    id: '28.2',
+    date: '09.11',
+    day: 'Salı',
+  },
+  {
+    id: '28.3',
+    date: '10.11',
+    day: 'Çarşamba',
+  },
+  {
+    id: '28.4',
+    date: '11.11',
+    day: 'Perşembe',
+  },
+  {
+    id: '28.5',
+    date: '12.11',
+    day: 'Cuma',
+  },
+  {
+    id: '28.6',
+    date: '13.11',
+    day: 'Cumartesi',
+  },
+  {
+    id: '28.7',
+    date: '14.11',
+    day: 'Pazar',
+  },
+];
+
+const week29: Times[] = [
+  {
+    id: '29.1',
+    date: '15.11',
+    day: 'Pazartesi',
+  },
+  {
+    id: '29.2',
+    date: '16.11',
+    day: 'Salı',
+  },
+  {
+    id: '29.3',
+    date: '17.11',
+    day: 'Çarşamba',
+  },
+  {
+    id: '29.4',
+    date: '18.11',
+    day: 'Perşembe',
+  },
+  {
+    id: '29.5',
+    date: '19.11',
+    day: 'Cuma',
+  },
+  {
+    id: '29.6',
+    date: '20.11',
+    day: 'Cumartesi',
+  },
+  {
+    id: '29.7',
+    date: '21.11',
+    day: 'Pazar',
+  },
+];
+
+const weeksArray = [week28, week29];
+
+type Program = {
+  id: string;
+  title: string;
+  description: string;
+  date: string;
+  time: string;
+  duration: string;
+  location: string;
+  link: string;
+  isCommunity: boolean;
+};
+
+const communityPrograms: Program[] = [
+  {
+    id: '28.1',
     title: 'Community Program1',
-    description: 'First Comunity Program',
+    description: 'First Community Program',
     date: '2024-07-12',
     time: '15:00',
     duration: '1 hour',
     location: 'Zoom',
     link: 'https://zoom.us/1234',
-    isCommunity: true
+    isCommunity: true,
   },
   {
-    id: '2',
-    title: 'Comunity Program2',
-    description: 'Second Comunity Program',
+    id: '28.2',
+    title: 'Community Program2',
+    description: 'Second Community Program',
     date: '2024-07-30',
     time: '16:00',
     duration: '1 hour',
     location: 'Zoom',
     link: 'https://zoom.us/1234',
-    isCommunity: true
+    isCommunity: true,
   },
   {
-    id: '3',
-    title: 'Comunity Program3',
-    description: 'Third Comunity Program',
+    id: '28.3',
+    title: 'Community Program3',
+    description: 'Third Community Program',
     date: '2024-07-27',
     time: '16:00',
     duration: '1 hour',
     location: 'Zoom',
     link: 'https://zoom.us/1234',
-    isCommunity: true
+    isCommunity: true,
   },
-
 ];
 
-const nativePrograms = [
+const nativePrograms: Program[] = [
   {
-    id: '3',
+    id: '28.2',
     title: 'Individual Program1',
     description: 'First Individual Program',
     date: '2024-08-22',
@@ -55,10 +150,10 @@ const nativePrograms = [
     duration: '1 hour',
     location: 'Zoom',
     link: 'https://zoom.us/1234',
-    isCommunity: false
+    isCommunity: false,
   },
   {
-    id: '4',
+    id: '28.2',
     title: 'Individual Program2',
     description: 'Second Individual Program',
     date: '2024-07-11',
@@ -66,72 +161,82 @@ const nativePrograms = [
     duration: '1 hour',
     location: 'Zoom',
     link: 'https://zoom.us/1234',
-    isCommunity: false
+    isCommunity: false,
   },
 ];
 
-
 export default function FeaturesPage() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [programs, setPrograms] = React.useState<any>(nativePrograms)
+  const [programs, setPrograms] = React.useState<Program[]>(nativePrograms);
+  const [weekIndex, setWeekIndex] = React.useState<number>(0);
 
   const handleChange =
     (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
       setExpanded(isExpanded ? panel : false);
     };
 
+    const handleNextWeek = () => {
+      setWeekIndex((prevIndex) => (prevIndex + 1) % weeksArray.length);
+    };
+    
+    const handlePrevWeek = () => {
+      setWeekIndex((prevIndex) => {
+        if (prevIndex === 0) {
+          return weeksArray.length - 1; // Son haftaya dönmek için
+        } else {
+          return prevIndex - 1;
+        }
+      });
+    };
+    
+
   return (
     <Page title="Haftalık oturum Programı">
-
-      {/*<FormSection/>*/}
-
       <WholeFrame>
-
-
         <Wrapper>
           <Header>
             <Session>
-
-              <Button onClick={() => setPrograms(nativePrograms)} >Bireysel</Button>
+              <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
               <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
-
             </Session>
             <PassWeek>
-              <Button>önceki hafta</Button>
+              <Button onClick={handlePrevWeek}>önceki hafta</Button>
               <RichText>Tarih</RichText>
-              <Button>sonraki hafta</Button>
-
-
+              <Button onClick={handleNextWeek}>sonraki hafta</Button>
             </PassWeek>
-
           </Header>
 
           <Days>
-            {
-              programs &&
-              communityPrograms.map((program, index) => (
-                <Accordion title={`${program.date} / ${program.time}`} key={index}>
-                  <Meetings>
-                    <Container>
-                      <FlexBetween>
-                        <TitleDescription>
-                          <h1>{program.title}</h1>
-                          <p>{program.description}</p>
-                        </TitleDescription>
-                        <ColumnFlex>
-                          <FlexAlignCenter>
-                            <h2>{program.time} /&nbsp;</h2>
-                            <strong>{program.duration}</strong>
-                          </FlexAlignCenter>
-                          <Location>{program.location}</Location>
-                        </ColumnFlex>
-                      </FlexBetween>
-                      <Button href={program.link} target="_blank">Katıl</Button>
-                    </Container>
-                  </Meetings>
+            {weeksArray[weekIndex] &&
+              weeksArray[weekIndex].map((weeks, index) => (
+                <Accordion title={`${weeks.date} / ${weeks.day}`} key={index}>
+                  {programs &&
+                    programs
+                      .filter((program) => program.id === weeks.id)
+                      .map((program, index) => (
+                        <Meetings key={index}>
+                          <Container>
+                            <FlexBetween>
+                              <TitleDescription>
+                                <h1>{program.title}</h1>
+                                <p>{program.description}</p>
+                              </TitleDescription>
+                              <ColumnFlex>
+                                <FlexAlignCenter>
+                                  <h2>{program.time} /&nbsp;</h2>
+                                  <strong>{program.duration}</strong>
+                                </FlexAlignCenter>
+                                <Location>{program.location}</Location>
+                              </ColumnFlex>
+                            </FlexBetween>
+                            <Button href={program.link} target="_blank">
+                              Katıl
+                            </Button>
+                          </Container>
+                        </Meetings>
+                      ))}
                 </Accordion>
-              ))
-            }
+              ))}
           </Days>
         </Wrapper>
       </WholeFrame>
@@ -139,42 +244,38 @@ export default function FeaturesPage() {
   );
 }
 
-
 const Days = styled.div`
-
-    display: flex;
-    background-color: #f5f5dc;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-      gap: 1rem;
-
+  display: flex;
+  background-color: #f5f5dc;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 `;
 
 const Header = styled.div`
-
-    display: flex;
-    background-color: #f5f5dc;
-    width: 100%;
-    height: 15rem;
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  background-color: #f5f5dc;
+  width: 100%;
+  height: 15rem;
+  display: flex;
+  flex-direction: column;
 `;
 
 const Session = styled.div`
-  background-color: #0FE728;
+  background-color: #0fe728;
   width: 98%;
   height: 6rem;
   margin: 1rem;
   padding-left: 1rem;
   display: flex;
   gap: 1rem;
-  align-items: center;  /* Butonları dikeyde ortalamak için */
+  align-items: center; /* Butonları dikeyde ortalamak için */
 `;
 
 const PassWeek = styled.div`
-  background-color: #0FE728;
+  background-color: #0fe728;
   width: 98%;
   height: 6rem;
   padding-top: 0rem;
@@ -184,42 +285,23 @@ const PassWeek = styled.div`
   align-items: center;
 `;
 
-
-
-
-
 const Meetings = styled.div`
-    background-color: transparent;
-    width:100%;
-    height:15rem;
-    margin-top: 1rem;
-
-  
+  background-color: transparent;
+  width: 100%;
+  height: 15rem;
+  margin-top: 1rem;
 `;
-
-
-
-
-
-
 
 const WholeFrame = styled.div`
-    background-color: #f4a460;
-
-    width:100%;
-    height:100%;
-
-  }
+  background-color: #f4a460;
+  width: 100%;
+  height: 100%;
 `;
 
-
-
 const Wrapper = styled.div`
-    background-color: #ff0;
-
+  background-color: #ff0;
   & > *:not(:first-child) {
     margin-top: 1rem;
-
   }
 `;
 
@@ -234,8 +316,6 @@ const CustomAutofitGrid = styled(AutofitGrid)`
     --autofit-grid-item-size: 100%;
   }
 `;
-
-
 
 const Container = styled.div`
   padding-inline: 3rem;
