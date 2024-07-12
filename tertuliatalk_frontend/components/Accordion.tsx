@@ -3,19 +3,25 @@ import styled from 'styled-components';
 import { media } from 'utils/media';
 import Collapse from './Collapse';
 import RichText from './RichText';
+import { ColumnFlex } from 'pages/weekly-session-schedule';
 
 interface AccordionProps {
   title: string;
+  subTitle?: string;
   isOpen?: boolean;
 }
 
-export default function Accordion({ title, isOpen, children }: PropsWithChildren<AccordionProps>) {
+export default function Accordion({ title, subTitle, isOpen, children }: PropsWithChildren<AccordionProps>) {
   const [hasCollapsed, setHasCollapsed] = useState(!isOpen);
   const isActive = !hasCollapsed;
+  
   return (
     <AccordionWrapper>
       <TitleWrapper onClick={() => setHasCollapsed((prev) => !prev)}>
-        <Title>{title}</Title>
+        <ColumnFlex>
+          <Title>{title}</Title>
+          <h2>{subTitle}</h2>
+        </ColumnFlex>
         <Icon isActive={isActive}>
           <svg
             viewBox="0 0 24 24"
@@ -39,7 +45,7 @@ export default function Accordion({ title, isOpen, children }: PropsWithChildren
 
 const Title = styled.h3`
   font-size: 2rem;
-  width: 90%;
+  width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;

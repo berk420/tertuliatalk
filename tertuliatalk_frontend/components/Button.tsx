@@ -1,10 +1,10 @@
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-type ButtonProps = PropsWithChildren<{ transparent?:  boolean }>;
+type ButtonProps = PropsWithChildren<{ transparent?: boolean; disabled?: boolean }>;
 
 const Button = styled.a<ButtonProps>`
-user-select: none;
+  user-select: none;
   border: none;
   background: none;
   display: inline-block;
@@ -23,14 +23,16 @@ user-select: none;
   transition: transform 0.3s;
   backface-visibility: hidden;
   will-change: transform;
-  cursor: pointer;
+  cursor: ${(p) => (p.disabled ? 'not-allowed' : 'pointer')};
+  opacity: ${(p) => (p.disabled ? 0.5 : 1)};
+  pointer-events: ${(p) => (p.disabled ? 'none' : 'auto')};
 
   span {
     margin-left: 2rem;
   }
 
   &:hover {
-    transform: scale(1.025);
+    transform: ${(p) => (p.disabled ? 'none' : 'scale(1.025)')};
   }
 `;
 
