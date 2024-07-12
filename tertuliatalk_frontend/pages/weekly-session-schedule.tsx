@@ -7,6 +7,8 @@ import Accordion from 'components/Accordion';
 import Button from 'components/Button';
 import RichText from 'components/RichText';
 import { times } from 'lodash';
+import Quote from 'components/Quote';
+import SectionTitle from 'components/SectionTitle';
 
 type Times = {
   id: string;
@@ -17,37 +19,37 @@ type Times = {
 const week28: Times[] = [
   {
     id: '28.1',
-    date: '08.11',
+    date: '08.11.2024',
     day: 'Pazartesi',
   },
   {
     id: '28.2',
-    date: '09.11',
+    date: '09.11.2024',
     day: 'Salı',
   },
   {
     id: '28.3',
-    date: '10.11',
+    date: '10.11.2024',
     day: 'Çarşamba',
   },
   {
     id: '28.4',
-    date: '11.11',
+    date: '11.11.2024',
     day: 'Perşembe',
   },
   {
     id: '28.5',
-    date: '12.11',
+    date: '12.11.2024',
     day: 'Cuma',
   },
   {
     id: '28.6',
-    date: '13.11',
+    date: '13.11.2024',
     day: 'Cumartesi',
   },
   {
     id: '28.7',
-    date: '14.11',
+    date: '14.11.2024',
     day: 'Pazar',
   },
 ];
@@ -55,37 +57,37 @@ const week28: Times[] = [
 const week29: Times[] = [
   {
     id: '29.1',
-    date: '15.11',
+    date: '15.11.2024',
     day: 'Pazartesi',
   },
   {
     id: '29.2',
-    date: '16.11',
+    date: '16.11.2024',
     day: 'Salı',
   },
   {
     id: '29.3',
-    date: '17.11',
+    date: '17.11.2024',
     day: 'Çarşamba',
   },
   {
     id: '29.4',
-    date: '18.11',
+    date: '18.11.2024',
     day: 'Perşembe',
   },
   {
     id: '29.5',
-    date: '19.11',
+    date: '19.11.2024',
     day: 'Cuma',
   },
   {
     id: '29.6',
-    date: '20.11',
+    date: '20.11.2024',
     day: 'Cumartesi',
   },
   {
     id: '29.7',
-    date: '21.11',
+    date: '21.11.2024',
     day: 'Pazar',
   },
 ];
@@ -166,20 +168,26 @@ const nativePrograms: Program[] = [
 ];
 
 export default function FeaturesPage() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  //const [expanded, setExpanded] = React.useState<string | false>(false);
   const [programs, setPrograms] = React.useState<Program[]>(nativePrograms);
   const [weekIndex, setWeekIndex] = React.useState<number>(0);
 
-  const handleChange =
-    (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  //const handleChange =
+  //  (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+  //    setExpanded(isExpanded ? panel : false);
+  //  };
 
   const handleNextWeek = () => {
+    if (weekIndex === weeksArray.length - 1) {
+      return;
+    }
     setWeekIndex((prevIndex) => (prevIndex + 1) % weeksArray.length);
   };
 
   const handlePrevWeek = () => {
+    if (weekIndex === 0) {
+      return;
+    }
     setWeekIndex((prevIndex) => {
       if (prevIndex === 0) {
         return weeksArray.length - 1; // Son haftaya dönmek için
@@ -190,28 +198,24 @@ export default function FeaturesPage() {
   };
 
 
+
+
   return (
     <Page title="Haftalık oturum Programı">
       <WholeFrame>
         <Wrapper>
           <Header>
             <Session>
-              <div>
-
-                <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
-              </div>
-              <div>
-
-                <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
-              </div>
+              <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+              <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
             </Session>
             <PassWeek>
               <Button onClick={handlePrevWeek}>önceki hafta</Button>
-              <RichText>Tarih</RichText>
+              <h1>{`Tarih: ${weeksArray[weekIndex][0].date} / Oturum Sayısı: ${programs
+                      .filter((program) => program.id === weeksArray[weekIndex][1].id).length}`}</h1>
               <Button onClick={handleNextWeek}>sonraki hafta</Button>
             </PassWeek>
           </Header>
-
           <Days>
             {weeksArray[weekIndex] &&
               weeksArray[weekIndex].map((weeks, index) => (
@@ -224,15 +228,18 @@ export default function FeaturesPage() {
                           <Container>
                             <FlexBetween>
                               <TitleDescription>
-                                <h1>{program.title}</h1>
+                                <RichText>{program.title}</RichText>
                                 <p>{program.description}</p>
                               </TitleDescription>
                               <ColumnFlex>
                                 <FlexAlignCenter>
-                                  <h2>{program.time} /&nbsp;</h2>
-                                  <strong>{program.duration}</strong>
+                                  <RichText>{program.time} /&nbsp;</RichText>
+                                  <RichText>{program.duration}</RichText>
                                 </FlexAlignCenter>
+                                <FlexAlignCenter>
                                 <Location>{program.location}</Location>
+                                <CustomCircle>2/4</CustomCircle>
+                                </FlexAlignCenter>
                               </ColumnFlex>
                             </FlexBetween>
                             <FlexCenterBetween>
@@ -247,7 +254,8 @@ export default function FeaturesPage() {
                             </FlexCenterBetween>
                           </Container>
                         </Meetings>
-                      ))}
+                      ))
+                  }
                 </Accordion>
               ))}
           </Days>
@@ -258,6 +266,7 @@ export default function FeaturesPage() {
 }
 
 const Days = styled.div`
+border-radius: 1rem;
   display: flex;
   padding: 1rem;
   background-color: #f5f5dc;
@@ -269,8 +278,11 @@ const Days = styled.div`
 `;
 
 const Header = styled.div`
+border-radius: 1rem;
   display: flex;
   background-color: #f5f5dc;
+  padding: 1rem;
+  gap: 1rem;
   width: 100%;
   height: 100%;
   display: flex;
@@ -280,11 +292,10 @@ const Header = styled.div`
 
 const Session = styled.div`
   background-color: #06142a;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   padding: 2rem;
   width: 100%;
   height: 100%;
-  margin: 1rem;
   display: flex;
   justidy-content: center;
   gap: 1rem;
@@ -293,17 +304,18 @@ const Session = styled.div`
 
 const PassWeek = styled.div`
   background-color: #06142a;
-  border-radius: 0.5rem;
+  border-radius: 1rem;
   padding: 2rem;
    width: 100%;
   height: 100%;
-  margin: 1rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 const Meetings = styled.div`
+  background-color: #06142a;
+  border-radius: 1rem;
   border-bottom: 1px solid #2c3540;
   padding: 1rem;
   width: 100%;
@@ -311,15 +323,18 @@ const Meetings = styled.div`
 `;
 
 const WholeFrame = styled.div`
+border-radius: 1rem;
   background-color: #f4a460;
   width: 100%;
   height: 100%;
 `;
 
 const Wrapper = styled.div`
+border-radius: 1rem;
+
   display: flex;
   flex-direction: column;
-  background-color: #06142a;
+  background-color: #f5f5dc;
   width: 100%;
   height: 100%;
   & > *:not(:first-child) {
@@ -340,7 +355,6 @@ const CustomAutofitGrid = styled(AutofitGrid)`
 `;
 
 const Container = styled.div`
-  padding-inline: 3rem;
 `;
 
 const FlexBetween = styled.div`
@@ -361,11 +375,13 @@ color: white;
 `;
 
 const ColumnFlex = styled.div`
+gap: 1rem;
   display: flex;
   flex-direction: column;
 `;
 
 const FlexAlignCenter = styled.div`
+gap: 1rem;
   color: white;
   display: flex;
   align-items: center;
@@ -406,4 +422,15 @@ const FlexCenterBetween = styled.div`
   gap: 2rem;
   height: 45px;
   overflow: hidden;
+`;
+
+const CustomCircle = styled.div`
+font-weight: bold;
+display: flex;
+justify-content: center;
+  align-items: center;
+  width: 5rem;
+  height: 5rem;
+  border-radius: 50%;
+  background-color: #fd5221;
 `;
