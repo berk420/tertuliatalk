@@ -2,9 +2,8 @@ import styled from 'styled-components';
 import { media } from 'utils/media';
 
 const RichText = styled.div`
-  font-size: 1.8rem;
-  opacity: 0.8;
-  line-height: 1.6;
+  font-size: 2rem;
+
 
   ol,
   ul {

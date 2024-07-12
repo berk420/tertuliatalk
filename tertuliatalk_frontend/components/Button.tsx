@@ -1,9 +1,10 @@
 import { PropsWithChildren } from 'react';
 import styled from 'styled-components';
 
-type ButtonProps = PropsWithChildren<{ transparent?: boolean }>;
+type ButtonProps = PropsWithChildren<{ transparent?:  boolean }>;
 
 const Button = styled.a<ButtonProps>`
+user-select: none;
   border: none;
   background: none;
   display: inline-block;
