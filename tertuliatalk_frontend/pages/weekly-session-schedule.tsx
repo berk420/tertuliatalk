@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Days as EnumDays } from 'types/enums';
 import AutofitGrid from 'components/AutofitGrid';
 import Page from 'components/Page';
 import { media } from 'utils/media';
@@ -11,47 +12,48 @@ import Quote from 'components/Quote';
 import SectionTitle from 'components/SectionTitle';
 import { nextSevenDateFormatter } from 'utils/formatDate';
 
+
 type Times = {
   id: string;
   date: string;
-  day: string;
+  day: EnumDays;
 };
 
 const week28: Times[] = [
   {
     id: '28.1',
     date: '08.11',
-    day: 'Pazartesi',
+    day: EnumDays.Monday,
   },
   {
     id: '28.2',
     date: '09.11',
-    day: 'Salı',
+    day: EnumDays.Tuesday,
   },
   {
     id: '28.3',
     date: '10.11',
-    day: 'Çarşamba',
+    day: EnumDays.Wednesday,
   },
   {
     id: '28.4',
     date: '11.11',
-    day: 'Perşembe',
+    day: EnumDays.Thursday,
   },
   {
     id: '28.5',
     date: '12.11',
-    day: 'Cuma',
+    day: EnumDays.Friday,
   },
   {
     id: '28.6',
     date: '13.11',
-    day: 'Cumartesi',
+    day: EnumDays.Saturday,
   },
   {
     id: '28.7',
     date: '14.11',
-    day: 'Pazar',
+    day: EnumDays.Sunday,
   },
 ];
 
@@ -59,37 +61,37 @@ const week29: Times[] = [
   {
     id: '29.1',
     date: '15.11',
-    day: 'Pazartesi',
+    day: EnumDays.Monday,
   },
   {
     id: '29.2',
     date: '16.11',
-    day: 'Salı',
+    day: EnumDays.Tuesday,
   },
   {
     id: '29.3',
     date: '17.11',
-    day: 'Çarşamba',
+    day: EnumDays.Wednesday,
   },
   {
     id: '29.4',
     date: '18.11',
-    day: 'Perşembe',
+    day: EnumDays.Thursday,
   },
   {
     id: '29.5',
     date: '19.11',
-    day: 'Cuma',
+    day: EnumDays.Friday,
   },
   {
     id: '29.6',
     date: '20.11',
-    day: 'Cumartesi',
+    day: EnumDays.Saturday,
   },
   {
     id: '29.7',
     date: '21.11',
-    day: 'Pazar',
+    day: EnumDays.Sunday,
   },
 ];
 
