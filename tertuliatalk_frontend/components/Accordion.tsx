@@ -70,7 +70,7 @@ const AccordionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
-  background: rgb(var(--cardBackground));
+  background: #191f29;
   box-shadow: var(--shadow-md);
   border-radius: 0.6rem;
   transition: opacity 0.2s;

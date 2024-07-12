@@ -12,11 +12,11 @@ const Button = styled.a<ButtonProps>`
   background: ${(p) => (p.transparent ? 'transparent' : 'rgb(var(--primary))')};
   padding: 1.75rem 2.25rem;
   font-size: 1.2rem;
-  color: ${(p) => (p.transparent ? 'rgb(var(--text))' : 'rgb(var(--textSecondary))')};
   text-transform: uppercase;
   font-family: var(--font);
   font-weight: bold;
-  border-radius: 0.4rem;
+  border-radius: 1rem;
+  color: white;
   border: none;
   background-color: #fd5221;
   transition: transform 0.3s;
