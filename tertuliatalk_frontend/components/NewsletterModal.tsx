@@ -11,6 +11,7 @@ import Input from './Input';
 import MailSentState from './MailSentState';
 import Overlay from './Overlay';
 import NextLink from 'next/link';
+import { signIn } from 'services/AuthService'; // Import signIn function
 
 export interface NewsletterModalProps {
   onClose: () => void;
@@ -22,18 +23,26 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
 
   useEscClose({ onClose });
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>, enrollNewsletter: (props: DefaultFormFields) => void) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
-    if (email) {
-      enrollNewsletter({ EMAIL: email });
+    console.log("girmeden")
+    if (email && password) {
+      console.log("girince")
+
+      const result = await signIn(email, password);
+      console.log(result);
+      console.log(result.role);
+      if (result) {
+        console.log("Sign-in successful:", result);
+      } else {
+        console.log("Sign-in failed");
+      }
     }
   }
 
   function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
-    console.log(`Email: ${email}, Password: ${password}`);
     const form = event.currentTarget.closest('form');
     if (form) {
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
@@ -41,65 +50,52 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   }
 
   function handleLinkClick() {
-    
     onClose(); // Close the modal
   }
 
   return (
-    <MailchimpSubscribe
-      url={EnvVars.MAILCHIMP_SUBSCRIBE_URL}
-      render={({ subscribe, status, message }) => {
-        const hasSignedUp = status === 'success';
-        return (
-          <Overlay>
-            <Container>
-              <Card onSubmit={(event: React.FormEvent<HTMLFormElement>) => onSubmit(event, subscribe)}>
-                <CloseIconContainer>
-                  <CloseIcon onClick={onClose} />
-                </CloseIconContainer>
-                {hasSignedUp && <MailSentState />}
-                {!hasSignedUp && (
-                  <>
-                    <Title>Giriş yap</Title>
-                    <Row>
-                      <CustomInput
-                        value={email}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                        placeholder="Email adresinizi giriniz..."
-                        required
-                      />
-                    </Row>
-                    <Row>
-                      <CustomInput
-                        type="password"
-                        value={password}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                        placeholder="Şifrenizi giriniz..."
-                        required
-                      />
-                    </Row>
-                    <Row>
-                      <CustomButton as="button" type="submit" disabled={hasSignedUp} onClick={handleButtonClick}>
-                        Submit
-                      </CustomButton>
-                    </Row>
-                    <Row>
-                      <a onClick={handleLinkClick}>
-                        You can Sign up from{' '}
-                        <NextLink href="/signup">
-                          <a>here.</a>
-                        </NextLink>
-                      </a>
-                    </Row>
-                    {message && <ErrorMessage dangerouslySetInnerHTML={{ __html: message as string }} />}
-                  </>
-                )}
-              </Card>
-            </Container>
-          </Overlay>
-        );
-      }}
-    />
+    <Overlay>
+      <Container>
+        <Card onSubmit={onSubmit}>
+          <CloseIconContainer>
+            <CloseIcon onClick={onClose} />
+          </CloseIconContainer>
+          <>
+            <Title>Giriş yap</Title>
+            <Row>
+              <CustomInput
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                placeholder="Email adresinizi giriniz..."
+                required
+              />
+            </Row>
+            <Row>
+              <CustomInput
+                type="password"
+                value={password}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                placeholder="Şifrenizi giriniz..."
+                required
+              />
+            </Row>
+            <Row>
+              <CustomButton as="button" type="submit" onClick={handleButtonClick}>
+                Submit
+              </CustomButton>
+            </Row>
+            <Row>
+              <a onClick={handleLinkClick}>
+                You can Sign up from{' '}
+                <NextLink href="/signup">
+                  <a>here.</a>
+                </NextLink>
+              </a>
+            </Row>
+          </>
+        </Card>
+      </Container>
+    </Overlay>
   );
 }
 
@@ -142,13 +138,6 @@ const Title = styled.div`
   ${media('<=tablet')} {
     font-size: 2.6rem;
   }
-`;
-
-const ErrorMessage = styled.p`
-  color: rgb(var(--errorColor));
-  font-size: 1.5rem;
-  margin: 1rem 0;
-  text-align: center;
 `;
 
 const Row = styled.div`

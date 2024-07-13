@@ -5,9 +5,10 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from 'components/Input';
 import { getWeatherForecast } from 'services/weatherForecastService';
-import { signUp } from 'services/AuthService';
+import { getUserData,signIn } from 'services/AuthService';
 import Logo from '../../components/Logo';
 import { useRouter } from 'next/router';
+import { da } from 'date-fns/locale';
 
 export default function SignupSection() {
   const [email, setEmail] = useState<string >("test");
@@ -20,7 +21,7 @@ export default function SignupSection() {
     console.log(`Email: ${email}\nPassword: ${password}`);
     if (email && password) {
       try {
-        const res = await signUp(email, password);
+        const res = await signIn(email, password);
         console.log("data from backend: ", res); // login success
         router.push('/');
       }
@@ -33,8 +34,9 @@ export default function SignupSection() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const data = await getWeatherForecast();
+        const data = await getUserData();
         setExampleData(data);
+        console.log(data);
       } catch (error) {
         console.log(error);
       }
