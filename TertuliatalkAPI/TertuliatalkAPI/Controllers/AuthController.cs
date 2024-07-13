@@ -33,9 +33,9 @@ namespace TertuliatalkAPI.Controllers
 
         [HttpGet("isAuth")]
         [Authorize]
-        public async Task<ActionResult<string>> AuthExampleController()
+        public async Task<ActionResult<string>> AuthExampleController() // Authorize test controller
         {
-            return "this user is auth";
+            return "this user is authorized";
         }
     }
 }
