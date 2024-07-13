@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Days as EnumDays } from 'types/enums';
 import AutofitGrid from 'components/AutofitGrid';
 import Page from 'components/Page';
 import { media } from 'utils/media';
@@ -9,86 +10,88 @@ import RichText from 'components/RichText';
 import { times } from 'lodash';
 import Quote from 'components/Quote';
 import SectionTitle from 'components/SectionTitle';
+import { nextSevenDateFormatter } from 'utils/formatDate';
+
 
 type Times = {
   id: string;
   date: string;
-  day: string;
+  day: EnumDays;
 };
 
 const week28: Times[] = [
   {
     id: '28.1',
-    date: '08.11.2024',
-    day: 'Pazartesi',
+    date: '08.11',
+    day: EnumDays.Monday,
   },
   {
     id: '28.2',
-    date: '09.11.2024',
-    day: 'Salı',
+    date: '09.11',
+    day: EnumDays.Tuesday,
   },
   {
     id: '28.3',
-    date: '10.11.2024',
-    day: 'Çarşamba',
+    date: '10.11',
+    day: EnumDays.Wednesday,
   },
   {
     id: '28.4',
-    date: '11.11.2024',
-    day: 'Perşembe',
+    date: '11.11',
+    day: EnumDays.Thursday,
   },
   {
     id: '28.5',
-    date: '12.11.2024',
-    day: 'Cuma',
+    date: '12.11',
+    day: EnumDays.Friday,
   },
   {
     id: '28.6',
-    date: '13.11.2024',
-    day: 'Cumartesi',
+    date: '13.11',
+    day: EnumDays.Saturday,
   },
   {
     id: '28.7',
-    date: '14.11.2024',
-    day: 'Pazar',
+    date: '14.11',
+    day: EnumDays.Sunday,
   },
 ];
 
 const week29: Times[] = [
   {
     id: '29.1',
-    date: '15.11.2024',
-    day: 'Pazartesi',
+    date: '15.11',
+    day: EnumDays.Monday,
   },
   {
     id: '29.2',
-    date: '16.11.2024',
-    day: 'Salı',
+    date: '16.11',
+    day: EnumDays.Tuesday,
   },
   {
     id: '29.3',
-    date: '17.11.2024',
-    day: 'Çarşamba',
+    date: '17.11',
+    day: EnumDays.Wednesday,
   },
   {
     id: '29.4',
-    date: '18.11.2024',
-    day: 'Perşembe',
+    date: '18.11',
+    day: EnumDays.Thursday,
   },
   {
     id: '29.5',
-    date: '19.11.2024',
-    day: 'Cuma',
+    date: '19.11',
+    day: EnumDays.Friday,
   },
   {
     id: '29.6',
-    date: '20.11.2024',
-    day: 'Cumartesi',
+    date: '20.11',
+    day: EnumDays.Saturday,
   },
   {
     id: '29.7',
-    date: '21.11.2024',
-    day: 'Pazar',
+    date: '21.11',
+    day: EnumDays.Sunday,
   },
 ];
 
@@ -104,6 +107,9 @@ type Program = {
   location: string;
   link: string;
   isCommunity: boolean;
+  isActive: boolean;  /* -> this prop is used to show the active programs 
+                            if we create cron jobs that run every hour in the backend, we can handle this.
+                        */
 };
 
 const communityPrograms: Program[] = [
@@ -117,6 +123,7 @@ const communityPrograms: Program[] = [
     location: 'Zoom',
     link: 'https://zoom.us/1234',
     isCommunity: true,
+    isActive: false,
   },
   {
     id: '28.2',
@@ -128,6 +135,7 @@ const communityPrograms: Program[] = [
     location: 'Zoom',
     link: 'https://zoom.us/1234',
     isCommunity: true,
+    isActive: true,
   },
   {
     id: '28.3',
@@ -139,6 +147,7 @@ const communityPrograms: Program[] = [
     location: 'Zoom',
     link: 'https://zoom.us/1234',
     isCommunity: true,
+    isActive: true,
   },
 ];
 
@@ -153,6 +162,8 @@ const nativePrograms: Program[] = [
     location: 'Zoom',
     link: 'https://zoom.us/1234',
     isCommunity: false,
+    isActive: false,
+
   },
   {
     id: '28.2',
@@ -164,6 +175,7 @@ const nativePrograms: Program[] = [
     location: 'Zoom',
     link: 'https://zoom.us/1234',
     isCommunity: false,
+    isActive: true,
   },
 ];
 
@@ -176,6 +188,13 @@ export default function FeaturesPage() {
   //  (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
   //    setExpanded(isExpanded ? panel : false);
   //  };
+
+  const downloadPdf = () => {
+    const link = document.createElement('a');
+    link.href = 'http://localhost:3000/example.pdf';
+    link.download = 'example';
+    link.click();
+  }
 
   const handleNextWeek = () => {
     if (weekIndex === weeksArray.length - 1) {
@@ -198,8 +217,6 @@ export default function FeaturesPage() {
   };
 
 
-
-
   return (
     <Page title="Haftalık oturum Programı">
       <WholeFrame>
@@ -211,15 +228,15 @@ export default function FeaturesPage() {
             </Session>
             <PassWeek>
               <Button onClick={handlePrevWeek}>önceki hafta</Button>
-              <h1>{`Tarih: ${weeksArray[weekIndex][0].date} / Oturum Sayısı: ${programs
-                      .filter((program) => program.id === weeksArray[weekIndex][1].id).length}`}</h1>
+              <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
               <Button onClick={handleNextWeek}>sonraki hafta</Button>
             </PassWeek>
           </Header>
           <Days>
             {weeksArray[weekIndex] &&
               weeksArray[weekIndex].map((weeks, index) => (
-                <Accordion title={`${weeks.date} / ${weeks.day}`} key={index}>
+                <Accordion title={`${weeks.date} / ${weeks.day}`} subTitle={`Oturum Sayısı: ${programs
+                  .filter((program) => program.id === weeks.id).length}`} key={index}>
                   {programs &&
                     programs
                       .filter((program) => program.id === weeks.id)
@@ -228,7 +245,7 @@ export default function FeaturesPage() {
                           <Container>
                             <FlexBetween>
                               <TitleDescription>
-                                <RichText>{program.title}</RichText>
+                                <h2>{program.title}</h2>
                                 <p>{program.description}</p>
                               </TitleDescription>
                               <ColumnFlex>
@@ -237,18 +254,16 @@ export default function FeaturesPage() {
                                   <RichText>{program.duration}</RichText>
                                 </FlexAlignCenter>
                                 <FlexAlignCenter>
-                                <Location>{program.location}</Location>
-                                <CustomCircle>2/4</CustomCircle>
+                                  <Location>{program.location}</Location>
+                                  <CustomCircle>2/4</CustomCircle>
                                 </FlexAlignCenter>
                               </ColumnFlex>
                             </FlexBetween>
                             <FlexCenterBetween>
-                              <a href="http://localhost:3000/example.pdf" download="example">
-                                <Button>
-                                  Metaryali indir
-                                </Button>
-                              </a>
-                              <Button href={program.link} target="_blank">
+                              <Button onClick={downloadPdf} disabled={!program.isActive}>
+                                Metaryali indir
+                              </Button>
+                              <Button href={program.link} target="_blank" disabled={!program.isActive}>
                                 Randevu Oluştur
                               </Button>
                             </FlexCenterBetween>
@@ -314,7 +329,7 @@ const PassWeek = styled.div`
 `;
 
 const Meetings = styled.div`
-  background-color: #06142a;
+  background-color: #f5f5dc;
   border-radius: 1rem;
   border-bottom: 1px solid #2c3540;
   padding: 1rem;
@@ -365,7 +380,8 @@ padding: 1rem;
 `;
 
 const TitleDescription = styled.div`
-color: white;  
+font-weight: bold;
+color: black;  
   h1 {
     margin: 0;
   }
@@ -374,7 +390,7 @@ color: white;
   }
 `;
 
-const ColumnFlex = styled.div`
+export const ColumnFlex = styled.div`
 gap: 1rem;
   display: flex;
   flex-direction: column;
@@ -382,7 +398,7 @@ gap: 1rem;
 
 const FlexAlignCenter = styled.div`
 gap: 1rem;
-  color: white;
+  color: black;
   display: flex;
   align-items: center;
 
@@ -395,7 +411,7 @@ gap: 1rem;
 `;
 
 const Location = styled.strong`
-color: white;
+color: black;
   margin-top: 0.5rem;
 `;
 
@@ -425,6 +441,7 @@ const FlexCenterBetween = styled.div`
 `;
 
 const CustomCircle = styled.div`
+color: white;
 font-weight: bold;
 display: flex;
 justify-content: center;
