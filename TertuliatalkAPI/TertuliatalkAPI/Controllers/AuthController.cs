@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -13,32 +16,26 @@ namespace TertuliatalkAPI.Controllers
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        /*
+        readonly IAuthService _authService;
 
-        private readonly UserManager<User> _userManager;
-
-        public AuthController(UserManager<User> userManager)
+        public AuthController(IAuthService authService)
         {
-            _userManager = userManager;
+            this._authService = authService;
         }
 
-        */
-
-        [HttpPost("signup")]
-        public async Task<IActionResult> SignUp(SignUpDto signUpDto)
+        [HttpPost("LoginUser")]
+        [AllowAnonymous]
+        public async Task<ActionResult<UserLoginResponse>> LoginUserAsync([FromBody] UserLoginRequest request)
         {
-            if (signUpDto == null)
-            {
-                return BadRequest("Invalid user data.");
-            }
+            var result = await _authService.LoginUserAsync(request);
+            return result;
+        }
 
-            var user = new User
-            {
-                Email = signUpDto.Email,
-                Password = signUpDto.Password,
-            };
-
-            return Ok(user); 
+        [HttpGet("isAuth")]
+        [Authorize]
+        public async Task<ActionResult<string>> AuthExampleController()
+        {
+            return "this user is auth";
         }
     }
 }

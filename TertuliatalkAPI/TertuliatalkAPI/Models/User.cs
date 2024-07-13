@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using TertuliatalkAPI.Entities;
 
 public class User
 {

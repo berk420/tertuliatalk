@@ -1,15 +1,23 @@
 {
   "version": 2,
-  "dgSpecHash": "d5gwTFr5WGnCUq+iwUG9RVRO2Ql93+F1HO3Z+hG8GuXRHmip86SjuysDIlEqo0XTKmtAY1SaiWE0uHe1rQbUtA==",
+  "dgSpecHash": "S5NA+SDLxzct6arSqI+WQXbTfnMbw1QBT+rdnjmcz180oMn+vqPTA0w4Efp0d6OPZx9eghpnZlVFhdg3YsX5Bw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+  "projectFilePath": "/Users/yusufugurlu/Desktop/tertuliatalk/TertuliatalkAPI/TertuliatalkAPI/TertuliatalkAPI.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\berk\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
-    "C:\\Users\\berk\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
-    "C:\\Users\\berk\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
-    "C:\\Users\\berk\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
-    "C:\\Users\\berk\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
-    "C:\\Users\\berk\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.4.0\\swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
+    "/Users/yusufugurlu/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/8.0.7/microsoft.aspnetcore.authentication.jwtbearer.8.0.7.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.extensions.apidescription.server/6.0.5/microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.abstractions/7.1.2/microsoft.identitymodel.abstractions.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.jsonwebtokens/7.1.2/microsoft.identitymodel.jsonwebtokens.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.logging/7.1.2/microsoft.identitymodel.logging.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.protocols/7.1.2/microsoft.identitymodel.protocols.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/7.1.2/microsoft.identitymodel.protocols.openidconnect.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.identitymodel.tokens/7.1.2/microsoft.identitymodel.tokens.7.1.2.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/microsoft.openapi/1.2.3/microsoft.openapi.1.2.3.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/swashbuckle.aspnetcore/6.4.0/swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/swashbuckle.aspnetcore.swagger/6.4.0/swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/swashbuckle.aspnetcore.swaggergen/6.4.0/swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/swashbuckle.aspnetcore.swaggerui/6.4.0/swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512",
+    "/Users/yusufugurlu/.nuget/packages/system.identitymodel.tokens.jwt/7.1.2/system.identitymodel.tokens.jwt.7.1.2.nupkg.sha512"
   ],
   "logs": []
 }
