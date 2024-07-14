@@ -9,10 +9,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\berk\\documents\\github\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\berk\\documents\\github\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\entities\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\entities\\userdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -48,8 +44,7 @@
               "RelativeToolTip": "TertuliatalkAPI\\Entities\\user.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T19:27:10.624Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-13T19:27:10.624Z"
             },
             {
               "$type": "Document",
@@ -59,28 +54,9 @@
               "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\AuthController.cs",
               "ToolTip": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\AuthController.cs",
               "RelativeToolTip": "TertuliatalkAPI\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAAAwAAAAAAAAAAAAawCAAAAAdAAAA",
+              "ViewState": "AQIAABYAAAAAAAAAAAAgwB0AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-07-13T12:42:28.468Z",
-              "EditorCaption": ""
-            }
-          ]
-        },
-        {
-          "DockedWidth": 173,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "userDto.cs",
-              "DocumentMoniker": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\userDto.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\userDto.cs",
-              "ToolTip": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\userDto.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Entities\\userDto.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T18:29:22.634Z",
               "EditorCaption": ""
             }
           ]

@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import MailchimpSubscribe, { DefaultFormFields } from 'react-mailchimp-subscribe';
 import styled from 'styled-components';
 import { EnvVars } from 'env';
@@ -12,28 +11,60 @@ import MailSentState from './MailSentState';
 import Overlay from './Overlay';
 import NextLink from 'next/link';
 import { signIn } from 'services/AuthService'; // Import signIn function
+import React, {  useState, } from 'react';
+
+
 
 export interface NewsletterModalProps {
   onClose: () => void;
 }
 
+
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const [role, setRole] = useState<string | null>("User"); // Add a state to store user role
 
   useEscClose({ onClose });
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    console.log("girmeden")
     if (email && password) {
-      console.log("girince")
 
       const result = await signIn(email, password);
-      console.log(result);
-      console.log(result.role);
       if (result) {
-        console.log("Sign-in successful:", result);
+
+        if(result.role === "Teacher"){
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+
+          window.location.reload();
+
+        }else if(result.role === "Student"){
+
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+          window.location.reload();
+
+        }
+        else if(result.role === "SuperAdmin"){
+
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+          window.location.reload();
+
+        }
+
       } else {
         console.log("Sign-in failed");
       }
@@ -84,6 +115,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                 Submit
               </CustomButton>
             </Row>
+            {/*
             <Row>
               <a onClick={handleLinkClick}>
                 You can Sign up from{' '}
@@ -92,6 +124,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                 </NextLink>
               </a>
             </Row>
+            */}
           </>
         </Card>
       </Container>

@@ -19,6 +19,7 @@ import WaveCta from 'components/WaveCta';
 import { NewsletterModalContextProvider, useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { NavItems } from 'types';
 
+
 const navItems: NavItems = [
   { title: 'Hizmet bilgilendirme', href: '/service-information' },
   { title: 'Haftalık Oturum Programı', href: '/weekly-session-schedule' },
@@ -27,14 +28,22 @@ const navItems: NavItems = [
   { title: 'İletişim', href: '/contact' },
   
   { title: 'Kayıt ol', href: '/signup' },
-  { title: 'Giriş yap', href: '/', outlined: true},
+
+  { title: 'Giriş yap', href: '/' , outlined:true},
+
+  { title: 'Profil', href: '/profile' },
+
+
 
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+
   return (
+
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

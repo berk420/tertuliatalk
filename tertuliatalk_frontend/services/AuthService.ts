@@ -14,9 +14,6 @@ const signIn = async (email: string, password: string) => {
       }),
     });
 
-    console.log("-----------------------response");
-    console.log(response);
-
     if (!response.ok) {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.indexOf('application/json') !== -1) {
