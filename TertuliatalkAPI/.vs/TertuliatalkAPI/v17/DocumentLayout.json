@@ -1,16 +1,7 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\berk\\documents\\github\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\controllers\\authcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\berk\\documents\\github\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -32,32 +23,11 @@
         },
         {
           "DockedWidth": 362,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": -1,
           "Children": [
             {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "user.cs",
-              "DocumentMoniker": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\user.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\user.cs",
-              "ToolTip": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\user.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Entities\\user.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T19:27:10.624Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "AuthController.cs",
-              "DocumentMoniker": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\AuthController.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\AuthController.cs",
-              "ToolTip": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\AuthController.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\AuthController.cs",
-              "ViewState": "AQIAABYAAAAAAAAAAAAgwB0AAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-13T12:42:28.468Z",
-              "EditorCaption": ""
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{2bb8137c-bac8-4d04-820a-c52b5d5b82da}"
             }
           ]
         }
