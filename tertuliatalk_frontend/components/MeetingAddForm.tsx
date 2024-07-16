@@ -56,7 +56,7 @@ const MeetingAddForm = () => {
           type="number"
           id="limit"
           {...register('limit', { required: true, min: 1 })}
-        />
+          />
         {errors.quota && <ErrorMessage>Kontenjan zorunludur ve en az 2 olmalıdır</ErrorMessage>}
       </QuotaWrapper>
 
@@ -101,20 +101,29 @@ const QuotaWrapper = styled.div`
 `;
 
 const Label = styled.label`
+  font-size: 1.2rem;
+  margin-left: 0.2rem;
   margin-bottom: 0.5rem;
   font-weight: bold;
 `;
 
 const Input = styled.input`
+  color: #fafafa;
+  border: none;
   outline: none;
-  padding: 0.5rem;
+  background: none;
+  padding: 12px;
+  border-radius: 99999px;
+  outline: none;
+  padding: 0.6rem;
   border: 1px solid #ccc;
-  border-radius: 4px;
   font-size: 1.4rem;
 `;
 
 const TextArea = styled.textarea`
   outline: none;
+  background: none;
+  color: #fafafa;
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 4px;

@@ -31,11 +31,11 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
   const isActive = !hasCollapsed;
   const [fromArea, setFromArea] = useState(false)
 
-  const manageDiv = () => {
+  const manageForm = () => {
     if (fromArea) {
       setFromArea(false)
     }
-    else if (!fromArea) {
+    else if (!fromArea ) {
       setFromArea(true)
       setHasCollapsed(true)
     }
@@ -45,19 +45,32 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
     }
   }
 
+  const manageCollapse = () => {
+    if (fromArea) {
+      setFromArea(false)
+      setHasCollapsed(false)
+    }
+    else if (!isActive) {
+      setHasCollapsed(false)
+    }
+    else if (isActive) {
+      setHasCollapsed(true)
+    }
+  }
+
   return (
     <AccordionWrapper>
       <TitleWrapper>
-        <ColumnFlex onClick={() => setHasCollapsed((prev) => !prev)}>
+        <ColumnFlex onClick={manageCollapse}>
           <Title>{title}</Title>
           <h2>{subTitle}</h2>
         </ColumnFlex>
         <Cursor>
           <RowFlex>
             {
-              user.role === Roles.TEACHER && <IoMdAdd size={32} onClick={manageDiv} />
+              user.role === Roles.TEACHER && <IoMdAdd size={32} onClick={manageForm} />
             }
-            <Icon isActive={isActive} onClick={() => setHasCollapsed((prev) => !prev)}>
+            <Icon isActive={isActive} onClick={manageCollapse}>
               <svg
                 viewBox="0 0 24 24"
                 focusable="false"
