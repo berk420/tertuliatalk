@@ -64,6 +64,12 @@ export default function Navbar({ items }: NavbarProps) {
   const isNavbarHidden = scrollingDirection === 'down';
   const isTransparent = scrollingDirection === 'none';
 
+  const handleLogout = () => {
+    console.log("Logout clicked");
+    localStorage.setItem('userRole', "User");
+    window.location.reload();
+  };
+
   return (
     <NavbarContainer hidden={isNavbarHidden} transparent={isTransparent}>
       <Content>
@@ -71,15 +77,23 @@ export default function Navbar({ items }: NavbarProps) {
           <LogoWrapper>
             <Logo />
           </LogoWrapper>
+
         </NextLink>
         <NavItemList>
           {items.map((singleItem) => (
             <NavItem key={singleItem.href} {...singleItem} />
           ))}
         </NavItemList>
+        
+        {/*
         <ColorSwitcherContainer>
           <ColorSwitcher />
         </ColorSwitcherContainer>
+        */}
+        <Button onClick={handleLogout}>
+          Çıkış yap
+        </Button>
+
         <HamburgerMenuWrapper>
           <HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
         </HamburgerMenuWrapper>

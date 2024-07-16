@@ -3,7 +3,6 @@ import { Days as EnumDays } from 'types/enums';
 import AutofitGrid from 'components/AutofitGrid';
 import Page from 'components/Page';
 import { media } from 'utils/media';
-import * as React from 'react';
 import Accordion from 'components/Accordion';
 import Button from 'components/Button';
 import RichText from 'components/RichText';
@@ -11,6 +10,7 @@ import { times } from 'lodash';
 import Quote from 'components/Quote';
 import SectionTitle from 'components/SectionTitle';
 import { nextSevenDateFormatter } from 'utils/formatDate';
+import React, { useEffect, useState } from 'react';
 import { Meeting } from '../components/Meeting';
 
 
@@ -217,38 +217,131 @@ export default function FeaturesPage() {
     });
   };
 
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('userRole');
+    if (userRole) {
+      setRole(userRole);
+    }
+  }, []);
+
 
   return (
     <Page title="Haftalık oturum Programı">
       <WholeFrame>
-        <Wrapper>
-          <Header>
-            <Session>
-              <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
-              <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
-            </Session>
-            <PassWeek>
-              <Button onClick={handlePrevWeek}>önceki hafta</Button>
-              <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
-              <Button onClick={handleNextWeek}>sonraki hafta</Button>
-            </PassWeek>
-          </Header>
-          <Days>
-            {weeksArray[weekIndex] &&
-              weeksArray[weekIndex].map((weeks, index) => (
-                <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                  .filter((program) => program.id === weeks.id).length}`} key={index}>
-                  {programs &&
-                    programs
-                      .filter((program) => program.id === weeks.id)
-                      .map((program, index) => (
-                        <Meeting key={index} index={index} program={program} />
-                      ))
-                  }
-                </Accordion>
-              ))}
-          </Days>
-        </Wrapper>
+
+        
+      {role === null ? (
+          <p>
+              TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
+              </p>
+        ) : (
+          <>
+            {role === "Teacher" && (
+                      <Wrapper>
+                  <Header>
+                    <Session>
+                      <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                      <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+                    </Session>
+                    <PassWeek>
+                      <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                      <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                      <Button onClick={handleNextWeek}>sonraki hafta</Button>
+                    </PassWeek>
+                  </Header>
+                  <Days>
+                    {weeksArray[weekIndex] &&
+                      weeksArray[weekIndex].map((weeks, index) => (
+                        <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
+                          .filter((program) => program.id === weeks.id).length}`} key={index}>
+                          {programs &&
+                            programs
+                              .filter((program) => program.id === weeks.id)
+                              .map((program, index) => (
+                                <Meeting key={index} index={index} program={program} />
+                              ))
+                          }
+                        </Accordion>
+                      ))}
+                  </Days>
+                </Wrapper>
+            )}
+            {role === "Student" && (
+                      <Wrapper>
+                      <Header>
+                        <Session>
+                          <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                          <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+                        </Session>
+                        <PassWeek>
+                          <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                          <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                          <Button onClick={handleNextWeek}>sonraki hafta</Button>
+                        </PassWeek>
+                      </Header>
+                      <Days>
+                        {weeksArray[weekIndex] &&
+                          weeksArray[weekIndex].map((weeks, index) => (
+            
+                            <Accordion title={`${weeks.date} / ${weeks.day}`} subTitle={`Oturum Sayısı: ${programs
+                              .filter((program) => program.id === weeks.id).length}`} key={index}>
+                              {programs &&
+                                programs
+                                  .filter((program) => program.id === weeks.id)
+                                  .map((program, index) => (
+                                    <Meetings key={index}>
+                                      <Container>
+                                        <FlexBetween>
+                                          <TitleDescription>
+                                            <h2>{program.title}</h2>
+                                            <p>{program.description}</p>
+                                          </TitleDescription>
+                                          <ColumnFlex>
+                                            <FlexAlignCenter>
+                                              <RichText>{program.time} /&nbsp;</RichText>
+                                              <RichText>{program.duration}</RichText>
+                                            </FlexAlignCenter>
+                                            <FlexAlignCenter>
+                                              <Location>{program.location}</Location>
+                                              <CustomCircle>2/4</CustomCircle>
+                                            </FlexAlignCenter>
+                                          </ColumnFlex>
+                                        </FlexBetween>
+                                        <FlexCenterBetween>
+                                          <Button onClick={downloadPdf} disabled={!program.isActive}>
+                                            Metaryali indir
+                                          </Button>
+                                          <Button href={program.link} target="_blank" disabled={!program.isActive}>
+                                            Randevu Oluştur
+                                          </Button>
+                                        </FlexCenterBetween>
+                                      </Container>
+                                    </Meetings>
+                                  ))
+                              }
+                            </Accordion>)
+            
+                              )}
+                      </Days>
+                    </Wrapper>
+            )}
+            {role === "User" && (
+              <p>User</p>
+            )}
+            {role === "SuperAdmin" && (
+              <p>SuperAdmin</p>
+            )}
+              {/* Uncomment below if needed
+              <CustomButtonGroup>
+                <Button onClick={() => setIsModalOpened(true)}>
+                  Formu doldur<span>&rarr;</span>
+                </Button>
+              </CustomButtonGroup>
+              */}
+          </>
+        )}
       </WholeFrame>
     </Page>
   );
@@ -281,7 +374,7 @@ border-radius: 1rem;
 
 
 const Session = styled.div`
-  background-color: #06142a;
+  background-color: #BEBEBE;
   border-radius: 1rem;
   padding: 2rem;
   width: 100%;
@@ -293,7 +386,7 @@ const Session = styled.div`
 `;
 
 const PassWeek = styled.div`
-  background-color: #06142a;
+  background-color: #BEBEBE;
   border-radius: 1rem;
   padding: 2rem;
    width: 100%;

@@ -2,7 +2,7 @@ import { EnvVars } from '../env';
 
 const getWeatherForecast = async () => {
   try {
-    const response = await fetch(`${EnvVars.API_URL}/WeatherForecast`, {
+    const response = await fetch(`${EnvVars.API_URL}/WeatherForecast/ww`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

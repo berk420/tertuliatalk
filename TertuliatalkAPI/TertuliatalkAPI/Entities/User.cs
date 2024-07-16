@@ -1,8 +1,12 @@
-﻿using Microsoft.AspNetCore.Identity;
-using TertuliatalkAPI.Entities;
-
-public class User
+﻿namespace TertuliatalkAPI.Entities
 {
-   public string Email { get; set; }
-   public string Password { get; set; }
+    public class user
+    {
+        public Guid id { get; set; }
+        public string name { get; set; }
+        public string email { get; set; }
+        public string password { get; set; }
+        public int active { get; set; }
+        public string role { get; set; }
+    }
 }

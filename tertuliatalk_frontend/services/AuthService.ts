@@ -1,9 +1,9 @@
 import { EnvVars } from '../env';
 
 //this function is a simple example, later we create middleware for authentications 
-const signUp = async (email: string, password: string) => {
+const signIn = async (email: string, password: string) => {
   try {
-    const response = await fetch(`${EnvVars.API_URL}/api/auth/signup`, {
+    const response = await fetch(`${EnvVars.API_URL}/api/Auth/validate`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -13,10 +13,42 @@ const signUp = async (email: string, password: string) => {
         password: password,
       }),
     });
+
+    if (!response.ok) {
+      const contentType = response.headers.get('content-type');
+      if (contentType && contentType.indexOf('application/json') !== -1) {
+        const errorData = await response.json();
+        throw new Error(JSON.stringify(errorData));
+      } else {
+        const errorText = await response.text();
+        throw new Error(errorText);
+      }
+    }
+
     return await response.json();
+  } catch (error) {
+    console.error("Sign-in error:", error);
+    return null;
+  }
+};
+
+
+
+
+const getUserData = async () => {
+  try {
+    const response = await fetch(`${EnvVars.API_URL}/api/Auth`, {
+      method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+
+    });
+    return await response.json()
   } catch (error) {
     console.log(error);
   }
 };
 
-export { signUp };
+
+export { signIn,getUserData };

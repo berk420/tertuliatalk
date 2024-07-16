@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import MailchimpSubscribe, { DefaultFormFields } from 'react-mailchimp-subscribe';
 import styled from 'styled-components';
 import { EnvVars } from 'env';
@@ -11,29 +10,70 @@ import Input from './Input';
 import MailSentState from './MailSentState';
 import Overlay from './Overlay';
 import NextLink from 'next/link';
+import { signIn } from 'services/AuthService'; // Import signIn function
+import React, {  useState, } from 'react';
+
+
 
 export interface NewsletterModalProps {
   onClose: () => void;
 }
 
+
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  const [role, setRole] = useState<string | null>("User"); // Add a state to store user role
+
   useEscClose({ onClose });
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>, enrollNewsletter: (props: DefaultFormFields) => void) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    
-    if (email) {
-      enrollNewsletter({ EMAIL: email });
+    if (email && password) {
+
+      const result = await signIn(email, password);
+      if (result) {
+
+        if(result.role === "Teacher"){
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+
+          window.location.reload();
+
+        }else if(result.role === "Student"){
+
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+          window.location.reload();
+
+        }
+        else if(result.role === "SuperAdmin"){
+
+          console.log("succcess")
+
+          const userRole = localStorage.setItem("userRole",result.role);
+
+          setRole(result.role);
+          window.location.reload();
+
+        }
+
+      } else {
+        console.log("Sign-in failed");
+      }
     }
   }
 
   function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
     event.preventDefault();
 
-    console.log(`Email: ${email}, Password: ${password}`);
     const form = event.currentTarget.closest('form');
     if (form) {
       form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
@@ -41,65 +81,54 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   }
 
   function handleLinkClick() {
-    
     onClose(); // Close the modal
   }
 
   return (
-    <MailchimpSubscribe
-      url={EnvVars.MAILCHIMP_SUBSCRIBE_URL}
-      render={({ subscribe, status, message }) => {
-        const hasSignedUp = status === 'success';
-        return (
-          <Overlay>
-            <Container>
-              <Card onSubmit={(event: React.FormEvent<HTMLFormElement>) => onSubmit(event, subscribe)}>
-                <CloseIconContainer>
-                  <CloseIcon onClick={onClose} />
-                </CloseIconContainer>
-                {hasSignedUp && <MailSentState />}
-                {!hasSignedUp && (
-                  <>
-                    <Title>Giriş yap</Title>
-                    <Row>
-                      <CustomInput
-                        value={email}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                        placeholder="Email adresinizi giriniz..."
-                        required
-                      />
-                    </Row>
-                    <Row>
-                      <CustomInput
-                        type="password"
-                        value={password}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
-                        placeholder="Şifrenizi giriniz..."
-                        required
-                      />
-                    </Row>
-                    <Row>
-                      <CustomButton as="button" type="submit" disabled={hasSignedUp} onClick={handleButtonClick}>
-                        Submit
-                      </CustomButton>
-                    </Row>
-                    <Row>
-                      <a onClick={handleLinkClick}>
-                        You can Sign up from{' '}
-                        <NextLink href="/signup">
-                          <a>here.</a>
-                        </NextLink>
-                      </a>
-                    </Row>
-                    {message && <ErrorMessage dangerouslySetInnerHTML={{ __html: message as string }} />}
-                  </>
-                )}
-              </Card>
-            </Container>
-          </Overlay>
-        );
-      }}
-    />
+    <Overlay>
+      <Container>
+        <Card onSubmit={onSubmit}>
+          <CloseIconContainer>
+            <CloseIcon onClick={onClose} />
+          </CloseIconContainer>
+          <>
+            <Title>Giriş yap</Title>
+            <Row>
+              <CustomInput
+                value={email}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                placeholder="Email adresinizi giriniz..."
+                required
+              />
+            </Row>
+            <Row>
+              <CustomInput
+                type="password"
+                value={password}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                placeholder="Şifrenizi giriniz..."
+                required
+              />
+            </Row>
+            <Row>
+              <CustomButton as="button" type="submit" onClick={handleButtonClick}>
+                Submit
+              </CustomButton>
+            </Row>
+            {/*
+            <Row>
+              <a onClick={handleLinkClick}>
+                You can Sign up from{' '}
+                <NextLink href="/signup">
+                  <a>here.</a>
+                </NextLink>
+              </a>
+            </Row>
+            */}
+          </>
+        </Card>
+      </Container>
+    </Overlay>
   );
 }
 
@@ -142,13 +171,6 @@ const Title = styled.div`
   ${media('<=tablet')} {
     font-size: 2.6rem;
   }
-`;
-
-const ErrorMessage = styled.p`
-  color: rgb(var(--errorColor));
-  font-size: 1.5rem;
-  margin: 1rem 0;
-  text-align: center;
 `;
 
 const Row = styled.div`
