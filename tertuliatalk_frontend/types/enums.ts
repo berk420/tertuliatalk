@@ -9,3 +9,10 @@ export const enum Days {
 }
 
 
+export const enum Roles {
+  TEACHER = "TEACHER",
+  STUDENT = "STUDENT",
+  ADMIN = "ADMIN",
+}
+
+
