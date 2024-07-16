@@ -11,6 +11,7 @@ import Quote from 'components/Quote';
 import SectionTitle from 'components/SectionTitle';
 import { nextSevenDateFormatter } from 'utils/formatDate';
 import React, { useEffect, useState } from 'react';
+import { Meeting } from '../components/Meeting';
 
 
 type Times = {
@@ -151,7 +152,7 @@ const communityPrograms: Program[] = [
   },
 ];
 
-const nativePrograms: Program[] = [
+ const nativePrograms: Program[] = [
   {
     id: '28.2',
     title: 'Individual Program1',
@@ -229,6 +230,7 @@ export default function FeaturesPage() {
   return (
     <Page title="Haftalık oturum Programı">
       <WholeFrame>
+
         
       {role === null ? (
           <p>
@@ -237,7 +239,34 @@ export default function FeaturesPage() {
         ) : (
           <>
             {role === "Teacher" && (
-              <p>Teacher</p>
+                      <Wrapper>
+                  <Header>
+                    <Session>
+                      <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                      <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+                    </Session>
+                    <PassWeek>
+                      <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                      <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                      <Button onClick={handleNextWeek}>sonraki hafta</Button>
+                    </PassWeek>
+                  </Header>
+                  <Days>
+                    {weeksArray[weekIndex] &&
+                      weeksArray[weekIndex].map((weeks, index) => (
+                        <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
+                          .filter((program) => program.id === weeks.id).length}`} key={index}>
+                          {programs &&
+                            programs
+                              .filter((program) => program.id === weeks.id)
+                              .map((program, index) => (
+                                <Meeting key={index} index={index} program={program} />
+                              ))
+                          }
+                        </Accordion>
+                      ))}
+                  </Days>
+                </Wrapper>
             )}
             {role === "Student" && (
                       <Wrapper>
@@ -313,13 +342,13 @@ export default function FeaturesPage() {
               */}
           </>
         )}
-
       </WholeFrame>
     </Page>
   );
 }
 
 const Days = styled.div`
+
 border-radius: 1rem;
   display: flex;
   padding: 1rem;
@@ -367,14 +396,6 @@ const PassWeek = styled.div`
   align-items: center;
 `;
 
-const Meetings = styled.div`
-  background-color: #f5f5dc;
-  border-radius: 1rem;
-  border-bottom: 1px solid #2c3540;
-  padding: 1rem;
-  width: 100%;
-  margin-top: 1rem;
-`;
 
 const WholeFrame = styled.div`
 border-radius: 1rem;
@@ -396,97 +417,16 @@ border-radius: 1rem;
   }
 `;
 
-const CustomAutofitGrid = styled(AutofitGrid)`
-  --autofit-grid-item-size: 40rem;
-
-  ${media('<=tablet')} {
-    --autofit-grid-item-size: 30rem;
-  }
-
-  ${media('<=phone')} {
-    --autofit-grid-item-size: 100%;
-  }
-`;
-
-const Container = styled.div`
-`;
-
-const FlexBetween = styled.div`
-padding: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const TitleDescription = styled.div`
-font-weight: bold;
-color: black;  
-  h1 {
-    margin: 0;
-  }
-  p {
-    margin: 0;
-  }
-`;
 
 export const ColumnFlex = styled.div`
+user-select: none;
 gap: 1rem;
   display: flex;
   flex-direction: column;
 `;
 
-const FlexAlignCenter = styled.div`
+export const RowFlex = styled.div`
 gap: 1rem;
-  color: black;
   display: flex;
-  align-items: center;
-
-  h2 {
-    margin: 0;
-  }
-  strong {
-    margin-left: 0.5rem;
-  }
-`;
-
-const Location = styled.strong`
-color: black;
-  margin-top: 0.5rem;
-`;
-
-const StyledButton = styled.a`
-  display: inline-block;
-  padding: 10px 20px;
-  margin-top: 10px;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  color: #fff;
-  background-color: #007bff;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: #0056b3;
-  }
-`;
-
-const FlexCenterBetween = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  height: 45px;
-  overflow: hidden;
-`;
-
-const CustomCircle = styled.div`
-color: white;
-font-weight: bold;
-display: flex;
-justify-content: center;
-  align-items: center;
-  width: 5rem;
-  height: 5rem;
-  border-radius: 50%;
-  background-color: #fd5221;
+  flex-direction: row;
 `;

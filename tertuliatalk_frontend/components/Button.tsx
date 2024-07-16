@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type ButtonProps = PropsWithChildren<{ transparent?: boolean; disabled?: boolean }>;
 
-const Button = styled.a<ButtonProps>`
+const Button = styled.button<ButtonProps>`
   user-select: none;
   border: none;
   background: none;
@@ -11,8 +11,8 @@ const Button = styled.a<ButtonProps>`
   text-decoration: none;
   text-align: center;
   background: ${(p) => (p.transparent ? 'transparent' : 'rgb(var(--primary))')};
-  padding: 1.75rem 2.25rem;
-  font-size: 1.2rem;
+  padding: 1rem 1.8rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
   font-family: var(--font);
   font-weight: bold;
@@ -32,7 +32,7 @@ const Button = styled.a<ButtonProps>`
   }
 
   &:hover {
-    transform: ${(p) => (p.disabled ? 'none' : 'scale(1.025)')};
+    transform: ${(p) => (p.disabled ? 'none' : 'scale(1.01)')};
   }
 `;
 
