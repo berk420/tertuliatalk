@@ -1,8 +1,8 @@
 import { ImBin } from "react-icons/im";
 import * as React from 'react';
 import styled from 'styled-components';
-import RichText from './RichText';
-import Button from './Button';
+import RichText from 'components/RichText';
+import Button from 'components/Button';
 import { Roles } from "types/enums";
 
 type Program = {
@@ -20,27 +20,12 @@ type Program = {
                         */
 };
 
-type User = {
-  id: string;
-  role: string;
-}
-
-const user: User = {
-  id: '1',
-  role: Roles.TEACHER,
-}
-
-export const Meeting = ({ index, program }: { index: number, program: Program }) => {
+export default function StudentMeeting({ index, program }: { index: number, program: Program }) {
   const downloadPdf = () => {
     const link = document.createElement('a');
     link.href = 'http://localhost:3000/example.pdf';
     link.download = 'example';
     link.click();
-  }
-
-  const deleteProgram = () => {
-    // api delete request
-    console.log(`Program with id ${program.id} is deleted`);
   }
 
   return (
@@ -53,13 +38,6 @@ export const Meeting = ({ index, program }: { index: number, program: Program })
           </TitleDescription>
           <ColumnFlex>
             <FlexAlignCenter>
-              {
-                user.role === Roles.TEACHER && (
-                  <Cursor >
-                    <ImBin color="black" size={25} onClick={deleteProgram} />
-                  </Cursor>
-                )
-              }
               <RichText>{program.time} /&nbsp;</RichText>
               <RichText>{program.duration}</RichText>
             </FlexAlignCenter>
@@ -73,7 +51,7 @@ export const Meeting = ({ index, program }: { index: number, program: Program })
           <Button onClick={downloadPdf} disabled={!program.isActive}>
             Metaryali indir
           </Button>
-          <Button href={program.link} target="_blank" disabled={!program.isActive}>
+          <Button disabled={!program.isActive}>
             Randevu Oluştur
           </Button>
         </FlexCenterBetween>

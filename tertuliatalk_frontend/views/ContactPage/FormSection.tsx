@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from 'components/Button';
 import Input from 'components/Input';
@@ -18,7 +18,7 @@ export default function FormSection() {
   const { register, handleSubmit, formState } = useForm();
   const { isSubmitSuccessful, isSubmitting, isSubmitted, errors } = formState;
 
-  async function onSubmit(payload: EmailPayload) {
+  const onSubmit: SubmitHandler<any> = async (payload: EmailPayload) => {
     try {
       const res = await fetch('/api/sendEmail', {
         method: 'POST',

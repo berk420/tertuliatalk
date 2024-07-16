@@ -1,4 +1,4 @@
-import { PropsWithChildren, useState } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { media } from 'utils/media';
 import Collapse from './Collapse';
@@ -6,24 +6,13 @@ import RichText from './RichText';
 import { ColumnFlex, RowFlex } from 'pages/weekly-session-schedule';
 import { Roles } from 'types/enums';
 import { IoMdAdd } from "react-icons/io";
-import { Cursor } from './Meeting';
-import MeetingAddForm from './MeetingAddForm';
-import { set } from 'lodash';
+import { Cursor } from 'views/SessionSchedule/StudentMeeting';
+import MeetingAddForm from 'views/SessionSchedule/MeetingAddForm';
 
 interface AccordionProps {
   title: string;
   subTitle?: string;
   isOpen?: boolean;
-}
-
-type User = {
-  id: string;
-  role: string;
-}
-
-const user: User = {
-  id: '1',
-  role: Roles.TEACHER,
 }
 
 export default function Accordion({ title, subTitle, isOpen, children }: PropsWithChildren<AccordionProps>) {
@@ -35,7 +24,7 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
     if (fromArea) {
       setFromArea(false)
     }
-    else if (!fromArea ) {
+    else if (!fromArea) {
       setFromArea(true)
       setHasCollapsed(true)
     }
@@ -58,6 +47,15 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
     }
   }
 
+  const [role, setRole] = useState<string | null>("Student");
+
+  useEffect(() => {
+    const role = localStorage.getItem("userRole");
+    if (role) {
+      setRole(role);
+    }
+  }, []);
+
   return (
     <AccordionWrapper>
       <TitleWrapper>
@@ -68,7 +66,7 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
         <Cursor>
           <RowFlex>
             {
-              user.role === Roles.TEACHER && <IoMdAdd size={32} onClick={manageForm} />
+              role === Roles.TEACHER && <IoMdAdd size={32} onClick={manageForm} />
             }
             <Icon isActive={isActive} onClick={manageCollapse}>
               <svg

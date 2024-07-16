@@ -1,7 +1,7 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import Button from './Button';
+import Button from 'components/Button';
 
 type MeetingAddFormProps = {
   title: string;
@@ -14,7 +14,7 @@ const MeetingAddForm = () => {
   const formRef = React.useRef<HTMLFormElement>(null);
   const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit = (data: MeetingAddFormProps) => {
+  const onSubmit: SubmitHandler<any> = (data: MeetingAddFormProps) => {
     // api post data
     console.log(data);
     formRef.current?.reset();
@@ -56,7 +56,7 @@ const MeetingAddForm = () => {
           type="number"
           id="limit"
           {...register('limit', { required: true, min: 1 })}
-          />
+        />
         {errors.quota && <ErrorMessage>Kontenjan zorunludur ve en az 2 olmalıdır</ErrorMessage>}
       </QuotaWrapper>
 
@@ -69,6 +69,7 @@ const MeetingAddForm = () => {
 export default MeetingAddForm;
 
 const FormWrapper = styled.form`
+background-color: #232c35;
   display: flex;
   flex-direction: column;
   gap: 1rem;
