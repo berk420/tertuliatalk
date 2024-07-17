@@ -18,6 +18,7 @@ import NewsletterModal from 'components/NewsletterModal';
 import WaveCta from 'components/WaveCta';
 import { NewsletterModalContextProvider, useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { NavItems } from 'types';
+import { useEffect } from 'react';
 
 
 const navItems: NavItems = [
@@ -41,7 +42,13 @@ const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
 
+  useEffect(() => { // Token managment
+    return () => {
+      console.log('Web sitesi kapanıyor veya yeniden yükleniyor');
+      localStorage.setItem("userRole","User");
 
+    };
+  }, []); 
   return (
 
     <>
