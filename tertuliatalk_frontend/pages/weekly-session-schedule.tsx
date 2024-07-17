@@ -342,7 +342,7 @@ border-radius: 1rem;
 
 
 const Session = styled.div`
-  background-color: #BEBEBE;
+  background-color: rgb(var(--navbarBackground));
   border-radius: 1rem;
   padding: 2rem;
   width: 100%;
@@ -354,7 +354,7 @@ const Session = styled.div`
 `;
 
 const PassWeek = styled.div`
-  background-color: #BEBEBE;
+  background-color: rgb(var(--navbarBackground));
   border-radius: 1rem;
   padding: 2rem;
    width: 100%;
@@ -394,7 +394,8 @@ gap: 1rem;
 `;
 
 export const RowFlex = styled.div`
-gap: 1rem;
+  gap: 1rem;
   display: flex;
   flex-direction: row;
+  justify-content: center
 `;

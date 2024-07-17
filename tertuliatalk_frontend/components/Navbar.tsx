@@ -14,6 +14,8 @@ import { HamburgerIcon } from './HamburgerIcon';
 import Logo from './Logo';
 import Link from 'next/link';
 import Image from 'next/image';
+import Modal from './Modal';
+import { ColumnFlex, RowFlex } from 'pages/weekly-session-schedule';
 
 const ColorSwitcher = dynamic(() => import('../components/ColorSwitcher'), { ssr: false });
 
@@ -66,6 +68,8 @@ export default function Navbar({ items }: NavbarProps) {
   const isNavbarHidden = scrollingDirection === 'down';
   const isTransparent = scrollingDirection === 'none';
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleLogout = () => {
     console.log("Logout clicked");
     localStorage.setItem('userRole', "User");
@@ -78,7 +82,7 @@ export default function Navbar({ items }: NavbarProps) {
         <NextLink href="/" passHref>
           <LogoWrapper>
             <Link href={"/"} >
-              <Image src="/logo.jpeg" alt="TertuliaTalk" width={60} height={60} />
+              <Image src="/logo.jpeg" alt="TertuliaTalk" width={65} height={65} />
             </Link>
           </LogoWrapper>
         </NextLink>
@@ -93,10 +97,24 @@ export default function Navbar({ items }: NavbarProps) {
           <ColorSwitcher />
         </ColorSwitcherContainer>
         */}
-        <Button onClick={handleLogout}>
+        <Button onClick={() => setShowModal(!showModal)}>
           Çıkış yap
         </Button>
-
+        {showModal &&
+          <Modal onClose={() => setShowModal(false)}>
+            <ColumnFlex>
+              Çıkış yapmak istediğinize emin misiniz?
+              <RowFlex>
+                <Button onClick={handleLogout}>
+                  Evet
+                </Button>
+                <Button onClick={() => setShowModal(false)}>
+                  Hayır
+                </Button>
+              </RowFlex>
+            </ColumnFlex>
+          </Modal>
+        }
         <HamburgerMenuWrapper>
           <HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
         </HamburgerMenuWrapper>

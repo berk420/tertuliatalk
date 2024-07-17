@@ -127,7 +127,7 @@ const AccordionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   padding: 2rem 1.5rem;
-  background: #BEBEBE;
+  background: rgb(var(--navbarBackground));
   box-shadow: var(--shadow-md);
   border-radius: 0.6rem;
   transition: opacity 0.2s;
