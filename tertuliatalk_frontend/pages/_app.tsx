@@ -26,15 +26,11 @@ const navItems: NavItems = [
 
   { title: 'Paketler', href: '/packages' },
   { title: 'İletişim', href: '/contact' },
-  
+
   { title: 'Kayıt ol', href: '/signup' },
 
-  { title: 'Giriş yap', href: '/' , outlined:true},
-
   { title: 'Profil', href: '/profile' },
-
-
-
+  { title: 'Giriş yap', href: '/', outlined: true },
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
