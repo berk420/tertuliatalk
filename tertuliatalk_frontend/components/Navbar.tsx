@@ -90,31 +90,30 @@ export default function Navbar({ items }: NavbarProps) {
           {items.map((singleItem) => (
             <NavItem key={singleItem.href} {...singleItem} />
           ))}
-        </NavItemList>
-
-        {/*
+          {/*
         <ColorSwitcherContainer>
-          <ColorSwitcher />
+        <ColorSwitcher />
         </ColorSwitcherContainer>
         */}
-        <Button onClick={() => setShowModal(!showModal)}>
-          Çıkış yap
-        </Button>
-        {showModal &&
-          <Modal onClose={() => setShowModal(false)}>
-            <ColumnFlex>
-              Çıkış yapmak istediğinize emin misiniz?
-              <RowFlex>
-                <Button onClick={handleLogout}>
-                  Evet
-                </Button>
-                <Button onClick={() => setShowModal(false)}>
-                  Hayır
-                </Button>
-              </RowFlex>
-            </ColumnFlex>
-          </Modal>
-        }
+          <Button onClick={() => setShowModal(!showModal)}>
+            Çıkış yap
+          </Button>
+          {showModal &&
+            <Modal title={null} onClose={() => setShowModal(false)}>
+              <ColumnFlex>
+                Çıkış yapmak istediğinize emin misiniz?
+                <RowFlex>
+                  <Button onClick={handleLogout}>
+                    Evet
+                  </Button>
+                  <Button onClick={() => setShowModal(false)}>
+                    Hayır
+                  </Button>
+                </RowFlex>
+              </ColumnFlex>
+            </Modal>
+          }
+        </NavItemList>
         <HamburgerMenuWrapper>
           <HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
         </HamburgerMenuWrapper>

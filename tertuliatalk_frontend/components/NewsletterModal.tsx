@@ -1,93 +1,100 @@
-import MailchimpSubscribe, { DefaultFormFields } from 'react-mailchimp-subscribe';
+import React, { useEffect, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
-import { EnvVars } from 'env';
 import useEscClose from 'hooks/useEscKey';
 import { media } from 'utils/media';
 import Button from './Button';
 import CloseIcon from './CloseIcon';
 import Container from './Container';
 import Input from './Input';
-import MailSentState from './MailSentState';
 import Overlay from './Overlay';
-import NextLink from 'next/link';
-import { signIn } from 'services/AuthService'; // Import signIn function
-import React, {  useState, } from 'react';
+import { signIn } from 'services/AuthService';
 
-
-
-export interface NewsletterModalProps {
+interface NewsletterModalProps {
   onClose: () => void;
 }
 
+interface IFormInput {
+  email: string;
+  password: string;
+}
 
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const [role, setRole] = useState<string | null>("User"); // Add a state to store user role
-
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  const [signInError, setSignInError] = useState<string | null>(null)
   useEscClose({ onClose });
 
-  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  useEffect(() => {
+    const disableScroll = (e: Event) => e.preventDefault();
+    window.addEventListener('scroll', disableScroll);
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      window.removeEventListener('scroll', disableScroll);
+      document.body.style.overflow = 'auto';
+    };
+  }, []);
+
+  const onSubmit: SubmitHandler<IFormInput> = async data => {
+    const { email, password } = data;
+
     if (email && password) {
-
       const result = await signIn(email, password);
-      if (result) {
-
-        if(result.role === "Teacher"){
-          console.log("succcess")
-
-          const userRole = localStorage.setItem("userRole",result.role);
-
-          setRole(result.role);
-
-          window.location.reload();
-
-        }else if(result.role === "Student"){
-
-          console.log("succcess")
-
-          const userRole = localStorage.setItem("userRole",result.role);
-
-          setRole(result.role);
-          window.location.reload();
-
-        }
-        else if(result.role === "SuperAdmin"){
-
-          console.log("succcess")
-
-          const userRole = localStorage.setItem("userRole",result.role);
-
-          setRole(result.role);
-          window.location.reload();
-
-        }
-
+      if (result?.role) {
+        localStorage.setItem("userRole", result.role);
+        window.location.reload();
       } else {
         console.log("Sign-in failed");
+        setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
       }
-    }
-  }
 
-  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>) {
-    event.preventDefault();
+    };
 
-    const form = event.currentTarget.closest('form');
-    if (form) {
-      form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-    }
-  }
+    // if (email && password) {
 
-  function handleLinkClick() {
-    onClose(); // Close the modal
+    //   const result = await signIn(email, password);
+    //   if (result) {
+
+    //     if (result.role === "Teacher") {
+    //       console.log("succcess")
+
+    //       const userRole = localStorage.setItem("userRole", result.role);
+
+    //       setRole(result.role);
+
+    //       window.location.reload();
+
+    //     } else if (result.role === "Student") {
+
+    //       console.log("succcess")
+
+    //       const userRole = localStorage.setItem("userRole", result.role);
+
+    //       setRole(result.role);
+    //       window.location.reload();
+
+    //     }
+    //     else if (result.role === "SuperAdmin") {
+
+    //       console.log("succcess")
+
+    //       const userRole = localStorage.setItem("userRole", result.role);
+
+    //       setRole(result.role);
+    //       window.location.reload();
+
+    //     }
+
+    //   } else {
+    //     console.log("Sign-in failed");
+    //   }
+    // }
   }
 
   return (
     <Overlay>
       <Container>
-        <Card onSubmit={onSubmit}>
+        <Card onSubmit={handleSubmit(onSubmit)}>
           <CloseIconContainer>
             <CloseIcon onClick={onClose} />
           </CloseIconContainer>
@@ -95,36 +102,35 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
             <Title>Giriş yap</Title>
             <Row>
               <CustomInput
-                value={email}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+                {...register("email", {
+                  required: "Email adresinizi giriniz...",
+                  pattern: {
+                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                    message: "Geçerli bir email adresi giriniz"
+                  }
+                })}
                 placeholder="Email adresinizi giriniz..."
-                required
+
               />
+              {errors.email && <Error>{errors.email.message}</Error>}
             </Row>
             <Row>
               <CustomInput
                 type="password"
-                value={password}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                {...register("password", {
+                  required: "Şifrenizi giriniz...",
+                  minLength: { value: 6, message: "Şifreniz en az 6 karakter olmalıdır" }
+                })}
                 placeholder="Şifrenizi giriniz..."
-                required
               />
+              {errors.password && <Error>{errors.password.message}</Error>}
             </Row>
+            {signInError && <Error>{signInError}</Error>}
             <Row>
-              <CustomButton as="button" type="submit" onClick={handleButtonClick}>
+              <CustomButton as="button" type="submit">
                 Submit
               </CustomButton>
             </Row>
-            {/*
-            <Row>
-              <a onClick={handleLinkClick}>
-                You can Sign up from{' '}
-                <NextLink href="/signup">
-                  <a>here.</a>
-                </NextLink>
-              </a>
-            </Row>
-            */}
           </>
         </Card>
       </Container>
@@ -175,6 +181,7 @@ const Title = styled.div`
 
 const Row = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
@@ -201,8 +208,15 @@ const CustomButton = styled(Button)`
 
 const CustomInput = styled(Input)`
   width: 60%;
-
+  color: rgb(var(--text));
   ${media('<=tablet')} {
     width: 100%;
   }
+`;
+
+const Error = styled.div`
+text-align: center;
+  color: red;
+  font-size: 1.2rem;
+  margin-top: 0.5rem;
 `;

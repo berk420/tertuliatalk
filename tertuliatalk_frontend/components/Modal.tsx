@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React, { MouseEventHandler, useEffect } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 
-export default function Modal({ onClose, children, title = "" }: { onClose: () => void, children: React.ReactNode, title: string }) {
-    const handleCloseClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+export default function Modal({ onClose, children, title }: { onClose: () => void, children: React.ReactNode, title: string | null }) {
+    
+    const handleCloseClick: MouseEventHandler = (e: React.MouseEvent<HTMLAnchorElement>) => {
         e.preventDefault();
         onClose();
     };
     
     useEffect(() => {
-        // Modal açıldığında scroll olaylarını devre dışı bırak
         const disableScroll = (e: Event) => e.preventDefault();
         window.addEventListener('scroll', disableScroll);
         document.body.style.overflow = 'hidden';
 
-        // Cleanup function: Modal kapandığında scroll olaylarını tekrar etkinleştir
         return () => {
             window.removeEventListener('scroll', disableScroll);
             document.body.style.overflow = 'auto';
@@ -28,7 +27,7 @@ export default function Modal({ onClose, children, title = "" }: { onClose: () =
             <ModalWrapper>
                 <ModalArea className="modal">
                     <ModalHeader>
-                        <Button href="#" onClick={handleCloseClick}>
+                        <Button onClick={handleCloseClick}>
                             x
                         </Button>
                     </ModalHeader>
