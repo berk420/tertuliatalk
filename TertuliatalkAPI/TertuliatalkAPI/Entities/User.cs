@@ -1,6 +1,6 @@
 ﻿namespace TertuliatalkAPI.Entities
 {
-    public class user
+    public class User
     {
         public Guid id { get; set; }
         public string name { get; set; }
