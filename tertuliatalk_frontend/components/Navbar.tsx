@@ -12,6 +12,8 @@ import Container from './Container';
 import Drawer from './Drawer';
 import { HamburgerIcon } from './HamburgerIcon';
 import Logo from './Logo';
+import Link from 'next/link';
+import Image from 'next/image';
 
 const ColorSwitcher = dynamic(() => import('../components/ColorSwitcher'), { ssr: false });
 
@@ -75,16 +77,17 @@ export default function Navbar({ items }: NavbarProps) {
       <Content>
         <NextLink href="/" passHref>
           <LogoWrapper>
-            <Logo />
+            <Link href={"/"} >
+              <Image src="/logo.jpeg" alt="TertuliaTalk" width={60} height={60} />
+            </Link>
           </LogoWrapper>
-
         </NextLink>
         <NavItemList>
           {items.map((singleItem) => (
             <NavItem key={singleItem.href} {...singleItem} />
           ))}
         </NavItemList>
-        
+
         {/*
         <ColorSwitcherContainer>
           <ColorSwitcher />
