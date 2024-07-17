@@ -31,8 +31,8 @@ public class UserService : IUserService
         return await _context.users.FindAsync(id);
     }
 
-    public async Task<User> GetUserByEmail(string email)
+    public async Task<User> GetUserByEmailAndPassword(string email, string password)
     { 
-        return await _context.users.FirstOrDefaultAsync(u => u.email == email);
+        return await _context.users.FirstOrDefaultAsync(u => u.email == email && u.password == password);
     }
 }

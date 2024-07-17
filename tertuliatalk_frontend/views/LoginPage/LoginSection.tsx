@@ -3,16 +3,18 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import useEscClose from 'hooks/useEscKey';
 import { media } from 'utils/media';
-import Button from './Button';
-import CloseIcon from './CloseIcon';
-import Container from './Container';
-import Input from './Input';
-import Overlay from './Overlay';
+import Button from '../../components/Button';
 import { signIn } from 'services/AuthService';
+import Overlay from 'components/Overlay';
+import Container from 'components/Container';
+import CloseIcon from 'components/CloseIcon';
+import Input from 'components/Input';
 import Cookies from 'universal-cookie';
+import Router, { useRouter } from 'next/router';
+import { ro } from 'date-fns/locale';
 
 interface NewsletterModalProps {
-  onClose: () => void | null;
+  onClose: () => void;
 }
 
 interface IFormInput {
@@ -22,7 +24,7 @@ interface IFormInput {
 
 const cookies = new Cookies(null, { path: '/' });
 
-export default function NewsletterModal({ onClose }: NewsletterModalProps) {
+export default function LoginSection({ onClose }: NewsletterModalProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
   const [signInError, setSignInError] = useState<string | null>(null)
   useEscClose({ onClose });
@@ -47,13 +49,13 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
         const response = await signIn(email, password);
 
         const { authToken, accessTokenExpireDate, role } = response;
-        
-        console.log('Login successful:', { authToken, accessTokenExpireDate, role });
+
         cookies.set('token', authToken, { path: '/', expires: new Date(accessTokenExpireDate) });
+        console.log('Login successful:', { authToken, accessTokenExpireDate, role });
 
         if (role) {
           localStorage.setItem("userRole", role);
-          window.location.reload();
+          Router.push('/');
         } else {
           console.log("Sign-in failed1");
           setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
@@ -115,7 +117,8 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
             <CloseIcon onClick={onClose} />
           </CloseIconContainer>
           <>
-            <Title>Giriş yap</Title>
+            <Title>TertuliaTalk'a Hoşgelin!</Title>
+            <Title>Lütfen Giriş yap</Title>
             <Row>
               <CustomInput
                 {...register("email", {
@@ -185,8 +188,8 @@ const CloseIconContainer = styled.div`
 const Title = styled.div`
   font-size: 3.2rem;
   font-weight: bold;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
   text-align: center;
   color: rgb(var(--text));
 

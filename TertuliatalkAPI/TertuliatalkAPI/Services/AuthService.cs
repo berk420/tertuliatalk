@@ -1,5 +1,7 @@
+using System.Net;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
 
@@ -26,17 +28,18 @@ public class AuthService : IAuthService
         }
         
         Console.WriteLine($"Received email: {request.Email}, password: {request.Password}");
-        var user = await _userService.GetUserByEmail(request.Email);
+        var user = await _userService.GetUserByEmailAndPassword(request.Email, request.Password);
         if (user == null)
         {
             Console.WriteLine("Unauthorized access attempt.");
-            throw new ArgumentNullException(nameof(request));
+            throw new HttpResponseException(HttpStatusCode.Unauthorized, "User not found or invalid credentials.");
         }
         var generatedTokenInformation = await _tokenService.GenerateToken(new GenerateTokenRequest { Email = request.Email });
         
         response.AccessTokenExpireDate = generatedTokenInformation.TokenExpireDate;
         response.AuthenticateResult = true;
-        response.AuthToken = generatedTokenInformation.Token; 
+        response.AuthToken = generatedTokenInformation.Token;
+        response.Role = user.role;
         
         Console.WriteLine("User authenticated successfully.");
         return await Task.FromResult(response);

@@ -16,12 +16,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Modal from './Modal';
 import { ColumnFlex, RowFlex } from 'pages/weekly-session-schedule';
+import Cookies from 'universal-cookie';
 
 const ColorSwitcher = dynamic(() => import('../components/ColorSwitcher'), { ssr: false });
 
 type NavbarProps = { items: NavItems };
 type ScrollingDirections = 'up' | 'down' | 'none';
 type NavbarContainerProps = { hidden: boolean; transparent: boolean };
+
+const cookies = new Cookies(null, { path: '/' });
 
 export default function Navbar({ items }: NavbarProps) {
   const router = useRouter();
@@ -71,8 +74,8 @@ export default function Navbar({ items }: NavbarProps) {
   const [showModal, setShowModal] = useState(false);
 
   const handleLogout = () => {
-    console.log("Logout clicked");
-    localStorage.setItem('userRole', "User");
+    cookies.remove('token');
+    localStorage.removeItem('userRole');
     window.location.reload();
   };
 
@@ -81,7 +84,7 @@ export default function Navbar({ items }: NavbarProps) {
       <Content>
         <NextLink href="/" passHref>
           <LogoWrapper>
-            <Link href={"/"} >
+            <Link href="/" >
               <Image src="/logo.jpeg" alt="TertuliaTalk" width={65} height={65} />
             </Link>
           </LogoWrapper>
