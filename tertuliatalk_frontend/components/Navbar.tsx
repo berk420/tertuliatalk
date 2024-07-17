@@ -12,6 +12,10 @@ import Container from './Container';
 import Drawer from './Drawer';
 import { HamburgerIcon } from './HamburgerIcon';
 import Logo from './Logo';
+import Link from 'next/link';
+import Image from 'next/image';
+import Modal from './Modal';
+import { ColumnFlex, RowFlex } from 'pages/weekly-session-schedule';
 
 const ColorSwitcher = dynamic(() => import('../components/ColorSwitcher'), { ssr: false });
 
@@ -64,6 +68,8 @@ export default function Navbar({ items }: NavbarProps) {
   const isNavbarHidden = scrollingDirection === 'down';
   const isTransparent = scrollingDirection === 'none';
 
+  const [showModal, setShowModal] = useState(false);
+
   const handleLogout = () => {
     console.log("Logout clicked");
     localStorage.setItem('userRole', "User");
@@ -75,25 +81,39 @@ export default function Navbar({ items }: NavbarProps) {
       <Content>
         <NextLink href="/" passHref>
           <LogoWrapper>
-            <Logo />
+            <Link href={"/"} >
+              <Image src="/logo.jpeg" alt="TertuliaTalk" width={65} height={65} />
+            </Link>
           </LogoWrapper>
-
         </NextLink>
         <NavItemList>
           {items.map((singleItem) => (
             <NavItem key={singleItem.href} {...singleItem} />
           ))}
-        </NavItemList>
-        
-        {/*
+          {/*
         <ColorSwitcherContainer>
-          <ColorSwitcher />
+        <ColorSwitcher />
         </ColorSwitcherContainer>
         */}
-        <Button onClick={handleLogout}>
-          Çıkış yap
-        </Button>
-
+          <Button onClick={() => setShowModal(!showModal)}>
+            Çıkış yap
+          </Button>
+          {showModal &&
+            <Modal title={null} onClose={() => setShowModal(false)}>
+              <ColumnFlex>
+                Çıkış yapmak istediğinize emin misiniz?
+                <RowFlex>
+                  <Button onClick={handleLogout}>
+                    Evet
+                  </Button>
+                  <Button onClick={() => setShowModal(false)}>
+                    Hayır
+                  </Button>
+                </RowFlex>
+              </ColumnFlex>
+            </Modal>
+          }
+        </NavItemList>
         <HamburgerMenuWrapper>
           <HamburgerIcon aria-label="Toggle menu" onClick={toggle} />
         </HamburgerMenuWrapper>
