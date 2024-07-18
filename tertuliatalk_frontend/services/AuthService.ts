@@ -3,7 +3,7 @@ import { EnvVars } from '../env';
 //this function is a simple example, later we create middleware for authentications 
 const signIn = async (email: string, password: string) => {
   try {
-    const response = await fetch(`${EnvVars.API_URL}/api/Auth/validate`, {
+    const response = await fetch(`${EnvVars.API_URL}/api/Auth/login`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ const signIn = async (email: string, password: string) => {
         password: password,
       }),
     });
-
+     
     if (!response.ok) {
       const contentType = response.headers.get('content-type');
       if (contentType && contentType.indexOf('application/json') !== -1) {
@@ -37,7 +37,7 @@ const signIn = async (email: string, password: string) => {
 
 const getUserData = async () => {
   try {
-    const response = await fetch(`${EnvVars.API_URL}/api/Auth`, {
+    const response = await fetch(`${EnvVars.API_URL}/api/User`, {
       method: 'GET',
         headers: {
           'Content-Type': 'application/json',

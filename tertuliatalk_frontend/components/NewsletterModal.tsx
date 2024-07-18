@@ -9,15 +9,18 @@ import Container from './Container';
 import Input from './Input';
 import Overlay from './Overlay';
 import { signIn } from 'services/AuthService';
+import Cookies from 'universal-cookie';
 
 interface NewsletterModalProps {
-  onClose: () => void;
+  onClose: () => void | null;
 }
 
 interface IFormInput {
   email: string;
   password: string;
 }
+
+const cookies = new Cookies(null, { path: '/' });
 
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
@@ -35,15 +38,28 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
     };
   }, []);
 
+
   const onSubmit: SubmitHandler<IFormInput> = async data => {
     const { email, password } = data;
 
     if (email && password) {
-      const result = await signIn(email, password);
-      if (result?.role) {
-        localStorage.setItem("userRole", result.role);
-        window.location.reload();
-      } else {
+      try {
+        const response = await signIn(email, password);
+
+        const { authToken, accessTokenExpireDate, role } = response;
+        
+        console.log('Login successful:', { authToken, accessTokenExpireDate, role });
+        cookies.set('token', authToken, { path: '/', expires: new Date(accessTokenExpireDate) });
+
+        if (role) {
+          localStorage.setItem("userRole", role);
+          window.location.reload();
+        } else {
+          console.log("Sign-in failed1");
+          setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
+        }
+
+      } catch (error) {
         console.log("Sign-in failed");
         setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
       }
@@ -119,7 +135,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
                 type="password"
                 {...register("password", {
                   required: "Şifrenizi giriniz...",
-                  minLength: { value: 6, message: "Şifreniz en az 6 karakter olmalıdır" }
+                  minLength: { value: 3, message: "Şifreniz en az 3 karakter olmalıdır" }
                 })}
                 placeholder="Şifrenizi giriniz..."
               />

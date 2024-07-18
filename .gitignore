@@ -1,14 +1,43 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿*.swp
+*.*~
+project.lock.json
+.DS_Store
+*.pyc
+nupkg/
 
-<<<<<<< HEAD
-/TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
-/TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/591fc698-17ec-45cf-8a8f-c4dbd6bf0d98.vsidx
-*.vsidx
-/TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfo.cs
-/TertuliatalkAPI/TertuliatalkAPI/obj/Debug/net8.0/TertuliatalkAPI.AssemblyInfoInputs.cache
-=======
-/TertuliatalkAPI/.vs/TertuliatalkAPI/FileContentIndex/5cee76de-f45f-4c9a-b9cb-5922db952a48.vsidx
-*.vsidx
->>>>>>> fd852ba7cae47e3035b91a586606efbf9563bb52
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+
+# Visual Studio
+.vs/
+
+# Fleet
+.fleet/
+
+# Code Rush
+.cr/
+
+# User-specific files
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn

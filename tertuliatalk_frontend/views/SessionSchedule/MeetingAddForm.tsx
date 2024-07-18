@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FieldValues, SubmitHandler, useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import Button from 'components/Button';
+import { nativePrograms } from 'mocks/programs';
+import { Program } from '../../mocks/programs';
+import { Times, weeksArray } from 'mocks/weeks';
+import { Days as EnumDays } from 'types/enums';
 
 type MeetingAddFormProps = {
   title: string;
@@ -10,14 +14,27 @@ type MeetingAddFormProps = {
   limit: number;
 }
 
-const MeetingAddForm = () => {
+export default function MeetingAddForm({ setPrograms }: { setPrograms: any }) {
   const formRef = React.useRef<HTMLFormElement>(null);
   const { register, handleSubmit, formState: { errors } } = useForm();
+  const [status, setStatus] = useState<boolean>(false);
 
   const onSubmit: SubmitHandler<any> = (data: MeetingAddFormProps) => {
-    // api post data
-    console.log(data);
+    setStatus(true);
+    nativePrograms.push({
+      id: '28.2',
+      title: data.title,
+      description: data.description,
+      date: '2024-08-22',
+      time: data.time,
+      duration: '1 hour',
+      location: 'Zoom',
+      isActive: true,
+    } as Program);
+    setPrograms([...nativePrograms]);
+    // use real api to post data
     formRef.current?.reset();
+    setStatus(false);
   }
 
   return (
@@ -60,13 +77,14 @@ const MeetingAddForm = () => {
         {errors.quota && <ErrorMessage>Kontenjan zorunludur ve en az 2 olmalıdır</ErrorMessage>}
       </QuotaWrapper>
 
-      <Button type="submit">Dersi Ekle</Button>
+      <Button type="submit" disabled={status}>
+        {status ? "Ders Ekleniyor..." : "Ders Ekle"}
+      </Button>
     </FormWrapper>
   );
   // this form can be updated according to the requirements of the program features
 };
 
-export default MeetingAddForm;
 
 const FormWrapper = styled.form`
 background-color: #232c35;

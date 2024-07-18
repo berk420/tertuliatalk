@@ -10,173 +10,9 @@ import RichText from 'components/RichText';
 import { nextSevenDateFormatter } from 'utils/formatDate';
 import TeacherMeeting from 'views/SessionSchedule/TeacherMeeting';
 import StudentMeeting from 'views/SessionSchedule/StudentMeeting';
+import { weeksArray } from 'mocks/weeks';
+import { communityPrograms, nativePrograms, Program } from 'mocks/programs';
 
-
-type Times = {
-  id: string;
-  date: string;
-  day: EnumDays;
-};
-
-const week28: Times[] = [
-  {
-    id: '28.1',
-    date: '08.11',
-    day: EnumDays.Monday,
-  },
-  {
-    id: '28.2',
-    date: '09.11',
-    day: EnumDays.Tuesday,
-  },
-  {
-    id: '28.3',
-    date: '10.11',
-    day: EnumDays.Wednesday,
-  },
-  {
-    id: '28.4',
-    date: '11.11',
-    day: EnumDays.Thursday,
-  },
-  {
-    id: '28.5',
-    date: '12.11',
-    day: EnumDays.Friday,
-  },
-  {
-    id: '28.6',
-    date: '13.11',
-    day: EnumDays.Saturday,
-  },
-  {
-    id: '28.7',
-    date: '14.11',
-    day: EnumDays.Sunday,
-  },
-];
-
-const week29: Times[] = [
-  {
-    id: '29.1',
-    date: '15.11',
-    day: EnumDays.Monday,
-  },
-  {
-    id: '29.2',
-    date: '16.11',
-    day: EnumDays.Tuesday,
-  },
-  {
-    id: '29.3',
-    date: '17.11',
-    day: EnumDays.Wednesday,
-  },
-  {
-    id: '29.4',
-    date: '18.11',
-    day: EnumDays.Thursday,
-  },
-  {
-    id: '29.5',
-    date: '19.11',
-    day: EnumDays.Friday,
-  },
-  {
-    id: '29.6',
-    date: '20.11',
-    day: EnumDays.Saturday,
-  },
-  {
-    id: '29.7',
-    date: '21.11',
-    day: EnumDays.Sunday,
-  },
-];
-
-const weeksArray = [week28, week29];
-
-type Program = {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  duration: string;
-  location: string;
-  link: string;
-  isCommunity: boolean;
-  isActive: boolean;  /* -> this prop is used to show the active programs 
-                            if we create cron jobs that run every hour in the backend, we can handle this.
-                        */
-};
-
-const communityPrograms: Program[] = [
-  {
-    id: '28.1',
-    title: 'Community Program1',
-    description: 'First Community Program',
-    date: '2024-07-12',
-    time: '15:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: true,
-    isActive: false,
-  },
-  {
-    id: '28.2',
-    title: 'Community Program2',
-    description: 'Second Community Program',
-    date: '2024-07-30',
-    time: '16:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: true,
-    isActive: true,
-  },
-  {
-    id: '28.3',
-    title: 'Community Program3',
-    description: 'Third Community Program',
-    date: '2024-07-27',
-    time: '16:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: true,
-    isActive: true,
-  },
-];
-
-const nativePrograms: Program[] = [
-  {
-    id: '28.2',
-    title: 'Individual Program1',
-    description: 'First Individual Program',
-    date: '2024-08-22',
-    time: '17:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: false,
-    isActive: false,
-
-  },
-  {
-    id: '28.2',
-    title: 'Individual Program2',
-    description: 'Second Individual Program',
-    date: '2024-07-11',
-    time: '18:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: false,
-    isActive: true,
-  },
-];
 
 export default function FeaturesPage() {
   //const [expanded, setExpanded] = React.useState<string | false>(false);
@@ -187,13 +23,6 @@ export default function FeaturesPage() {
   //  (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
   //    setExpanded(isExpanded ? panel : false);
   //  };
-
-  const downloadPdf = () => {
-    const link = document.createElement('a');
-    link.href = 'http://localhost:3000/example.pdf';
-    link.download = 'example';
-    link.click();
-  }
 
   const handleNextWeek = () => {
     if (weekIndex === weeksArray.length - 1) {
@@ -251,12 +80,12 @@ export default function FeaturesPage() {
                   {weeksArray[weekIndex] &&
                     weeksArray[weekIndex].map((weeks, index) => (
                       <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                        .filter((program) => program.id === weeks.id).length}`} key={index}>
+                        .filter((program) => program.id === weeks.id).length}`} key={index} setPrograms={setPrograms}>
                         {programs &&
                           programs
                             .filter((program) => program.id === weeks.id)
                             .map((program, index) => (
-                              <TeacherMeeting key={index} index={index} program={program} />
+                              <TeacherMeeting key={index} index={index} program={program} setPrograms={setPrograms}/>
                             ))
                         }
                       </Accordion>

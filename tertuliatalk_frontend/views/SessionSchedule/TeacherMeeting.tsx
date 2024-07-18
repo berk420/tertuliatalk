@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import RichText from 'components/RichText';
 import Button from 'components/Button';
 import { Roles } from "types/enums";
+import { set } from "lodash";
+import { nativePrograms } from "mocks/programs";
 
 type Program = {
   id: string;
@@ -30,7 +32,7 @@ const user: User = {
   role: Roles.TEACHER,
 }
 
-export default function TeacherMeeting({ index, program }: { index: number, program: Program }) {
+export default function TeacherMeeting({ index, program, setPrograms }: { index: number, program: Program, setPrograms: any }) {
   const downloadPdf = () => {
     const link = document.createElement('a');
     link.href = 'http://localhost:3000/example.pdf';
@@ -39,7 +41,9 @@ export default function TeacherMeeting({ index, program }: { index: number, prog
   }
 
   const deleteProgram = () => {
-    // api delete request
+    nativePrograms.splice(index, 1);
+    setPrograms([...nativePrograms]);
+    // use real api to delete program
     console.log(`Program with id ${program.id} is deleted`);
   }
 

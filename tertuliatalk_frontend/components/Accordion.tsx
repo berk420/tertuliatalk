@@ -13,9 +13,10 @@ interface AccordionProps {
   title: string;
   subTitle?: string;
   isOpen?: boolean;
+  setPrograms?: any;
 }
 
-export default function Accordion({ title, subTitle, isOpen, children }: PropsWithChildren<AccordionProps>) {
+export default function Accordion({ title, subTitle, isOpen, children, setPrograms }: PropsWithChildren<AccordionProps>) {
   const [hasCollapsed, setHasCollapsed] = useState(!isOpen);
   const isActive = !hasCollapsed;
   const [fromArea, setFromArea] = useState(false)
@@ -88,7 +89,7 @@ export default function Accordion({ title, subTitle, isOpen, children }: PropsWi
         </Description>
       </Collapse>
       <Collapse isOpen={fromArea} duration={300}>
-        <MeetingAddForm />
+        <MeetingAddForm setPrograms={setPrograms}/>
       </Collapse>
     </AccordionWrapper>
   );

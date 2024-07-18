@@ -10,6 +10,6 @@ namespace TertuliatalkAPI.Entities
         {
         }
 
-        public DbSet<user> users { get; set; }
+        public DbSet<User> users { get; set; }
     }
 }
