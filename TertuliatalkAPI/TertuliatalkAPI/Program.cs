@@ -5,8 +5,14 @@ using TertuliatalkAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.Identity.Web;
+using Microsoft.Identity.Web.Resource;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -71,10 +77,15 @@ app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
+
 app.UseAuthorization(); 
 
 app.MapControllers();
 
-app.MapGet("/", () => "hello world");
+var scopeRequiredByApi = app.Configuration["AzureAd:Scopes"];
+
+app.MapGet("/", (HttpContext httpContext) => "hello world")
+.RequireAuthorization();
 
 app.Run();
