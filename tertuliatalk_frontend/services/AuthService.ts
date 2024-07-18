@@ -37,7 +37,7 @@ const signIn = async (email: string, password: string) => {
 
 const getUserData = async () => {
   try {
-    const response = await fetch(`${EnvVars.API_URL}/api/Auth`, {
+    const response = await fetch(`${EnvVars.API_URL}/api/User`, {
       method: 'GET',
         headers: {
           'Content-Type': 'application/json',
