@@ -27,6 +27,7 @@ const cookies = new Cookies(null, { path: '/' });
 export default function LoginSection({ onClose }: NewsletterModalProps) {
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
   const [signInError, setSignInError] = useState<string | null>(null)
+  const [loading, setLoading] = useState<boolean>(false);
   useEscClose({ onClose });
 
   useEffect(() => {
@@ -46,6 +47,7 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
 
     if (email && password) {
       try {
+        setLoading(true);
         const response = await signIn(email, password);
 
         const { authToken, accessTokenExpireDate, role } = response;
@@ -57,11 +59,13 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
           localStorage.setItem("userRole", role);
           Router.push('/');
         } else {
+          setLoading(false);
           console.log("Sign-in failed1");
           setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
         }
 
       } catch (error) {
+        setLoading(false);
         console.log("Sign-in failed");
         setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");
       }
@@ -146,8 +150,8 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
             </Row>
             {signInError && <Error>{signInError}</Error>}
             <Row>
-              <CustomButton as="button" type="submit">
-                Submit
+              <CustomButton as="button" type="submit" disabled={loading}>
+                {loading ? 'Yükleniyor...' : "Giriş Yap"}
               </CustomButton>
             </Row>
           </>

@@ -85,7 +85,7 @@ export default function Navbar({ items }: NavbarProps) {
         <NextLink href="/" passHref>
           <LogoWrapper>
             <Link href="/" >
-              <Image src="/logo.jpeg" alt="TertuliaTalk" width={65} height={65} />
+              <Image src={`/logo.jpeg`} alt="TertuliaTalk" width={65} height={65} />
             </Link>
           </LogoWrapper>
         </NextLink>
