@@ -1,27 +1,71 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\",
-  "Documents": [],
+  "WorkspaceRootPath": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\free\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\free\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\free\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\tertuliatalkapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\tertuliatalkapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
       "DocumentGroups": [
         {
-          "DockedWidth": 193,
-          "SelectedChildIndex": -1,
+          "DockedWidth": 236,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{33c88fe3-43b3-374e-9aac-c4679036dce0}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Program.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Program.cs",
+              "ToolTip": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Program.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Program.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAEcAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-20T12:49:00.615Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "TertuliatalkAPI",
+              "DocumentMoniker": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\TertuliatalkAPI.csproj",
+              "ToolTip": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+              "RelativeToolTip": "TertuliatalkAPI\\TertuliatalkAPI.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-20T12:38:57.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\.gitignore",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\.gitignore",
+              "ToolTip": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\.gitignore",
+              "RelativeToolTip": "TertuliatalkAPI\\.gitignore",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAH4AAAAAAAAA",
+              "Icon": "00000000-0000-0000-0000-000000000000.000000|iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAF8SURBVDhPjVNLTgJBEG1lwpoFB3GNK9fieA48hD8iwT/ihwgSDAIHgAGXXsEV18CNzL/LquqZdsYM6kteXqcy3fWqpmpNRBgOhyABBEgpAFVKPIMUcYzUyOU\u002BXM/b2qtU3vkSfRjjZTCAMAw1A2LwzdFoBPP5HNqdzuL27n4juibWI\u002BUshBA1DIkhEx9iEorFotgslQqGYbxxAGFEqt1MxmPWJLbLZdZ\u002Bv89q5PMFPiTR6z2zdaxR0fXA0XTBcVywkb4fwHXjRteecIDNQ7UmExVYAdPcxYaqclN46na5WenMKjtlVnTYwcXlVYaDqImW9beD5N/TeGy32QHXm6hZ03ZgiSQHp2fnWQ4oBmJqWSqwAqZpZjt4aLXAD4J0VqyZsmoubfB8H2r1eoaD6NXZ9HcHO\u002BSA3f4AjifXl8rItOETM8ckB9WTWpYD9RdeZ1PWVWAHWXPQaDb59f/w8LiqHeh1pvGkCaP6qB8yXusoxmuNZ7XmII4O9vGuEF86osuDYRkpYQAAAABJRU5ErkJggg==",
+              "WhenOpened": "2024-07-20T12:35:29.845Z",
+              "EditorCaption": ""
             }
           ]
         }

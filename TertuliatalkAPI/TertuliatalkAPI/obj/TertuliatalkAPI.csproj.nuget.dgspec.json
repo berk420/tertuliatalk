@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj": {}
+    "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj": {
+    "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+        "projectUniqueName": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
         "projectName": "TertuliatalkAPI",
-        "projectPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
-        "packagesPath": "C:\\Users\\berk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
+        "projectPath": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+        "packagesPath": "C:\\Users\\EmreCandemir\\.nuget\\packages\\",
+        "outputPath": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\berk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\EmreCandemir\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -49,6 +50,10 @@
               "target": "Package",
               "version": "[8.0.7, )"
             },
+            "Microsoft.AspNetCore.Authentication.OpenIdConnect": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[8.0.7, )"
@@ -64,6 +69,14 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[8.0.7, )"
+            },
+            "Microsoft.Identity.Web": {
+              "target": "Package",
+              "version": "[2.16.0, )"
+            },
+            "Microsoft.Identity.Web.UI": {
+              "target": "Package",
+              "version": "[2.16.0, )"
             },
             "Npgsql.EntityFrameworkCore.PostgreSQL": {
               "target": "Package",
@@ -97,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
