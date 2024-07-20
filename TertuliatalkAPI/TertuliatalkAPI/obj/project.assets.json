@@ -3225,19 +3225,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\EmreCandemir\\.nuget\\packages\\": {}
+    "C:\\Users\\berk\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+      "projectUniqueName": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
       "projectName": "TertuliatalkAPI",
-      "projectPath": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
-      "packagesPath": "C:\\Users\\EmreCandemir\\.nuget\\packages\\",
-      "outputPath": "C:\\free\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
+      "projectPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+      "packagesPath": "C:\\Users\\berk\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\EmreCandemir\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\berk\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -3245,7 +3245,6 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -3321,7 +3320,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

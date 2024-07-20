@@ -5,12 +5,12 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\EmreCandemir\.nuget\packages\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\berk\.nuget\packages\</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.10.1</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.9.2</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\EmreCandemir\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\berk\.nuget\packages\" />
   </ItemGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <None Include="$(NuGetPackageRoot)linq2db.postgresql\5.4.1\contentFiles\any\any\LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt" Condition="Exists('$(NuGetPackageRoot)linq2db.postgresql\5.4.1\contentFiles\any\any\LinqToDB.Templates\CopyMe.PostgreSQL.tt.txt')">
@@ -158,9 +158,9 @@
     <Import Project="$(NuGetPackageRoot)linq2db.postgresql\5.4.1\build\linq2db.PostgreSQL.props" Condition="Exists('$(NuGetPackageRoot)linq2db.postgresql\5.4.1\build\linq2db.PostgreSQL.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\EmreCandemir\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
-    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\EmreCandemir\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.3</PkgMicrosoft_CodeAnalysis_Analyzers>
-    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\EmreCandemir\.nuget\packages\microsoft.entityframeworkcore.tools\8.0.7</PkgMicrosoft_EntityFrameworkCore_Tools>
-    <Pkglinq2db_PostgreSQL Condition=" '$(Pkglinq2db_PostgreSQL)' == '' ">C:\Users\EmreCandemir\.nuget\packages\linq2db.postgresql\5.4.1</Pkglinq2db_PostgreSQL>
+    <PkgMicrosoft_Extensions_ApiDescription_Server Condition=" '$(PkgMicrosoft_Extensions_ApiDescription_Server)' == '' ">C:\Users\berk\.nuget\packages\microsoft.extensions.apidescription.server\6.0.5</PkgMicrosoft_Extensions_ApiDescription_Server>
+    <PkgMicrosoft_CodeAnalysis_Analyzers Condition=" '$(PkgMicrosoft_CodeAnalysis_Analyzers)' == '' ">C:\Users\berk\.nuget\packages\microsoft.codeanalysis.analyzers\3.3.3</PkgMicrosoft_CodeAnalysis_Analyzers>
+    <PkgMicrosoft_EntityFrameworkCore_Tools Condition=" '$(PkgMicrosoft_EntityFrameworkCore_Tools)' == '' ">C:\Users\berk\.nuget\packages\microsoft.entityframeworkcore.tools\8.0.7</PkgMicrosoft_EntityFrameworkCore_Tools>
+    <Pkglinq2db_PostgreSQL Condition=" '$(Pkglinq2db_PostgreSQL)' == '' ">C:\Users\berk\.nuget\packages\linq2db.postgresql\5.4.1</Pkglinq2db_PostgreSQL>
   </PropertyGroup>
 </Project>

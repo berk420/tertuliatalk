@@ -1,6 +1,20 @@
 ﻿# Build Folders (you can keep bin if you'd like, to commit dlls or other files)
 bin/
 obj/
+*.exe
+*.dll
+*.pdb
+*.nuget.cache
+*.AssemblyInfoInputs.cache
+*.assets.cache
+*.CoreCompileInputs.cache
+*.AssemblyReference.cache
+*.genruntimeconfig.cache
+*.deps.json
+*.FileListAbsolute.txt
+*.dspec.json
+*.g.props
+*.g.targets
 
 # User-specific files
 *.rsuser
