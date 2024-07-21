@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
@@ -20,16 +21,18 @@ namespace TertuliatalkAPI.Controllers
 
         [HttpPost("login")]
         [AllowAnonymous]
-        public async Task<ActionResult<UserLoginResponse>> LoginUser([FromBody] UserLoginRequest request)
+        public async Task<ActionResult<ApiResponse<UserLoginResponse>>> LoginUser([FromBody] UserLoginRequest request)
         {
-            return await _authService.LoginUser(request);
+            var response =  await _authService.LoginUser(request);
+            return Ok(new ApiResponse<UserLoginResponse>(response));
         }
         
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<EntityEntry<User>> RegisterUser(User user)
+        public async Task<ActionResult<ApiResponse<EntityEntry<User>>>> RegisterUser(User user)
         {
-            return await _authService.RegisterUser(user);
+            var response = await _authService.RegisterUser(user);
+            return Ok(new ApiResponse<EntityEntry<User>>(response));
         }
     }
 }

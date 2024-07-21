@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
 
@@ -16,22 +17,20 @@ public class UserController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
+    public async Task<ActionResult<ApiResponse<List<User>>>> GetUsers()
     {
-        var users = await _userService.GetUsers();
-        return Ok(users);
+        var response = await _userService.GetUsers();
+        return Ok(new ApiResponse<List<User>>(response));
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(Guid id)
+    public async Task<ActionResult<ApiResponse<User>>> GetUser(Guid id)
     {
-        var user = await _userService.GetUser(id);
+        var response = await _userService.GetUser(id);
 
-        if (user == null)
-        {
-            return NotFound();
-        }
+        if (response == null)
+            return NotFound(new ApiResponse<User>("User not found."));
 
-        return Ok(user);
+        return Ok(new ApiResponse<User>(response));
     }
 }

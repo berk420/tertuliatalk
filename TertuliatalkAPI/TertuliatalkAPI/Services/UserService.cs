@@ -21,7 +21,7 @@ public class UserService : IUserService
         return newUser;
     }
 
-    public async Task<IEnumerable<User>> GetUsers()
+    public async Task<List<User>> GetUsers()
     {
         return await _context.users.ToListAsync();
     }
