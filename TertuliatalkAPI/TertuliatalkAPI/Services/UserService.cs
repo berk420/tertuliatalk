@@ -17,7 +17,7 @@ public class UserService : IUserService
 
     public async Task<User> AddUser(User user)
     {
-        var newUser = _context.users.Add(user).Entity;
+        var newUser = _context.Users.Add(user).Entity;
         await _context.SaveChangesAsync();
         
         return newUser;
@@ -25,21 +25,21 @@ public class UserService : IUserService
 
     public async Task<List<User>> GetUsers()
     {
-        return await _context.users.ToListAsync();
+        return await _context.Users.ToListAsync();
     }
 
     public async Task<User> GetUser(Guid id)
     {
-        return await _context.users.FindAsync(id);
+        return await _context.Users.FindAsync(id);
     }
 
     public async Task<User> GetUserByEmail(string email)
     {
-        return await _context.users.FirstOrDefaultAsync(u => u.email == email);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
     { 
-        return await _context.users.FirstOrDefaultAsync(u => u.email == email && u.password == password);
+        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
     }
 }

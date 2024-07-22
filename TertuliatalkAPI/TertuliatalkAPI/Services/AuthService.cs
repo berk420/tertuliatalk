@@ -22,16 +22,20 @@ public class AuthService : IAuthService
     {
         UserLoginResponse response = new();
         
-        var user = await _userService.GetUserByEmailAndPassword(request.Email, request.Password);
+        var user = await _userService.GetUserByEmail(request.Email);
         if (user == null)
             throw new HttpResponseException(HttpStatusCode.Unauthorized, "User not found or invalid credentials.");
+        
+        var verified = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
+        if (!verified)
+            throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
         
         var generatedTokenInformation = await _tokenService.GenerateToken(new GenerateTokenRequest { Email = request.Email });
         
         response.AccessTokenExpireDate = generatedTokenInformation.TokenExpireDate;
         response.AuthenticateResult = true;
         response.AuthToken = generatedTokenInformation.Token;
-        response.Role = user.role;
+        response.Role = user.Role;
         
         return response;
     }
@@ -44,10 +48,10 @@ public class AuthService : IAuthService
 
         User user = new();
 
-        user.name = request.name;
-        user.email = request.email;
-        user.role = request.role;
-        user.password = BCrypt.Net.BCrypt.HashPassword(request.password);
+        user.Name = request.name;
+        user.Email = request.email;
+        user.Role = request.role;
+        user.Password = BCrypt.Net.BCrypt.HashPassword(request.password);
         
         return await _userService.AddUser(user);
     }
