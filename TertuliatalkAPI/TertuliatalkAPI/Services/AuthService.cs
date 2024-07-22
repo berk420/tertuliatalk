@@ -21,32 +21,38 @@ public class AuthService : IAuthService
     public async Task<UserLoginResponse> LoginUser(UserLoginRequest request)
     {
         UserLoginResponse response = new();
-
-        if (string.IsNullOrEmpty(request.Email) || string.IsNullOrEmpty(request.Password))
-        {
-            throw new ArgumentNullException(nameof(request));
-        }
         
-        Console.WriteLine($"Received email: {request.Email}, password: {request.Password}");
-        var user = await _userService.GetUserByEmailAndPassword(request.Email, request.Password);
+        var user = await _userService.GetUserByEmail(request.Email);
         if (user == null)
-        {
-            Console.WriteLine("Unauthorized access attempt.");
             throw new HttpResponseException(HttpStatusCode.Unauthorized, "User not found or invalid credentials.");
-        }
+        
+        var verified = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
+        if (!verified)
+            throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
+        
         var generatedTokenInformation = await _tokenService.GenerateToken(new GenerateTokenRequest { Email = request.Email });
         
         response.AccessTokenExpireDate = generatedTokenInformation.TokenExpireDate;
         response.AuthenticateResult = true;
         response.AuthToken = generatedTokenInformation.Token;
-        response.Role = user.role;
+        response.Role = user.Role;
         
-        Console.WriteLine("User authenticated successfully.");
-        return await Task.FromResult(response);
+        return response;
     }
     
-    public async Task<EntityEntry<User>>  RegisterUser(User user)
+    public async Task<User> RegisterUser(UserRegisterRequest request)
     {
+        var userEmailExist = await _userService.GetUserByEmail(request.email);
+        if (userEmailExist is not null)
+            return null;
+
+        User user = new();
+
+        user.Name = request.name;
+        user.Email = request.email;
+        user.Role = request.role;
+        user.Password = BCrypt.Net.BCrypt.HashPassword(request.password);
+        
         return await _userService.AddUser(user);
     }
 }

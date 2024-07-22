@@ -7,6 +7,6 @@ namespace TertuliatalkAPI.Interfaces;
 public interface IAuthService
 {
     public Task<UserLoginResponse> LoginUser(UserLoginRequest request);
-    public Task<EntityEntry<User>> RegisterUser(User user);
+    public Task<User> RegisterUser(UserRegisterRequest request);
 
 }
