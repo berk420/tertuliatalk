@@ -33,12 +33,22 @@ public class AuthService : IAuthService
         response.AuthToken = generatedTokenInformation.Token;
         response.Role = user.role;
         
-        return await Task.FromResult(response);
+        return response;
     }
     
-    public async Task<EntityEntry<User>>  RegisterUser(User user)
+    public async Task<User> RegisterUser(UserRegisterRequest request)
     {
-        // add validation layer
+        var userEmailExist = await _userService.GetUserByEmail(request.email);
+        if (userEmailExist is not null)
+            return null;
+
+        User user = new();
+
+        user.name = request.name;
+        user.email = request.email;
+        user.role = request.role;
+        user.password = BCrypt.Net.BCrypt.HashPassword(request.password);
+        
         return await _userService.AddUser(user);
     }
 }

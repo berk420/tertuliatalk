@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
@@ -33,4 +34,5 @@ public class UserController : ControllerBase
 
         return Ok(new ApiResponse<User>(response));
     }
+    
 }

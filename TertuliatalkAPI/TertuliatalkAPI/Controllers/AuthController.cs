@@ -29,10 +29,13 @@ namespace TertuliatalkAPI.Controllers
         
         [HttpPost("register")]
         [AllowAnonymous]
-        public async Task<ActionResult<ApiResponse<EntityEntry<User>>>> RegisterUser(User user)
+        public async Task<ActionResult<ApiResponse<EntityEntry<User>>>> RegisterUser([FromBody] UserRegisterRequest request)
         {
-            var response = await _authService.RegisterUser(user);
-            return Ok(new ApiResponse<EntityEntry<User>>(response));
+            var response = await _authService.RegisterUser(request);
+            if (response is null)
+                return BadRequest(new ApiResponse<EntityEntry<User>>("User email must be unique!"));
+            
+            return Ok(new ApiResponse<User>(response));
         }
     }
 }
