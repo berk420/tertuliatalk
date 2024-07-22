@@ -10,6 +10,7 @@ import Input from './Input';
 import Overlay from './Overlay';
 import { signIn } from 'services/AuthService';
 import Cookies from 'universal-cookie';
+import Router, { useRouter } from 'next/router';
 
 interface NewsletterModalProps {
   onClose: () => void | null;
@@ -23,8 +24,9 @@ interface IFormInput {
 const cookies = new Cookies(null, { path: '/' });
 
 export default function NewsletterModal({ onClose }: NewsletterModalProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
   const [signInError, setSignInError] = useState<string | null>(null)
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+
   useEscClose({ onClose });
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function NewsletterModal({ onClose }: NewsletterModalProps) {
 
         if (role) {
           localStorage.setItem("userRole", role);
-          window.location.reload();
+          Router.push('/');
         } else {
           console.log("Sign-in failed1");
           setSignInError("Hatalı email veya şifre, lütfen tekrar deneyin.");

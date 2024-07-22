@@ -35,7 +35,7 @@ export default function SignupSection() {
     const fetchData = async () => {
       try {
         const data = await getUserData();
-        setExampleData(data);
+        setExampleData(data.data);
         console.log(data);
       } catch (error) {
         console.log(error);
@@ -55,10 +55,8 @@ export default function SignupSection() {
             exampleData ? (
               exampleData?.map((data: any, index: number) => (
                 <DataWrapper key={index}>
-                  <p>{data.date}</p>
-                  <p>{data.temperatureC}</p>
-                  <p>{data.temperatureF}</p>
-                  <p>{data.summary}</p>
+                  <p>{data.name}</p>
+                  <p>{data.email}</p>
                 </DataWrapper>
               ))
             ) : (

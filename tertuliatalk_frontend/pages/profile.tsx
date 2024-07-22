@@ -19,6 +19,8 @@ export default function FeaturesPage() {
 
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
+    console.log('userRole:', userRole);
+
     if (userRole) {
       setRole(userRole);
     }
@@ -27,25 +29,21 @@ export default function FeaturesPage() {
   return (
     <Page title="Profil ekranı">
       <WholeFrame>
-      {role === null ? (
-          <p> null </p>
+        {role === null ? (
+          <RichText> Lütfen giriş yapınız </RichText>
         ) : (
           <>
             {role === "Teacher" && (
-              <p>Teacher</p>
+              <RichText>Teacher</RichText>
             )}
             {role === "Student" && (
-                      <Wrapper>
-
-                  <p>Student</p>
-
-                    </Wrapper>
+              <RichText>Student</RichText>
             )}
             {role === "User" && (
-              <p>Lütfen kayıt olunuz</p>
+              <RichText>Lütfen kayıt olunuz</RichText>
             )}
             {role === "SuperAdmin" && (
-              <p>SuperAdmin</p>
+              <RichText>SuperAdmin</RichText>
             )}
           </>
         )}
@@ -57,7 +55,7 @@ export default function FeaturesPage() {
 
 
 const WholeFrame = styled.div`
-border-radius: 1rem;
+  border-radius: 1rem;
   background-color: #f4a460;
   width: 100%;
   height: 100%;
