@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import NextLink from 'next/link';
-import { useRouter } from 'next/router';
-import React, { useRef, useState } from 'react';
+import { Router, useRouter } from 'next/router';
+import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { ScrollPositionEffectProps, useScrollPosition } from 'hooks/useScrollPosition';
@@ -26,21 +26,22 @@ type NavbarContainerProps = { hidden: boolean; transparent: boolean };
 
 const cookies = new Cookies(null, { path: '/' });
 
+
 export default function Navbar({ items }: NavbarProps) {
   const router = useRouter();
   const { toggle } = Drawer.useDrawer();
   const [scrollingDirection, setScrollingDirection] = useState<ScrollingDirections>('none');
-
+  
   let lastScrollY = useRef(0);
   const lastRoute = useRef('');
   const stepSize = useRef(50);
-
+  
   useScrollPosition(scrollPositionCallback, [router.asPath], undefined, undefined, 50);
-
+  
   function scrollPositionCallback({ currPos }: ScrollPositionEffectProps) {
     const routerPath = router.asPath;
     const hasRouteChanged = routerPath !== lastRoute.current;
-
+    
     if (hasRouteChanged) {
       lastRoute.current = routerPath;
       setScrollingDirection('none');
@@ -52,33 +53,43 @@ export default function Navbar({ items }: NavbarProps) {
     const scrollDifference = Math.abs(lastScrollY.current - currentScrollY);
     const hasScrolledWholeStep = scrollDifference >= stepSize.current;
     const isInNonCollapsibleArea = lastScrollY.current > -50;
-
+    
     if (isInNonCollapsibleArea) {
       setScrollingDirection('none');
       lastScrollY.current = currentScrollY;
       return;
     }
-
+    
     if (!hasScrolledWholeStep) {
       lastScrollY.current = currentScrollY;
       return;
     }
-
+    
     setScrollingDirection(isScrollingUp ? 'up' : 'down');
     lastScrollY.current = currentScrollY;
   }
-
+  
   const isNavbarHidden = scrollingDirection === 'down';
   const isTransparent = scrollingDirection === 'none';
-
+  
   const [showModal, setShowModal] = useState(false);
+  const [role, setRole] = useState<string | null>(null);
+  
+  useEffect(() => {
+    let role = localStorage.getItem('userRole');
+    if (role) {
+      console.log('role:', role);
+      
+      setRole(role);
+    }
+  }, []);
 
   const handleLogout = () => {
     cookies.remove('token');
     localStorage.removeItem('userRole');
-    window.location.reload();
+    window.location.href = "/"; // this will be changed
   };
-
+  
   return (
     <NavbarContainer hidden={isNavbarHidden} transparent={isTransparent}>
       <Content>
@@ -98,23 +109,30 @@ export default function Navbar({ items }: NavbarProps) {
         <ColorSwitcher />
         </ColorSwitcherContainer>
         */}
-          <Button onClick={() => setShowModal(!showModal)}>
-            Çıkış yap
-          </Button>
-          {showModal &&
-            <Modal title={null} onClose={() => setShowModal(false)}>
-              <ColumnFlex>
-                Çıkış yapmak istediğinize emin misiniz?
-                <RowFlex>
-                  <Button onClick={handleLogout}>
-                    Evet
-                  </Button>
-                  <Button onClick={() => setShowModal(false)}>
-                    Hayır
-                  </Button>
-                </RowFlex>
-              </ColumnFlex>
-            </Modal>
+          {
+
+            role && (
+              <>
+                <Button onClick={() => setShowModal(!showModal)}>
+                  Çıkış yap
+                </Button>
+                {showModal &&
+                  <Modal title={null} onClose={() => setShowModal(false)}>
+                    <ColumnFlex>
+                      Çıkış yapmak istediğinize emin misiniz?
+                      <RowFlex>
+                        <Button onClick={handleLogout}>
+                          Evet
+                        </Button>
+                        <Button onClick={() => setShowModal(false)}>
+                          Hayır
+                        </Button>
+                      </RowFlex>
+                    </ColumnFlex>
+                  </Modal>
+                }
+              </>
+            )
           }
         </NavItemList>
         <HamburgerMenuWrapper>
@@ -126,17 +144,33 @@ export default function Navbar({ items }: NavbarProps) {
 }
 
 function NavItem({ href, title, outlined }: SingleNavItem) {
+  const router = useRouter();
   const { setIsModalOpened } = useNewsletterModalContext();
 
   function showNewsletterModal() {
     setIsModalOpened(true);
   }
 
+  const [role, setRole] = useState<string | null>(null);
+  
+  useEffect(() => {
+    let role = localStorage.getItem('userRole');
+    if (role) {
+      console.log('role:', role);
+      
+      setRole(role);
+    }
+  }, []);
+
   if (outlined) {
-    return <CustomButton onClick={showNewsletterModal}>{title}</CustomButton>;
+    if (!role)
+      return <Button onClick={() => router.push("login")}>{title}</Button>;
+    else
+      return <></>
   }
 
   return (
+
     <NavItemWrapper outlined={outlined}>
       <NextLink href={href} passHref>
         <a>{title}</a>
@@ -154,6 +188,7 @@ const CustomButton = styled(Button)`
 
 const NavItemList = styled.div`
   display: flex;
+  gap: 0.6rem;
   list-style: none;
 
   ${media('<desktop')} {

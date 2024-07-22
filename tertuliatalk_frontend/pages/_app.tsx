@@ -23,14 +23,18 @@ import { useEffect } from 'react';
 
 const navItems: NavItems = [
   { title: 'Hizmet bilgilendirme', href: '/service-information' },
+  
   { title: 'Haftalık Oturum Programı', href: '/weekly-session-schedule' },
 
   { title: 'Paketler', href: '/packages' },
+
   { title: 'İletişim', href: '/contact' },
 
   { title: 'Kayıt ol', href: '/signup' },
 
   { title: 'Profil', href: '/profile' },
+  
+  { title: 'Giriş yap', href: '/login', outlined: true},
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });

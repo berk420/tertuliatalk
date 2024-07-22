@@ -11,7 +11,6 @@ import CloseIcon from 'components/CloseIcon';
 import Input from 'components/Input';
 import Cookies from 'universal-cookie';
 import Router, { useRouter } from 'next/router';
-import { ro } from 'date-fns/locale';
 
 interface NewsletterModalProps {
   onClose: () => void;
@@ -25,12 +24,13 @@ interface IFormInput {
 const cookies = new Cookies(null, { path: '/' });
 
 export default function LoginSection({ onClose }: NewsletterModalProps) {
-  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
   const [signInError, setSignInError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false);
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
+  
   useEscClose({ onClose });
 
-  useEffect(() => {
+  useEffect(() => { // scroll event disable
     const disableScroll = (e: Event) => e.preventDefault();
     window.addEventListener('scroll', disableScroll);
     document.body.style.overflow = 'hidden';
@@ -46,18 +46,19 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
     const { email, password } = data;
 
     if (email && password) {
-      try {
+      // backend login proccess
+      try { 
         setLoading(true);
         const response = await signIn(email, password);
 
-        const { authToken, accessTokenExpireDate, role } = response;
+        const { authToken, accessTokenExpireDate, role } = response.data;
 
         cookies.set('token', authToken, { path: '/', expires: new Date(accessTokenExpireDate) });
         console.log('Login successful:', { authToken, accessTokenExpireDate, role });
 
         if (role) {
           localStorage.setItem("userRole", role);
-          Router.push('/');
+          window.location.href = '/'; // this will be changed
         } else {
           setLoading(false);
           console.log("Sign-in failed1");

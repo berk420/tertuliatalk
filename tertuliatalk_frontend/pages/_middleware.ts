@@ -12,7 +12,7 @@ export async function middleware(request: NextRequest) {
   return NextResponse.next();
   const hasVerifiedToken = token && (await verifyJwtToken(token));
   const isAuthPageRequested = isAuthPages(nextUrl.pathname);
-
+  
   if (isAuthPageRequested) {
     // If the page is an auth page
     if (!hasVerifiedToken) {  
@@ -21,16 +21,16 @@ export async function middleware(request: NextRequest) {
     // Redirect to home page if the user is already logged in
     return NextResponse.redirect(new URL(`/`, request.url));
   }
-
+  
   if (!hasVerifiedToken) {
     // If the page is protected page and the user is not logged in
     const searchParams = new URLSearchParams(nextUrl.searchParams);
     searchParams.set('next', nextUrl.pathname);
     return NextResponse.redirect(new URL(`/login?${searchParams}`, request.url));
   }
-
+  
 }
 
 export const config = {
-  matcher: ['/'], // Apply to all pages except static files and favicon
+  matcher: ['/weekly-session-schedule/'], // Apply to all pages except static files and favicon
 };
