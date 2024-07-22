@@ -8,7 +8,8 @@ const isAuthPages = (url: string) => AUTH_PAGES.some((page) => url.startsWith(pa
 export async function middleware(request: NextRequest) {
   const { nextUrl, cookies } = request;
   const token = cookies['token'];
-
+  
+  return NextResponse.next();
   const hasVerifiedToken = token && (await verifyJwtToken(token));
   const isAuthPageRequested = isAuthPages(nextUrl.pathname);
 
@@ -28,7 +29,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/login?${searchParams}`, request.url));
   }
 
-  return NextResponse.next();
 }
 
 export const config = {
