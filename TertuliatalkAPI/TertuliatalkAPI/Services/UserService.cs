@@ -1,16 +1,14 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
-using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Services;
 
 public class UserService : IUserService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly TertuliatalksDbContext _context;
 
-    public UserService(ApplicationDbContext context)
+    public UserService(TertuliatalksDbContext context)
     {
         _context = context;
     }
@@ -19,7 +17,7 @@ public class UserService : IUserService
     {
         var newUser = _context.Users.Add(user).Entity;
         await _context.SaveChangesAsync();
-        
+
         return newUser;
     }
 
@@ -39,7 +37,7 @@ public class UserService : IUserService
     }
 
     public async Task<User> GetUserByEmailAndPassword(string email, string password)
-    { 
+    {
         return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
     }
 }

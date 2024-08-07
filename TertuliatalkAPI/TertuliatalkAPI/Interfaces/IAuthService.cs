@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Models;
 
@@ -8,5 +7,4 @@ public interface IAuthService
 {
     public Task<UserLoginResponse> LoginUser(UserLoginRequest request);
     public Task<User> RegisterUser(UserRegisterRequest request);
-
 }

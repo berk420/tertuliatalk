@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
@@ -11,7 +10,7 @@ namespace TertuliatalkAPI.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    
+
     public UserController(IUserService userService)
     {
         _userService = userService;
@@ -34,5 +33,4 @@ public class UserController : ControllerBase
 
         return Ok(new ApiResponse<User>(response));
     }
-    
 }

@@ -1,6 +1,4 @@
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Entities;
-using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Interfaces;
 
