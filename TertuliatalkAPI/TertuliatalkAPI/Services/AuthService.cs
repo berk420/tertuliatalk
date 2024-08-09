@@ -50,7 +50,7 @@ public class AuthService : IAuthService
             throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
 
         var generatedTokenInformation =
-            await _tokenService.GenerateToken(new GenerateTokenRequest { Email = request.Email });
+            await _tokenService.GenerateToken(new GenerateTokenRequest { Email = instructor.Email, Role = instructor.Role });
 
         InstructorLoginResponse response = new()
         {

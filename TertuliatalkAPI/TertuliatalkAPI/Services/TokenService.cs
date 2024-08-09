@@ -22,16 +22,20 @@ public class TokenService : ITokenService
             new SymmetricSecurityKey(Encoding.ASCII.GetBytes(_configuration["AppSettings:Secret"]));
 
         var dateTimeNow = DateTime.UtcNow;
+        
+        // role based authorization
+        var claims = new List<Claim>
+        {
+            new(ClaimTypes.Email, request.Email),
+            new(ClaimTypes.Role, request.Role) // for role based auth
+        };
 
         var jwt = new JwtSecurityToken(
-            _configuration["AppSettings:ValidIssuer"],
-            _configuration["AppSettings:ValidAudience"],
-            new List<Claim>
-            {
-                new("email", request.Email)
-            },
-            dateTimeNow,
-            dateTimeNow.Add(TimeSpan.FromMinutes(550)),
+            issuer: _configuration["AppSettings:ValidIssuer"],
+            audience: _configuration["AppSettings:ValidAudience"],
+            claims: claims,
+            notBefore: dateTimeNow,
+            expires: dateTimeNow.Add(TimeSpan.FromMinutes(550)),
             new SigningCredentials(symmetricSecurityKey, SecurityAlgorithms.HmacSha256)
         );
 

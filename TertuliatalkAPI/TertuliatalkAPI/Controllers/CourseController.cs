@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Controllers;
 
@@ -18,17 +20,19 @@ public class CourseController : ControllerBase
 
     [HttpGet]
     [AllowAnonymous] // change with JWT
-    public async Task<ActionResult<Course>> GetAllCourses()
+    // [Authorize(Roles = Roles.Instructor)]
+    public async Task<ActionResult<ApiResponse<List<Course>>>> GetAllCourses()
     {
         var response = await _courseService.GetAllCourses();
-        return Ok(response);
+        return Ok(new ApiResponse<List<Course>>(response));
     }
 
     [HttpGet("{id}")]
     [AllowAnonymous] // change with JWT
-    public async Task<ActionResult<Course>> GetCourseById(Guid id)
+    // [Authorize(Roles = Roles.Instructor)]
+    public async Task<ActionResult<ApiResponse<Course>>> GetCourseById(Guid id)
     {
         var response = await _courseService.GetCourseById(id);
-        return Ok(response);
+        return Ok(new ApiResponse<Course>(response));
     }
 }

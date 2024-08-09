@@ -4,7 +4,7 @@ namespace TertuliatalkAPI.Interfaces;
 
 public interface ICourseService
 {
-    Task<IEnumerable<Course>> GetAllCourses();
+    Task<List<Course>> GetAllCourses();
     Task<Course> GetCourseById(Guid courseId);
     Task<Course> CreateCourse(Course course);
     Task DeleteCourse(Guid courseId);

@@ -16,7 +16,7 @@ public class CourseService : ICourseService
         _logger = logger;
     }
 
-    public async Task<IEnumerable<Course>> GetAllCourses()
+    public async Task<List<Course>> GetAllCourses()
     {
         return await _context.Courses.Include(c => c.Instructor).Include(c => c.UserCourses).ToListAsync();
     }
