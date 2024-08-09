@@ -25,8 +25,8 @@ public class CourseService : ICourseService
     {
         var course = await _context.Courses.Include(c => c.Instructor).Include(c => c.UserCourses)
             .FirstOrDefaultAsync(c => c.Id == courseId);
-
-        if (course == null) throw new NotFoundException($"Course with ID {courseId} not found");
+        if (course == null)
+            throw new NotFoundException($"Course with ID {courseId} not found");
 
         return course;
     }

@@ -20,7 +20,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<ApiResponse<List<User>>>> GetUsers()
     {
         var response = await _userService.GetUsers();
-        return Ok(new ApiResponse<List<User>>(response));
+        return Ok(new ApiResponse<List<User?>>(response));
     }
 
     [HttpGet("{id}")]

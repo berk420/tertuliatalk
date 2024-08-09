@@ -14,6 +14,12 @@ public class Instructor
 
     public DateTime? UpdatedDate { get; set; }
 
+    public string Email { get; set; } = null!;
+
+    public string Password { get; set; } = null!;
+
+    public string? Role { get; set; }
+
     public virtual ICollection<Course> Courses { get; set; } = new List<Course>();
 
     public virtual InstructorPayment? InstructorPayment { get; set; }

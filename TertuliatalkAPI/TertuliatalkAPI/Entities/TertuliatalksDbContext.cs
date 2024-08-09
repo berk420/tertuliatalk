@@ -4,12 +4,13 @@ namespace TertuliatalkAPI.Entities;
 
 public partial class TertuliatalksDbContext : DbContext
 {
-    private readonly IConfiguration _configuration;
+    public TertuliatalksDbContext()
+    {
+    }
 
-    public TertuliatalksDbContext(DbContextOptions<TertuliatalksDbContext> options, IConfiguration configuration)
+    public TertuliatalksDbContext(DbContextOptions<TertuliatalksDbContext> options)
         : base(options)
     {
-        _configuration = configuration;
     }
 
     public virtual DbSet<Course> Courses { get; set; }
@@ -22,14 +23,14 @@ public partial class TertuliatalksDbContext : DbContext
 
     public virtual DbSet<Subscription> Subscriptions { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<User?> Users { get; set; }
 
     public virtual DbSet<UserCourse> UserCourses { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https: //go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseNpgsql(
-            _configuration["ConnectionStrings:DefaultConnection"]);
+            "Host=ep-cold-flower-a2i7qrjh.eu-central-1.aws.neon.tech;Port=5432;Database=tertuliatalks_db;Username=tertuliatalks_db_owner;Password=3OZBNdhT9zsK;SSL Mode=Require;Trust Server Certificate=true;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

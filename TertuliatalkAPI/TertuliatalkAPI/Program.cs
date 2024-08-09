@@ -41,6 +41,7 @@ builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IInstructorService, InstructorService>();
 
 // Add Authorization
 builder.Services.AddAuthorization();

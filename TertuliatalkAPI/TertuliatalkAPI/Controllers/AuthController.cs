@@ -27,14 +27,20 @@ public class AuthController : ControllerBase
         return Ok(new ApiResponse<UserLoginResponse>(response));
     }
 
+    [HttpPost("instructor-login")]
+    [AllowAnonymous]
+    public async Task<ActionResult<ApiResponse<InstructorLoginResponse>>> LoginInstructor(
+        [FromBody] InstructorLoginRequest request)
+    {
+        var response = await _authService.LoginInstructor(request);
+        return Ok(new ApiResponse<InstructorLoginResponse>(response));
+    }
+
     [HttpPost("register")]
     [AllowAnonymous]
     public async Task<ActionResult<ApiResponse<EntityEntry<User>>>> RegisterUser([FromBody] UserRegisterRequest request)
     {
         var response = await _authService.RegisterUser(request);
-        if (response is null)
-            return BadRequest(new ApiResponse<EntityEntry<User>>("User email must be unique!"));
-
-        return Ok(new ApiResponse<User>(response));
+        return Ok(new ApiResponse<User?>(response));
     }
 }
