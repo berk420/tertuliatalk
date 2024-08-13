@@ -50,20 +50,7 @@ export default function SignupSection() {
         <Row>
           <a>Google Icon (google ile kayıt ol)</a>
         </Row>
-        <Row>
-          {
-            exampleData ? (
-              exampleData?.map((data: any, index: number) => (
-                <DataWrapper key={index}>
-                  <p>{data.name}</p>
-                  <p>{data.email}</p>
-                </DataWrapper>
-              ))
-            ) : (
-              <h1>Loading...</h1>
-            )
-          }
-        </Row>
+       
         <Row>
           <CustomInput
             value={email}
