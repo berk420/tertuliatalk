@@ -18,23 +18,38 @@ import NewsletterModal from 'components/NewsletterModal';
 import WaveCta from 'components/WaveCta';
 import { NewsletterModalContextProvider, useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { NavItems } from 'types';
+import { useEffect } from 'react';
+
 
 const navItems: NavItems = [
   { title: 'Hizmet bilgilendirme', href: '/service-information' },
+  
   { title: 'Haftalık Oturum Programı', href: '/weekly-session-schedule' },
 
   { title: 'Paketler', href: '/packages' },
-  { title: 'İletişim', href: '/contact' },
-  
-  { title: 'Kayıt ol', href: '/signup' },
-  { title: 'Giriş yap', href: '/', outlined: true},
 
+  { title: 'İletişim', href: '/contact' },
+
+  { title: 'Kayıt ol', href: '/signup' },
+
+  { title: 'Profil', href: '/profile' },
+  
+  { title: 'Giriş yap', href: '/login', outlined: true},
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
+
+  useEffect(() => { // Token managment
+    return () => {
+      console.log('Web sitesi kapanıyor veya yeniden yükleniyor');
+      localStorage.setItem("userRole","User");
+
+    };
+  }, []); 
   return (
+
     <>
       <Head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />

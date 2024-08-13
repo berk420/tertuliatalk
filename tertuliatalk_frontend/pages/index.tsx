@@ -13,6 +13,7 @@ export default function Homepage({ posts }: InferGetStaticPropsType<typeof getSt
   return (
     <>
       <Head>
+        <link rel="icon" type="image/jpeg" href="/logo.jpeg" />
         <title>{EnvVars.SITE_NAME}</title>
         <meta
           name="description"

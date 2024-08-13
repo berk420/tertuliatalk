@@ -1,38 +1,62 @@
+import React, { useEffect, useState } from 'react';
 import NextLink from 'next/link';
 import styled from 'styled-components';
 import Button from 'components/Button';
 import ButtonGroup from 'components/ButtonGroup';
 import Container from 'components/Container';
-import HeroIllustration from 'components/HeroIllustation';
 import OverTitle from 'components/OverTitle';
 import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { media } from 'utils/media';
 
 export default function Hero() {
   const { setIsModalOpened } = useNewsletterModalContext();
+  const [role, setRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    const userRole = localStorage.getItem('userRole');
+
+    if (userRole) {
+      setRole(userRole);
+    }
+  }, []);
 
   return (
     <HeroWrapper>
       <Contents>
-        <Heading>TertuliaTalks'a Hoş Geldiniz!
-        </Heading>
-        <Description>
-        Anlamlı konuşmalara katılın ve İngilizce konuşma becerilerinizi geliştirin.
-        </Description>
+        <Heading>TertuliaTalks'a Hoş Geldiniz!</Heading>
 
-        <Description>
+        {role === null ? (
+          <Description>
+              TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
+              </Description>
+        ) : (
+          <>
+            {role === "Teacher" && (
+              <Description>Teacher</Description>
+            )}
+            {role === "Student" && (
+              <Description>Student</Description>
+            )}
+            {role === "User" && (
+              <Description>User</Description>
+            )}
+            {role === "SuperAdmin" && (
+              <Description>SuperAdmin</Description>
+            )}
+              {/* Uncomment below if needed
+              <CustomButtonGroup>
+                <Button onClick={() => setIsModalOpened(true)}>
+                  Formu doldur<span>&rarr;</span>
+                </Button>
+              </CustomButtonGroup>
+              */}
+          </>
+        )}
 
-        TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
-        </Description>
-        {/*
-        <CustomButtonGroup>
-          <Button onClick={() => setIsModalOpened(true)}>
-            Formu doldur<span>&rarr;</span>
-          </Button>
-        </CustomButtonGroup>
-        */}
+
       </Contents>
       <ImageContainer>
+        {/* Add HeroIllustration or any other illustration if needed */}
       </ImageContainer>
     </HeroWrapper>
   );
