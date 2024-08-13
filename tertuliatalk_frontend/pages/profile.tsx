@@ -56,7 +56,6 @@ export default function FeaturesPage() {
 
 const WholeFrame = styled.div`
   border-radius: 1rem;
-  background-color: #f4a460;
   width: 100%;
   height: 100%;
 `;

@@ -58,9 +58,35 @@ export default function FeaturesPage() {
     <Page title="Haftalık oturum Programı">
       <WholeFrame>
         {role === null ? (
-          <p>
-            TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
-          </p>
+          <Wrapper>
+                <Header>
+                  <Session>
+                    <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                    <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+                  </Session>
+                  <PassWeek>
+                    <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                    <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                    <Button onClick={handleNextWeek}>sonraki hafta</Button>
+                  </PassWeek>
+                </Header>
+                <Days>
+                  {weeksArray[weekIndex] &&
+                    weeksArray[weekIndex].map((weeks, index) => (
+                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
+                        .filter((program) => program.id === weeks.id).length}`} key={index}>
+                        {programs &&
+                          programs
+                            .filter((program) => program.id === weeks.id)
+                            .map((program, index) => (
+                              <StudentMeeting key={index} index={index} program={program} />
+                            ))
+                        }
+                      </Accordion>)
+
+                    )}
+                </Days>
+              </Wrapper>
         ) : (
           <>
             {role === "Instructor" && (
@@ -125,8 +151,35 @@ export default function FeaturesPage() {
               </Wrapper>
             )}
             {role === "User" && (
-              <p>User</p>
-            )}
+              <Wrapper>
+                <Header>
+                  <Session>
+                    <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                    <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+                  </Session>
+                  <PassWeek>
+                    <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                    <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                    <Button onClick={handleNextWeek}>sonraki hafta</Button>
+                  </PassWeek>
+                </Header>
+                <Days>
+                  {weeksArray[weekIndex] &&
+                    weeksArray[weekIndex].map((weeks, index) => (
+                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
+                        .filter((program) => program.id === weeks.id).length}`} key={index}>
+                        {programs &&
+                          programs
+                            .filter((program) => program.id === weeks.id)
+                            .map((program, index) => (
+                              <StudentMeeting key={index} index={index} program={program} />
+                            ))
+                        }
+                      </Accordion>)
+
+                    )}
+                </Days>
+              </Wrapper>            )}
             {role === "SuperAdmin" && (
               <p>SuperAdmin</p>
             )}
