@@ -5045,6 +5045,9 @@
       "packagesPath": "C:\\Users\\berk\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\berk\\Documents\\GitHub\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
         "C:\\Users\\berk\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"

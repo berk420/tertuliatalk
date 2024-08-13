@@ -1,11 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿namespace TertuliatalkAPI.Entities;
 
-namespace TertuliatalkAPI.Entities;
-
-public partial class User
+public class User
 {
     public Guid Id { get; set; }
+
+    public Guid? SubscriptionId { get; set; }
+
+    public string? StripeCustomerId { get; set; }
 
     public string Name { get; set; } = null!;
 
@@ -13,24 +14,25 @@ public partial class User
 
     public string Password { get; set; } = null!;
 
-    public bool IsActive { get; set; }
+    public bool? IsActive { get; set; }
 
-    public string Role { get; set; } = null!;
-
-    public int Age { get; set; }
-
-    public string? Hobbies { get; set; }
-    
-    public string? LanguageLevel { get; set; }
+    public string? Role { get; set; }
 
     public string? ProfilePhotoUrl { get; set; }
 
+    public int? TotalCourseTaken { get; set; }
 
-    public virtual ICollection<IndividualMeeting> IndividualMeetings { get; set; } = new List<IndividualMeeting>();
+    public int? Age { get; set; }
 
-    public virtual ICollection<Meeting> Meetings { get; set; } = new List<Meeting>();
+    public string? Hobbies { get; set; }
 
-    public virtual ICollection<PublicMeeting> PublicMeetings { get; set; } = new List<PublicMeeting>();
+    public string? LanguageLevel { get; set; }
 
-    public virtual ICollection<StudentMeeting> StudentMeetings { get; set; } = new List<StudentMeeting>();
+    public DateTime CreatedDate { get; set; }
+
+    public DateTime? UpdatedDate { get; set; }
+
+    public virtual Subscription? Subscription { get; set; }
+
+    public virtual ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
 }

@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
 
 namespace TertuliatalkAPI.Controllers;
@@ -11,7 +11,7 @@ namespace TertuliatalkAPI.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    
+
     public UserController(IUserService userService)
     {
         _userService = userService;
@@ -21,7 +21,7 @@ public class UserController : ControllerBase
     public async Task<ActionResult<ApiResponse<List<User>>>> GetUsers()
     {
         var response = await _userService.GetUsers();
-        return Ok(new ApiResponse<List<User>>(response));
+        return Ok(new ApiResponse<List<User?>>(response));
     }
 
     [HttpGet("{id}")]
@@ -30,9 +30,8 @@ public class UserController : ControllerBase
         var response = await _userService.GetUser(id);
 
         if (response == null)
-            return NotFound(new ApiResponse<User>("User not found."));
+            throw new NotFoundException($"User with ID {id} not found");
 
         return Ok(new ApiResponse<User>(response));
     }
-    
 }

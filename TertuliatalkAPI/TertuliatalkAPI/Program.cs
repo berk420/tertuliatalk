@@ -1,19 +1,41 @@
+using System.Text;
+using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Web;
+using Microsoft.IdentityModel.Tokens;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Middlewares;
 using TertuliatalkAPI.Services;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.Identity.Web;
-using Microsoft.Identity.Web.Resource;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Configure Authentication and JWT Bearer
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+// builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+//     .AddMicrosoftIdentityWebApi(builder.Configuration.GetSection("AzureAd"));
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddJwtBearer(o =>
+{
+    o.TokenValidationParameters = new TokenValidationParameters()
+    {
+        ValidIssuer = builder.Configuration["AppSettings:ValidIssuer"],
+        ValidAudience = builder.Configuration["AppSettings:ValidAudience"],
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = false,
+        ValidateIssuerSigningKey = true
+    };
+});
+
+// Add Authorization
+builder.Services.AddAuthorization();
 
 // Add services to the container.
 builder.Services.AddControllers();
@@ -25,14 +47,14 @@ builder.Services.AddCors(options =>
         builder =>
         {
             builder.AllowAnyOrigin()
-                   .AllowAnyMethod()
-                   .AllowAnyHeader();
+                .AllowAnyMethod()
+                .AllowAnyHeader();
         });
 });
 
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
+builder.Services.AddDbContext<TertuliatalksDbContext>(options =>
     options.UseNpgsql(connectionString));
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -42,9 +64,12 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IInstructorService, InstructorService>();
 
-// Add Authorization
-builder.Services.AddAuthorization();
+
+builder.Services.AddControllers().AddJsonOptions(x =>
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
 
 var app = builder.Build();
 
@@ -60,10 +85,14 @@ app.UseCors("AllowAll");
 
 app.UseHttpsRedirection();
 
+
 app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+//Middlewares
+app.UseMiddleware<ExceptionMiddleware>();
 
 app.MapGet("/", (HttpContext httpContext) => "hello world")
     .RequireAuthorization();
