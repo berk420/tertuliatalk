@@ -63,7 +63,7 @@ export default function FeaturesPage() {
           </p>
         ) : (
           <>
-            {role === "Teacher" && (
+            {role === "Instructor" && (
               <Wrapper>
                 <Header>
                   <Session>

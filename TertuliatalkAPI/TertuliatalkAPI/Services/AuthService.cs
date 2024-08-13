@@ -22,13 +22,15 @@ public class AuthService : IAuthService
     public async Task<UserLoginResponse> LoginUser(UserLoginRequest request)
     {
         var user = await _userService.GetUserByEmail(request.Email);
+        if (user == null)
+            throw new NotFoundException($"User with Email {request.Email} not found");
 
         var verified = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
         if (!verified)
             throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
 
         var generatedTokenInformation =
-            await _tokenService.GenerateToken(new GenerateTokenRequest { Email = request.Email });
+            await _tokenService.GenerateToken(new GenerateTokenRequest { Email = user.Email, Role = user.Role});
 
         UserLoginResponse response = new()
         {
@@ -44,6 +46,8 @@ public class AuthService : IAuthService
     public async Task<InstructorLoginResponse> LoginInstructor(InstructorLoginRequest request)
     {
         var instructor = await _instructorService.GetInstructorByEmail(request.Email);
+        if (instructor == null)
+            throw new NotFoundException($"Instructor with Email {request.Email} not found");
 
         var verified = BCrypt.Net.BCrypt.Verify(request.Password, instructor.Password);
         if (!verified)

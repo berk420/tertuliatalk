@@ -30,18 +30,12 @@ public class UserService : IUserService
     public async Task<User> GetUser(Guid id)
     {
         var user = await _context.Users.FindAsync(id);
-        if (user == null)
-            throw new NotFoundException($"User with ID {id} not found");
-
         return user;
     }
 
     public async Task<User> GetUserByEmail(string email)
     {
         var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
-        if (user == null)
-            throw new NotFoundException($"User with Email {email} not found");
-
         return user;
     }
 }

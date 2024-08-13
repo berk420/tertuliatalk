@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
 
 namespace TertuliatalkAPI.Controllers;
@@ -29,7 +30,7 @@ public class UserController : ControllerBase
         var response = await _userService.GetUser(id);
 
         if (response == null)
-            return NotFound(new ApiResponse<User>("User not found."));
+            throw new NotFoundException($"User with ID {id} not found");
 
         return Ok(new ApiResponse<User>(response));
     }
