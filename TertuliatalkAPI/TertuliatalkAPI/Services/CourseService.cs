@@ -2,18 +2,21 @@ using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Services;
 
 public class CourseService : ICourseService
 {
+    private readonly IAuthService _authService;
     private readonly TertuliatalksDbContext _context;
     private readonly ILogger<CourseService> _logger;
 
-    public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger)
+    public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger, IAuthService authService)
     {
         _context = context;
         _logger = logger;
+        _authService = authService;
     }
 
     public async Task<List<Course>> GetAllCourses()
@@ -31,9 +34,23 @@ public class CourseService : ICourseService
         return course;
     }
 
-    public async Task<Course> CreateCourse(Course course)
+    public async Task<Course> CreateCourse(CreateCourseRequest request)
     {
-        throw new NotImplementedException();
+        var instructor = await _authService.GetLoggedInstructor();
+
+        var course = new Course(
+            request.Title,
+            request.Description,
+            request.Type,
+            request.Participants,
+            request.MaxParticipants,
+            instructor.Id
+        );
+        
+        var newCourse = _context.Courses.Add(course).Entity;
+        await _context.SaveChangesAsync();
+
+        return newCourse;
     }
 
     public async Task DeleteCourse(Guid courseId)

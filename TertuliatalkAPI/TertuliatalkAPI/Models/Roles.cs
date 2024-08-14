@@ -2,6 +2,6 @@ namespace TertuliatalkAPI.Models;
 
 public static class Roles
 {
-    public const string Instructor = "instructor";
-    public const string User = "user";
+    public const string Instructor = "Instructor";
+    public const string User = "User";
 }

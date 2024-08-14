@@ -1,5 +1,7 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
@@ -19,8 +21,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpGet]
-    [AllowAnonymous] // change with JWT
-    // [Authorize(Roles = Roles.Instructor)]
+    [Authorize]
     public async Task<ActionResult<ApiResponse<List<Course>>>> GetAllCourses()
     {
         var response = await _courseService.GetAllCourses();
@@ -28,11 +29,22 @@ public class CourseController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    [AllowAnonymous] // change with JWT
-    // [Authorize(Roles = Roles.Instructor)]
+    [Authorize]
     public async Task<ActionResult<ApiResponse<Course>>> GetCourseById(Guid id)
     {
         var response = await _courseService.GetCourseById(id);
+        return Ok(new ApiResponse<Course>(response));
+    }
+
+    [HttpPost("create-course")]
+    [Authorize(Roles = Roles.Instructor)]
+    public async Task<ActionResult<ApiResponse<EntityEntry<Course>>>> CreateCourse(
+        [FromBody] CreateCourseRequest request)
+    {
+        Console.WriteLine();
+        Console.WriteLine(User.FindFirst(ClaimTypes.Email)?.Value);
+        Console.WriteLine();
+        var response = await _courseService.CreateCourse(request);
         return Ok(new ApiResponse<Course>(response));
     }
 }
