@@ -41,9 +41,6 @@ public class CourseController : ControllerBase
     public async Task<ActionResult<ApiResponse<EntityEntry<Course>>>> CreateCourse(
         [FromBody] CreateCourseRequest request)
     {
-        Console.WriteLine();
-        Console.WriteLine(User.FindFirst(ClaimTypes.Email)?.Value);
-        Console.WriteLine();
         var response = await _courseService.CreateCourse(request);
         return Ok(new ApiResponse<Course>(response));
     }
