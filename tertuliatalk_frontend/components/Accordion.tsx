@@ -67,7 +67,7 @@ export default function Accordion({ title, subTitle, isOpen, children, setProgra
         <Cursor>
           <RowFlex>
             {
-              role === Roles.TEACHER && <IoMdAdd size={32} onClick={manageForm} />
+              role === Roles.INSTRUCTOR && <IoMdAdd size={32} onClick={manageForm} />
             }
             <Icon isActive={isActive} onClick={manageCollapse}>
               <svg
