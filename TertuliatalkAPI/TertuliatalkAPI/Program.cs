@@ -1,6 +1,7 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using TertuliatalkAPI.Entities;
@@ -54,6 +55,19 @@ builder.Services.AddCors(options =>
         });
 });
 
+// Response Cache
+builder.Services.AddResponseCaching();
+
+builder.Services.AddResponseCaching();
+builder.Services.AddControllers(options =>
+{
+    options.CacheProfiles.Add("Default10",
+        new CacheProfile()
+        {
+            Duration = 10
+        });
+});
+
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TertuliatalksDbContext>(options =>
@@ -84,6 +98,8 @@ if (app.Environment.IsDevelopment())
 
 // Use CORS
 app.UseCors("AllowAll");
+
+app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 

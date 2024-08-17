@@ -8,6 +8,7 @@ namespace TertuliatalkAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[ResponseCache(CacheProfileName = "Default10")]
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;

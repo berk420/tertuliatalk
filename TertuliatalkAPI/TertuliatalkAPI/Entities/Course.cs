@@ -3,13 +3,15 @@
 public class Course
 {
     public Course(string title, string description, string type, int? participants, int? maxParticipants,
-        Guid instructorId)
+        DateTime startDate, TimeSpan duration, Guid instructorId)
     {
         Title = title;
         Description = description;
         Type = type;
         Participants = participants;
         MaxParticipants = maxParticipants;
+        StartDate = startDate;
+        Duration = duration;
         InstructorId = instructorId;
     }
 

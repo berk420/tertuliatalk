@@ -31,7 +31,7 @@ public class AuthService : IAuthService
 
         var verified = BCrypt.Net.BCrypt.Verify(request.Password, user.Password);
         if (!verified)
-            throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
+            throw new UnauthorizedException("Wrong Password or Email.");
 
         var generatedTokenInformation =
             await _tokenService.GenerateToken(new GenerateTokenRequest { Email = user.Email, Role = user.Role });
@@ -55,7 +55,7 @@ public class AuthService : IAuthService
 
         var verified = BCrypt.Net.BCrypt.Verify(request.Password, instructor.Password);
         if (!verified)
-            throw new HttpResponseException(HttpStatusCode.Unauthorized, "Wrong Password or Email.");
+            throw new UnauthorizedException("Wrong Password or Email.");
 
         var generatedTokenInformation =
             await _tokenService.GenerateToken(new GenerateTokenRequest
@@ -88,24 +88,24 @@ public class AuthService : IAuthService
         return await _userService.AddUser(user);
     }
 
-    public async Task<Instructor> GetLoggedUser()
+    public async Task<User> GetLoggedUser()
     {
-        var user = _httpContextAccessor.HttpContext?.User;
+        var userClaim = _httpContextAccessor.HttpContext?.User;
 
-        var email = user?.FindFirst(ClaimTypes.Email)?.Value;
+        var email = userClaim?.FindFirst(ClaimTypes.Email)?.Value;
         if (email == null) throw new UnauthorizedAccessException("User email is not available in token");
 
-        var instructor = await _instructorService.GetInstructorByEmail(email);
-        if (instructor == null) throw new NotFoundException("User not found");
+        var user = await _userService.GetUserByEmail(email);
+        if (user == null) throw new NotFoundException("User not found");
 
-        return instructor;
+        return user;
     }
 
     public async Task<Instructor> GetLoggedInstructor()
     {
-        var user = _httpContextAccessor.HttpContext?.User;
+        var userClaim = _httpContextAccessor.HttpContext?.User;
 
-        var email = user?.FindFirst(ClaimTypes.Email)?.Value;
+        var email = userClaim?.FindFirst(ClaimTypes.Email)?.Value;
         if (email == null) throw new UnauthorizedAccessException("User email is not available in token");
 
         var instructor = await _instructorService.GetInstructorByEmail(email);
