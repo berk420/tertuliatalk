@@ -9,11 +9,12 @@ namespace TertuliatalkAPI.Services;
 public class CourseService : ICourseService
 {
     private readonly IAuthService _authService;
-    private readonly IUserService _userService;
     private readonly TertuliatalksDbContext _context;
     private readonly ILogger<CourseService> _logger;
+    private readonly IUserService _userService;
 
-    public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger, IAuthService authService, IUserService userService)
+    public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger, IAuthService authService,
+        IUserService userService)
     {
         _context = context;
         _logger = logger;
@@ -38,7 +39,6 @@ public class CourseService : ICourseService
 
     public Task<List<Course>> GetCoursesByDateRange(DateTime startDate, DateTime endDate)
     {
-        
         var utcStartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
         var utcEndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
@@ -62,7 +62,7 @@ public class CourseService : ICourseService
             // request.Document,
             instructor.Id
         );
-        
+
         var newCourse = _context.Courses.Add(course).Entity;
         await _context.SaveChangesAsync();
 
@@ -73,7 +73,7 @@ public class CourseService : ICourseService
     {
         var instructor = await _authService.GetLoggedInstructor();
 
-        var course = await this.GetCourseById(courseId);
+        var course = await GetCourseById(courseId);
 
         if (course.InstructorId != instructor.Id)
             throw new UnauthorizedException("You are not authorized to access this course.");
@@ -82,35 +82,29 @@ public class CourseService : ICourseService
         await _context.SaveChangesAsync();
     }
 
-    public async Task<bool> HasUserJoinedInCourse(Guid courseId, Guid userId)
-    {
-        var user = await _userService.GetUser(userId);
-        foreach (var userCourse in user.UserCourses)
-        {
-            if (userCourse.CourseId == courseId)
-                return true;
-        }
-        return false;
-    }
-
     public async Task<Course> AddUserToCourse(Guid courseId)
     {
+        var course = await GetCourseById(courseId);
         var user = await _authService.GetLoggedUser();
         
-        var course = await this.GetCourseById(courseId);
+        if (course.Status == "Started")
+            throw new InvalidOperationException("This course has started.");
+        
+        if (course.MaxParticipants == course.Participants)
+            throw new InvalidOperationException("The course has reached the maximum number of participants.");
 
-        var hasJoinedCourse = await this.HasUserJoinedInCourse(course.Id, user.Id);
+        var hasJoinedCourse = await HasUserJoinedInCourse(course.Id, user.Id);
         if (hasJoinedCourse)
             throw new InvalidOperationException("User is already join in this course.");
 
         var userCourse = new UserCourse
         {
             UserId = user.Id,
-            CourseId = course.Id,
+            CourseId = course.Id
         };
-        
+
         _context.UserCourses.Add(userCourse);
-        
+
         course.Participants++;
         await _context.SaveChangesAsync();
 
@@ -119,21 +113,31 @@ public class CourseService : ICourseService
 
     public async Task<Course> RemoveUserToCourse(Guid courseId)
     {
+        var course = await GetCourseById(courseId);
         var user = await _authService.GetLoggedUser();
+
+        var hasJoinedCourse = await HasUserJoinedInCourse(course.Id, user.Id);
         
-        var course = await this.GetCourseById(courseId);
-        
-        var hasJoinedCourse = await this.HasUserJoinedInCourse(course.Id, user.Id);
         if (!hasJoinedCourse)
             throw new InvalidOperationException("User is not in the this course.");
 
-        var userCourse = await _context.UserCourses.FirstOrDefaultAsync(uc => uc.UserId == user.Id && uc.CourseId == course.Id);
+        var userCourse =
+            await _context.UserCourses.FirstOrDefaultAsync(uc => uc.UserId == user.Id && uc.CourseId == course.Id);
 
         _context.UserCourses.Remove(userCourse);
-        
+
         course.Participants--;
         await _context.SaveChangesAsync();
 
         return course;
+    }
+
+    public async Task<bool> HasUserJoinedInCourse(Guid courseId, Guid userId)
+    {
+        var user = await _userService.GetUser(userId);
+        foreach (var userCourse in user.UserCourses)
+            if (userCourse.CourseId == courseId)
+                return true;
+        return false;
     }
 }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Infrastructure;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Middlewares;
 using TertuliatalkAPI.Services;
@@ -35,6 +36,9 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Infrastructure
+builder.Services.AddInfrastructure();
+
 // Add Authorization
 builder.Services.AddAuthorization();
 
@@ -62,7 +66,7 @@ builder.Services.AddResponseCaching();
 builder.Services.AddControllers(options =>
 {
     options.CacheProfiles.Add("Default10",
-        new CacheProfile()
+        new CacheProfile
         {
             Duration = 10
         });
@@ -103,12 +107,11 @@ app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 
-
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();
-
 
 //Middlewares
 app.UseMiddleware<ExceptionMiddleware>();

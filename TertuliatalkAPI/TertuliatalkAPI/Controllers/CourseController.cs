@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
@@ -36,7 +35,7 @@ public class CourseController : ControllerBase
         var response = await _courseService.GetCourseById(id);
         return Ok(new ApiResponse<Course>(response));
     }
-    
+
     [HttpGet("getByDateRange")]
     public async Task<ActionResult<ApiResponse<List<Course>>>> GetCourseByDateRange(DateTime startDate,
         DateTime endDate)
@@ -69,7 +68,7 @@ public class CourseController : ControllerBase
         var response = await _courseService.AddUserToCourse(courseId);
         return Ok(new ApiResponse<Course>(response));
     }
-    
+
     [HttpPost("leave-course")]
     [Authorize(Roles = Roles.User)]
     public async Task<ActionResult<ApiResponse<Course>>> LeaveCourse(Guid courseId)
