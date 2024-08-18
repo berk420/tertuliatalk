@@ -611,3 +611,6 @@ C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\obj\Debu
 C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\obj\Debug\net8.0\TertuliatalkAPI.pdb
 C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\obj\Debug\net8.0\TertuliatalkAPI.genruntimeconfig.cache
 C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\obj\Debug\net8.0\ref\TertuliatalkAPI.dll
+C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\bin\Debug\net8.0\Quartz.dll
+C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\bin\Debug\net8.0\Quartz.Extensions.DependencyInjection.dll
+C:\Users\USER\source\repos\tertuliatalk\TertuliatalkAPI\TertuliatalkAPI\bin\Debug\net8.0\Quartz.Extensions.Hosting.dll

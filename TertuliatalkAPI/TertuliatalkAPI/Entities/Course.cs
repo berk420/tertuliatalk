@@ -2,14 +2,13 @@
 
 public class Course
 {
-    public Course(string title, string description, string type, int? participants, int? maxParticipants,
+    public Course(string title, string description, int? maxParticipants,
         DateTime startDate, TimeSpan duration, Guid instructorId)
     {
         Title = title;
         Description = description;
-        Type = type;
-        Participants = participants;
-        MaxParticipants = maxParticipants;
+        Type = maxParticipants > 1 ? "Public" : "Private";
+        MaxParticipants = maxParticipants == null ? 1 : maxParticipants;
         StartDate = startDate;
         Duration = duration;
         InstructorId = instructorId;

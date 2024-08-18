@@ -6,8 +6,6 @@ public class CreateCourseRequest
 
     public string Description { get; set; } = null!;
 
-    public string Type { get; set; } = null!;
-
     public int? Participants { get; set; }
 
     public int? MaxParticipants { get; set; }

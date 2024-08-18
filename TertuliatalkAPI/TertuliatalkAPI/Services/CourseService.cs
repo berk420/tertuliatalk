@@ -54,8 +54,6 @@ public class CourseService : ICourseService
         var course = new Course(
             request.Title,
             request.Description,
-            request.Type,
-            request.Participants,
             request.MaxParticipants,
             request.StartDate,
             request.Duration,
@@ -86,14 +84,14 @@ public class CourseService : ICourseService
     {
         var course = await GetCourseById(courseId);
         var user = await _authService.GetLoggedUser();
-        
+        var hasJoinedCourse = await HasUserJoinedInCourse(course.Id, user.Id);
+
         if (course.Status == "Started")
             throw new InvalidOperationException("This course has started.");
-        
+
         if (course.MaxParticipants == course.Participants)
             throw new InvalidOperationException("The course has reached the maximum number of participants.");
 
-        var hasJoinedCourse = await HasUserJoinedInCourse(course.Id, user.Id);
         if (hasJoinedCourse)
             throw new InvalidOperationException("User is already join in this course.");
 
@@ -117,7 +115,7 @@ public class CourseService : ICourseService
         var user = await _authService.GetLoggedUser();
 
         var hasJoinedCourse = await HasUserJoinedInCourse(course.Id, user.Id);
-        
+
         if (!hasJoinedCourse)
             throw new InvalidOperationException("User is not in the this course.");
 

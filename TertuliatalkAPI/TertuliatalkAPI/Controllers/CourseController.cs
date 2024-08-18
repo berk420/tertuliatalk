@@ -62,7 +62,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPost("join-course")]
-    [Authorize(Roles = Roles.User)]
+    [Authorize(Roles = Roles.Student)]
     public async Task<ActionResult<ApiResponse<Course>>> JoinCourse(Guid courseId)
     {
         var response = await _courseService.AddUserToCourse(courseId);
@@ -70,7 +70,7 @@ public class CourseController : ControllerBase
     }
 
     [HttpPost("leave-course")]
-    [Authorize(Roles = Roles.User)]
+    [Authorize(Roles = Roles.Student)]
     public async Task<ActionResult<ApiResponse<Course>>> LeaveCourse(Guid courseId)
     {
         var response = await _courseService.RemoveUserToCourse(courseId);

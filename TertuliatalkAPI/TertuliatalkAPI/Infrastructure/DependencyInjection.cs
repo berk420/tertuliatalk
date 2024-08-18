@@ -18,7 +18,7 @@ public static class DependencyInjection
                     trigger
                         .ForJob(jobKey)
                         .WithSimpleSchedule(schedule =>
-                            schedule.WithIntervalInSeconds(5).RepeatForever()));
+                            schedule.WithIntervalInSeconds(60).RepeatForever()));
         });
 
         services.AddQuartzHostedService();

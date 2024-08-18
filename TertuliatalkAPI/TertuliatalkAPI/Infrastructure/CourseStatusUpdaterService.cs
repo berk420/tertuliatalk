@@ -20,17 +20,21 @@ public class CourseStatusUpdaterService : IJob
         var now = DateTime.UtcNow;
 
         var courses = await _context.Courses
-            .Where(c => c.StartDate <= now && c.Status == "Active")
+            .Where(c => c.StartDate <= now && (c.Status == "Active" || c.Status == "Started"))
             .ToListAsync();
 
         if (courses.Count > 0)
         {
             foreach (var course in courses)
             {
-                course.Status = "Started";
-                course.UpdatedDate = DateTime.UtcNow;
+                if (course.Status != "Started")
+                    course.Status = "Started";
 
-                _logger.LogInformation($"Course {course.Id} updated status.");
+                else if (course.StartDate + course.Duration <= now)
+                    course.Status = "Finished";
+
+                course.UpdatedDate = DateTime.UtcNow;
+                _logger.LogInformation("Course {courseId} updated status.", course.Id);
             }
             await _context.SaveChangesAsync();
         }
