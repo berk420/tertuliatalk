@@ -1,10 +1,11 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Identity.Web;
 using Microsoft.IdentityModel.Tokens;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Infrastructure;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Middlewares;
 using TertuliatalkAPI.Services;
@@ -22,11 +23,12 @@ builder.Services.AddAuthentication(options =>
     options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
 }).AddJwtBearer(o =>
 {
-    o.TokenValidationParameters = new TokenValidationParameters()
+    o.TokenValidationParameters = new TokenValidationParameters
     {
         ValidIssuer = builder.Configuration["AppSettings:ValidIssuer"],
         ValidAudience = builder.Configuration["AppSettings:ValidAudience"],
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
+        IssuerSigningKey =
+            new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["AppSettings:Secret"])),
         ValidateIssuer = true,
         ValidateAudience = true,
         ValidateLifetime = false,
@@ -34,11 +36,16 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+// Add Infrastructure
+builder.Services.AddInfrastructure();
+
 // Add Authorization
 builder.Services.AddAuthorization();
 
 // Add services to the container.
 builder.Services.AddControllers();
+
+builder.Services.AddHttpContextAccessor();
 
 // Configure CORS
 builder.Services.AddCors(options =>
@@ -49,6 +56,19 @@ builder.Services.AddCors(options =>
             builder.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader();
+        });
+});
+
+// Response Cache
+builder.Services.AddResponseCaching();
+
+builder.Services.AddResponseCaching();
+builder.Services.AddControllers(options =>
+{
+    options.CacheProfiles.Add("Default10",
+        new CacheProfile
+        {
+            Duration = 10
         });
 });
 
@@ -83,10 +103,12 @@ if (app.Environment.IsDevelopment())
 // Use CORS
 app.UseCors("AllowAll");
 
+app.UseResponseCaching();
+
 app.UseHttpsRedirection();
 
-
 app.UseAuthentication();
+
 app.UseAuthorization();
 
 app.MapControllers();

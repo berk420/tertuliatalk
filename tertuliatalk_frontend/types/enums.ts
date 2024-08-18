@@ -10,7 +10,7 @@ export const enum Days {
 
 
 export const enum Roles {
-  TEACHER = "Teacher",
+  INSTRUCTOR = "Instructor",
   STUDENT = "Student",
   ADMIN = "Admin",
 }

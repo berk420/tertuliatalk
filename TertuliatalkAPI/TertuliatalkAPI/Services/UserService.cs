@@ -1,6 +1,5 @@
 using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
-using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
 
 namespace TertuliatalkAPI.Services;

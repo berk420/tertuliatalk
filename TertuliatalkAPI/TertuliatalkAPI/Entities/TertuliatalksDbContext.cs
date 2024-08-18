@@ -23,7 +23,7 @@ public partial class TertuliatalksDbContext : DbContext
 
     public virtual DbSet<Subscription> Subscriptions { get; set; }
 
-    public virtual DbSet<User?> Users { get; set; }
+    public virtual DbSet<User> Users { get; set; }
 
     public virtual DbSet<UserCourse> UserCourses { get; set; }
 
@@ -45,6 +45,7 @@ public partial class TertuliatalksDbContext : DbContext
             entity.Property(e => e.Id).HasDefaultValueSql("uuid_generate_v4()");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("now()");
             entity.Property(e => e.Participants).HasDefaultValue(1);
+            entity.Property(e => e.Status).HasDefaultValueSql("'Active'::text");
 
             entity.HasOne(d => d.Instructor).WithMany(p => p.Courses).HasForeignKey(d => d.InstructorId);
         });
@@ -53,6 +54,7 @@ public partial class TertuliatalksDbContext : DbContext
         {
             entity.Property(e => e.Id).HasDefaultValueSql("uuid_generate_v4()");
             entity.Property(e => e.CreatedDate).HasDefaultValueSql("now()");
+            entity.Property(e => e.Role).HasDefaultValueSql("'Instructor'::text");
         });
 
         modelBuilder.Entity<InstructorPayment>(entity =>
@@ -102,7 +104,7 @@ public partial class TertuliatalksDbContext : DbContext
             entity.Property(e => e.IsActive)
                 .HasDefaultValue(true)
                 .HasColumnName("isActive");
-            entity.Property(e => e.Role).HasDefaultValueSql("USER");
+            entity.Property(e => e.Role).HasDefaultValueSql("'User'::text");
 
             entity.HasOne(d => d.Subscription).WithMany(p => p.Users).HasForeignKey(d => d.SubscriptionId);
         });
