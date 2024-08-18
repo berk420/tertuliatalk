@@ -84,6 +84,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<IAuthService, AuthService>();
 builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IInstructorService, InstructorService>();
 

@@ -36,6 +36,7 @@ public class CourseStatusUpdaterService : IJob
                 course.UpdatedDate = DateTime.UtcNow;
                 _logger.LogInformation("Course {courseId} updated status.", course.Id);
             }
+
             await _context.SaveChangesAsync();
         }
     }
