@@ -10,7 +10,6 @@ namespace TertuliatalkAPI.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-[ResponseCache(CacheProfileName = "Default10")]
 public class CourseController : ControllerBase
 {
     private readonly ICourseService _courseService;

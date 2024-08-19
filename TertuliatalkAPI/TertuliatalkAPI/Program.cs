@@ -59,19 +59,6 @@ builder.Services.AddCors(options =>
         });
 });
 
-// Response Cache
-builder.Services.AddResponseCaching();
-
-builder.Services.AddResponseCaching();
-builder.Services.AddControllers(options =>
-{
-    options.CacheProfiles.Add("Default10",
-        new CacheProfile
-        {
-            Duration = 10
-        });
-});
-
 // Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<TertuliatalksDbContext>(options =>
@@ -103,8 +90,6 @@ if (app.Environment.IsDevelopment())
 
 // Use CORS
 app.UseCors("AllowAll");
-
-app.UseResponseCaching();
 
 app.UseHttpsRedirection();
 
