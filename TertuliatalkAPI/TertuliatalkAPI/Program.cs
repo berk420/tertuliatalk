@@ -116,6 +116,7 @@ app.MapControllers();
 
 //Middlewares
 app.UseMiddleware<ExceptionMiddleware>();
+app.UseMiddleware<GlobalLogger>();
 
 app.MapGet("/", (HttpContext httpContext) => "hello world")
     .RequireAuthorization();

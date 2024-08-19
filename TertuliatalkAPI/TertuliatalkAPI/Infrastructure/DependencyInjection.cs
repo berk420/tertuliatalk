@@ -8,15 +8,27 @@ public static class DependencyInjection
     {
         services.AddQuartz(options =>
         {
-            var jobKey = JobKey.Create(nameof(CourseStatusUpdaterService));
+            var courseStatusUpdatederJobKey = JobKey.Create(nameof(CourseStatusUpdaterService));
 
             options.UseMicrosoftDependencyInjectionJobFactory();
 
             options
-                .AddJob<CourseStatusUpdaterService>(jobKey)
+                .AddJob<CourseStatusUpdaterService>(courseStatusUpdatederJobKey)
                 .AddTrigger(trigger =>
                     trigger
-                        .ForJob(jobKey)
+                        .ForJob(courseStatusUpdatederJobKey)
+                        .WithSimpleSchedule(schedule =>
+                            schedule.WithIntervalInSeconds(60).RepeatForever()));
+            
+            var courseReminderJobKey = JobKey.Create(nameof(CourseReminderService));
+
+            options.UseMicrosoftDependencyInjectionJobFactory();
+
+            options
+                .AddJob<CourseReminderService>(courseReminderJobKey)
+                .AddTrigger(trigger =>
+                    trigger
+                        .ForJob(courseReminderJobKey)
                         .WithSimpleSchedule(schedule =>
                             schedule.WithIntervalInSeconds(60).RepeatForever()));
         });
