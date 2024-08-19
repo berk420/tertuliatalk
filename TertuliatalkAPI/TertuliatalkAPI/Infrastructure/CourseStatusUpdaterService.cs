@@ -1,6 +1,7 @@
 using LinqToDB;
 using Quartz;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Infrastructure;
 
@@ -17,26 +18,45 @@ public class CourseStatusUpdaterService : IJob
 
     public async Task Execute(IJobExecutionContext context)
     {
+        var coursesToUpdate = await GetCoursesToUpdateAsync();
+
+        foreach (var course in coursesToUpdate)
+        {
+            UpdateCourseStatus(course);
+        }
+
+        if (coursesToUpdate.Any())
+        {
+            await _context.SaveChangesAsync();
+        }
+    }
+
+    private async Task<List<Course>> GetCoursesToUpdateAsync()
+    {
         var now = DateTime.UtcNow;
 
-        var courses = await _context.Courses
-            .Where(c => c.StartDate <= now && (c.Status == "Active" || c.Status == "Started"))
+        return await _context.Courses
+            .Where(c => c.StartDate <= now && (c.Status == CourseStatus.Active || c.Status == CourseStatus.Started))
             .ToListAsync();
+    }
 
-        if (courses.Count > 0)
+    private void UpdateCourseStatus(Course course)
+    {
+        var now = DateTime.UtcNow;
+
+        if (course.Status != CourseStatus.Started && course.StartDate <= now)
         {
-            foreach (var course in courses)
-            {
-                if (course.Status != "Started")
-                    course.Status = "Started";
-
-                else if (course.StartDate + course.Duration <= now)
-                    course.Status = "Finished";
-
-                course.UpdatedDate = DateTime.UtcNow;
-                _logger.LogInformation("Course {courseId} updated status.", course.Id);
-            }
-            await _context.SaveChangesAsync();
+            course.UpdatedDate = now;
+            course.Status = CourseStatus.Started;
+            
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, course.Status, now);
+        }
+        else if (course.StartDate + course.Duration <= now)
+        {
+            course.UpdatedDate = now;
+            course.Status = CourseStatus.Finished;
+            
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, course.Status, now);
         }
     }
 }

@@ -10,16 +10,18 @@ public class CourseService : ICourseService
 {
     private readonly IAuthService _authService;
     private readonly TertuliatalksDbContext _context;
+    private readonly IEmailService _emailService;
     private readonly ILogger<CourseService> _logger;
     private readonly IUserService _userService;
 
     public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger, IAuthService authService,
-        IUserService userService)
+        IUserService userService, IEmailService emailService)
     {
         _context = context;
         _logger = logger;
         _authService = authService;
         _userService = userService;
+        _emailService = emailService;
     }
 
     public async Task<List<Course>> GetAllCourses()
@@ -100,11 +102,12 @@ public class CourseService : ICourseService
             UserId = user.Id,
             CourseId = course.Id
         };
-
         _context.UserCourses.Add(userCourse);
 
         course.Participants++;
         await _context.SaveChangesAsync();
+
+        await _emailService.SendCourseJoinEmailAsync(user.Name, user.Email, course.Title);
 
         return course;
     }
