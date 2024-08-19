@@ -49,14 +49,14 @@ public class CourseStatusUpdaterService : IJob
             course.UpdatedDate = now;
             course.Status = CourseStatus.Started;
             
-            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, course.Status, now);
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, CourseStatus.Started, now);
         }
         else if (course.StartDate + course.Duration <= now)
         {
             course.UpdatedDate = now;
             course.Status = CourseStatus.Finished;
             
-            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, course.Status, now);
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, CourseStatus.Finished, now);
         }
     }
 }
