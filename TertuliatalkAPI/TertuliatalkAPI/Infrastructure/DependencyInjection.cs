@@ -19,7 +19,7 @@ public static class DependencyInjection
                         .ForJob(courseStatusUpdatederJobKey)
                         .WithSimpleSchedule(schedule =>
                             schedule.WithIntervalInSeconds(60).RepeatForever()));
-            
+
             var courseReminderJobKey = JobKey.Create(nameof(CourseReminderService));
 
             options.UseMicrosoftDependencyInjectionJobFactory();

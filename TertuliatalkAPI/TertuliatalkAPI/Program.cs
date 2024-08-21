@@ -1,11 +1,14 @@
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using StackExchange.Redis;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Infrastructure;
+using TertuliatalkAPI.Infrastructure.Interfaces;
+using TertuliatalkAPI.Infrastructure.Repositories;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Middlewares;
 using TertuliatalkAPI.Services;
@@ -35,6 +38,10 @@ builder.Services.AddAuthentication(options =>
         ValidateIssuerSigningKey = true
     };
 });
+
+// Redis Configuration
+var redisConnectionString = builder.Configuration.GetConnectionString("Redis");
+builder.Services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(redisConnectionString));
 
 // Add Infrastructure
 builder.Services.AddInfrastructure();
@@ -73,7 +80,11 @@ builder.Services.AddTransient<IUserService, UserService>();
 builder.Services.AddTransient<ITokenService, TokenService>();
 builder.Services.AddTransient<IEmailService, EmailService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IRedisCacheService, RedisCacheService>();
 builder.Services.AddTransient<IInstructorService, InstructorService>();
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 
 
 builder.Services.AddControllers().AddJsonOptions(x =>
