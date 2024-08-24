@@ -43,4 +43,20 @@ public class AuthController : ControllerBase
         var response = await _authService.RegisterUser(request);
         return Ok(new ApiResponse<User?>(response));
     }
+
+    [HttpGet("get-logged-user")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<User>>> GetLoggedUser()
+    {
+        var response = await _authService.GetLoggedUser();
+        return Ok(new ApiResponse<User>(response));
+    }
+    
+    [HttpGet("get-logged-instructor")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<Instructor>>> GetLoggedInstructor()
+    {
+        var response = await _authService.GetLoggedInstructor();
+        return Ok(new ApiResponse<Instructor>(response));
+    }
 }
