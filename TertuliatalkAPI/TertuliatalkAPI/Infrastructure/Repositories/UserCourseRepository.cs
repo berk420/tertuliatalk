@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Infrastructure.Interfaces;
 using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 
 namespace TertuliatalkAPI.Infrastructure.Repositories;
@@ -7,10 +8,12 @@ namespace TertuliatalkAPI.Infrastructure.Repositories;
 public class UserCourseRepository : IUserCourseRepository
 {
     private readonly TertuliatalksDbContext _context;
+    private readonly IRedisCacheService _cacheService;
 
-    public UserCourseRepository(TertuliatalksDbContext context)
+    public UserCourseRepository(TertuliatalksDbContext context, IRedisCacheService cacheService)
     {
         _context = context;
+        _cacheService = cacheService;
     }
 
     public async Task<List<UserCourse>> GetAllUserCoursesAsync()

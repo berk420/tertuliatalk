@@ -83,7 +83,9 @@ builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IRedisCacheService, RedisCacheService>();
 builder.Services.AddTransient<IInstructorService, InstructorService>();
 
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IInstructorRepository, IntructorRepository>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 
 

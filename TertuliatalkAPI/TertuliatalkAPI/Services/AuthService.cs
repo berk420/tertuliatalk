@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
 
@@ -8,23 +9,23 @@ namespace TertuliatalkAPI.Services;
 
 public class AuthService : IAuthService
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-    private readonly IInstructorService _instructorService;
     private readonly ITokenService _tokenService;
-    private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
+    private readonly IInstructorRepository _instructorRepository;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public AuthService(IUserService userService, ITokenService tokenService, IInstructorService instructorService,
-        IHttpContextAccessor httpContextAccessor)
+    public AuthService(IUserRepository userRepository, ITokenService tokenService,
+        IHttpContextAccessor httpContextAccessor, IInstructorRepository instructorRepository)
     {
-        _userService = userService;
         _tokenService = tokenService;
-        _instructorService = instructorService;
+        _userRepository = userRepository;
         _httpContextAccessor = httpContextAccessor;
+        _instructorRepository = instructorRepository;
     }
 
     public async Task<UserLoginResponse> LoginUser(UserLoginRequest request)
     {
-        var user = await _userService.GetUserByEmail(request.Email);
+        var user = await _userRepository.GetUserByEmail(request.Email);
         if (user == null)
             throw new NotFoundException($"User with Email {request.Email} not found");
 
@@ -48,7 +49,7 @@ public class AuthService : IAuthService
 
     public async Task<InstructorLoginResponse> LoginInstructor(InstructorLoginRequest request)
     {
-        var instructor = await _instructorService.GetInstructorByEmail(request.Email);
+        var instructor = await _instructorRepository.GetInstructorByEmail(request.Email);
         if (instructor == null)
             throw new NotFoundException($"Instructor with Email {request.Email} not found");
 
@@ -73,7 +74,7 @@ public class AuthService : IAuthService
 
     public async Task<User?> RegisterUser(UserRegisterRequest request)
     {
-        var userEmailExist = await _userService.GetUserByEmail(request.Email);
+        var userEmailExist = await _userRepository.GetUserByEmail(request.Email);
         if (userEmailExist != null)
             throw new BadRequestException("User email must be unique!");
 
@@ -84,7 +85,7 @@ public class AuthService : IAuthService
             Password = BCrypt.Net.BCrypt.HashPassword(request.Password)
         };
 
-        return await _userService.AddUser(user);
+        return await _userRepository.AddUserAsync(user);
     }
 
     public async Task<User> GetLoggedUser()
@@ -92,10 +93,12 @@ public class AuthService : IAuthService
         var userClaim = _httpContextAccessor.HttpContext?.User;
 
         var email = userClaim?.FindFirst(ClaimTypes.Email)?.Value;
-        if (email == null) throw new UnauthorizedAccessException("User email is not available in token");
+        if (email == null)
+            throw new UnauthorizedAccessException("User email is not available in token");
 
-        var user = await _userService.GetUserByEmail(email);
-        if (user == null) throw new NotFoundException("User not found");
+        var user = await _userRepository.GetUserByEmail(email);
+        if (user == null)
+            throw new NotFoundException("User not found");
 
         return user;
     }
@@ -105,10 +108,12 @@ public class AuthService : IAuthService
         var userClaim = _httpContextAccessor.HttpContext?.User;
 
         var email = userClaim?.FindFirst(ClaimTypes.Email)?.Value;
-        if (email == null) throw new UnauthorizedAccessException("User email is not available in token");
+        if (email == null)
+            throw new UnauthorizedAccessException("User email is not available in token");
 
-        var instructor = await _instructorService.GetInstructorByEmail(email);
-        if (instructor == null) throw new NotFoundException("Instructor not found");
+        var instructor = await _instructorRepository.GetInstructorByEmail(email);
+        if (instructor == null)
+            throw new NotFoundException("Instructor not found");
 
         return instructor;
     }

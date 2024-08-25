@@ -9,22 +9,22 @@ namespace TertuliatalkAPI.Services;
 public class CourseService : ICourseService
 {
     private readonly IAuthService _authService;
-    private readonly ICourseRepository _courseRepository;
     private readonly IEmailService _emailService;
     private readonly ILogger<CourseService> _logger;
+    private readonly ICourseRepository _courseRepository;
     private readonly IUserCourseRepository _userCourseRepository;
-    private readonly IUserService _userService;
+    private readonly IUserRepository _userRepository;
 
     public CourseService(ILogger<CourseService> logger, IAuthService authService,
-        IUserService userService, IEmailService emailService, ICourseRepository courseRepository,
-        IUserCourseRepository userCourseRepository)
+        IEmailService emailService, ICourseRepository courseRepository,
+        IUserCourseRepository userCourseRepository, IUserRepository userRepository)
     {
         _logger = logger;
         _authService = authService;
-        _userService = userService;
         _emailService = emailService;
         _courseRepository = courseRepository;
         _userCourseRepository = userCourseRepository;
+        _userRepository = userRepository;
     }
 
     public async Task<List<Course>> GetAllCourses()
@@ -132,7 +132,7 @@ public class CourseService : ICourseService
 
     public async Task<bool> HasUserJoinedInCourse(Guid courseId, Guid userId)
     {
-        var user = await _userService.GetUser(userId);
+        var user = await _userRepository.GetUserByIdAsync(userId);
         foreach (var userCourse in user.UserCourses)
             if (userCourse.CourseId == courseId)
                 return true;

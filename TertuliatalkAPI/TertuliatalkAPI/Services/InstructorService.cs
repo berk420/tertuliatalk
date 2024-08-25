@@ -1,32 +1,33 @@
 using LinqToDB;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 
 namespace TertuliatalkAPI.Services;
 
 public class InstructorService : IInstructorService
 {
-    private readonly TertuliatalksDbContext _context;
+    private readonly IInstructorRepository _instructorRepository;
 
-    public InstructorService(TertuliatalksDbContext context)
+    public InstructorService(IInstructorRepository instructorRepository)
     {
-        _context = context;
+        _instructorRepository = instructorRepository;
     }
 
     public async Task<Instructor> AddInstructor(Instructor instructor)
     {
-        throw new NotImplementedException();
+        return await _instructorRepository.AddInstructorAsync(instructor);
     }
 
     public async Task<List<Instructor>> GetAllInstructors()
     {
-        return await _context.Instructors.ToListAsync();
+        return await _instructorRepository.GetAllInstructorsAsync();
     }
 
     public async Task<Instructor> GetInstructorById(Guid instructorId)
     {
-        var instructor = await _context.Instructors.FirstOrDefaultAsync(c => c.Id == instructorId);
+        var instructor = await _instructorRepository.GetInstructorByIdAsync(instructorId);
         if (instructor == null)
             throw new NotFoundException($"Instructor with ID {instructorId} not found");
 
@@ -35,7 +36,7 @@ public class InstructorService : IInstructorService
 
     public async Task<Instructor> GetInstructorByEmail(string email)
     {
-        var instructor = await _context.Instructors.FirstOrDefaultAsync(c => c.Email == email);
+        var instructor = await _instructorRepository.GetInstructorByEmail(email);
         if (instructor == null)
             throw new NotFoundException($"Instructor with Email {email} not found");
 

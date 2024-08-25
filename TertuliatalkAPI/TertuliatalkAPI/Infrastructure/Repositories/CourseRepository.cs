@@ -7,8 +7,8 @@ namespace TertuliatalkAPI.Infrastructure.Repositories;
 
 public class CourseRepository : ICourseRepository
 {
-    private readonly IRedisCacheService _cacheService;
     private readonly TertuliatalksDbContext _context;
+    private readonly IRedisCacheService _cacheService;
 
     public CourseRepository(TertuliatalksDbContext context, IRedisCacheService cacheService)
     {
@@ -18,14 +18,7 @@ public class CourseRepository : ICourseRepository
 
     public async Task<List<Course>> GetAllCoursesAsync()
     {
-        var cachedCourses = await _cacheService.GetAsync<List<Course>>("allCourses");
-
-        if (cachedCourses != null) return cachedCourses;
-
-        var courses = await _context.Courses.Include(c => c.UserCourses).ToListAsync();
-        await _cacheService.SetAsync("allCourses", courses, TimeSpan.FromDays(1));
-
-        return courses;
+        return await _context.Courses.Include(c => c.UserCourses).ToListAsync();
     }
 
     public async Task<Course?> GetCourseByIdAsync(Guid courseId)
@@ -36,18 +29,14 @@ public class CourseRepository : ICourseRepository
 
     public async Task<List<Course>> GetCoursesByDateRangeAsync(DateTime startDate, DateTime endDate)
     {
-        var courses = await _context.Courses
+       return await _context.Courses
             .Where(course => course.StartDate >= startDate && course.StartDate <= endDate).ToListAsync();
-
-        return courses;
     }
 
     public async Task<Course> AddCourseAsync(Course course)
     {
         var newCourse = _context.Courses.Add(course).Entity;
         await _context.SaveChangesAsync();
-        
-        await _cacheService.RemoveAsync("allCourses");
         
         return newCourse;
     }
@@ -56,15 +45,11 @@ public class CourseRepository : ICourseRepository
     {
         _context.Courses.Update(course);
         await _context.SaveChangesAsync();
-        
-        await _cacheService.RemoveAsync("allCourses");
     }
 
     public async Task DeleteCourseAsync(Course course)
     {
         _context.Courses.Remove(course);
         await _context.SaveChangesAsync();
-        
-        await _cacheService.RemoveAsync("allCourses");
     }
 }
