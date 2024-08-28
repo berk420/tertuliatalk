@@ -199,37 +199,28 @@ const InfoBox = styled.div`
 
   li{
       margin: 0.5rem 0;
-      font-size:1.2rem;
+      font-size:1.5rem;
     }
    }
    @media (max-width: 600px) {
       margin: 0 0 0.5rem 0;
+      h2{
+        font-size:1.4rem;
+        margin-bottom:0.5rem;
+      }
+      ul{
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+
       li{
+        margin: 0.5rem 0;
         font-size:1rem;
       }
-      h2{
-        font-size:2rem;
-      }
+      
     }
 `;
 
-//top profile- Sub actions
-// const SubBox = styled.div`
-//   margin: 1rem;
-//   background-color: #efcc63;
-//   padding: 1rem;
-//   border-radius: 3rem;
-//   height: 20%;
-//   border: 0.2rem solid;
-//   display: flex; /* Flex düzeni kullan */
-//   justify-content: space-between; /* Butonlar arasında boşluk bırak */
-  
-//   @media (max-width: 600px) {
-//     margin: 0 0 0.5rem 0;
-//     flex-direction: column; /* Mobilde butonları alt alta diz */
-//     height: auto;
-//   }
-// `;
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 1rem;
