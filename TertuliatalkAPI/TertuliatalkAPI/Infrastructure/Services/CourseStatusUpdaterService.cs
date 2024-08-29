@@ -20,15 +20,9 @@ public class CourseStatusUpdaterService : IJob
     {
         var coursesToUpdate = await GetCoursesToUpdateAsync();
 
-        foreach (var course in coursesToUpdate)
-        {
-            UpdateCourseStatus(course);
-        }
+        foreach (var course in coursesToUpdate) UpdateCourseStatus(course);
 
-        if (coursesToUpdate.Any())
-        {
-            await _context.SaveChangesAsync();
-        }
+        if (coursesToUpdate.Any()) await _context.SaveChangesAsync();
     }
 
     private async Task<List<Course>> GetCoursesToUpdateAsync()
@@ -48,15 +42,17 @@ public class CourseStatusUpdaterService : IJob
         {
             course.UpdatedDate = now;
             course.Status = CourseStatus.Started;
-            
-            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, CourseStatus.Started, now);
+
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id,
+                CourseStatus.Started, now);
         }
         else if (course.StartDate + course.Duration <= now)
         {
             course.UpdatedDate = now;
             course.Status = CourseStatus.Finished;
-            
-            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id, CourseStatus.Finished, now);
+
+            _logger.LogInformation("Course {CourseId} updated status to {Status}. [{Date}]", course.Id,
+                CourseStatus.Finished, now);
         }
     }
 }

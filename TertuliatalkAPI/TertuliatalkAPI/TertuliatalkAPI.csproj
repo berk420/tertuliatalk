@@ -24,6 +24,7 @@
         <PackageReference Include="Microsoft.Identity.Web.UI" Version="2.16.0"/>
         <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.4"/>
         <PackageReference Include="Quartz.Extensions.Hosting" Version="3.13.0"/>
+        <PackageReference Include="StackExchange.Redis" Version="2.8.0"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
 

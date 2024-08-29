@@ -1,4 +1,6 @@
-﻿namespace TertuliatalkAPI.Entities;
+﻿using System.Text.Json.Serialization;
+
+namespace TertuliatalkAPI.Entities;
 
 public class Course
 {
@@ -42,5 +44,5 @@ public class Course
 
     public virtual Instructor Instructor { get; set; } = null!;
 
-    public virtual ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
+    [JsonIgnore] public virtual ICollection<UserCourse> UserCourses { get; set; } = new List<UserCourse>();
 }

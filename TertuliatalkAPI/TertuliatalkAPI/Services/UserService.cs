@@ -1,40 +1,45 @@
 using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 
 namespace TertuliatalkAPI.Services;
 
 public class UserService : IUserService
 {
-    private readonly TertuliatalksDbContext _context;
+    private readonly IUserRepository _userRepository;
 
-    public UserService(TertuliatalksDbContext context)
+    public UserService(IUserRepository userRepository)
     {
-        _context = context;
+        _userRepository = userRepository;
     }
 
-    public async Task<User?> AddUser(User? user)
+    public async Task<User> AddUser(User user)
     {
-        var newUser = _context.Users.Add(user).Entity;
-        await _context.SaveChangesAsync();
-
-        return newUser;
+        return await _userRepository.AddUserAsync(user);
     }
 
-    public async Task<List<User?>> GetUsers()
+    public async Task<List<User>> GetUsers()
     {
-        return await _context.Users.ToListAsync();
+        return await _userRepository.GetAllUsersAsync();
     }
 
-    public async Task<User> GetUser(Guid id)
+    public async Task<User?> GetUser(Guid id)
     {
-        var user = await _context.Users.FindAsync(id);
+        var user =  await _userRepository.GetUserByIdAsync(id);
+        if (user == null)
+            throw new NotFoundException($"User with ID {id} not found");
+
         return user;
     }
 
-    public async Task<User> GetUserByEmail(string email)
+    public async Task<User?> GetUserByEmail(string email)
     {
-        var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var user = await _userRepository.GetUserByEmail(email);
+        if (user == null)
+            throw new NotFoundException($"User with Email {email} not found");
+        
         return user;
     }
 }

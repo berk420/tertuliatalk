@@ -35,7 +35,7 @@ public class CourseController : ControllerBase
         return Ok(new ApiResponse<Course>(response));
     }
 
-    [HttpGet("getByDateRange")]
+    [HttpGet("get-by-date-range")]
     public async Task<ActionResult<ApiResponse<List<Course>>>> GetCourseByDateRange(DateTime startDate,
         DateTime endDate)
     {
