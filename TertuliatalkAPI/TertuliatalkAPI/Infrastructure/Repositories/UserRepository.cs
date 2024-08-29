@@ -1,4 +1,4 @@
-using LinqToDB;
+using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Infrastructure.Interfaces;
 using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
@@ -18,17 +18,25 @@ public class UserRepository : IUserRepository
 
     public async Task<List<User>> GetAllUsersAsync()
     {
-        return await _context.Users.ToListAsync();
+        return await _context.Users
+            .Include(u => u.UserCourses)
+            .ToListAsync();
     }
 
     public async Task<User?> GetUserByIdAsync(Guid userId)
     {
-        return await _context.Users.FindAsync(userId);
+        return await _context.Users
+            .Include(u => u.UserCourses)
+            .ThenInclude(uc => uc.Course)
+            .FirstOrDefaultAsync(u => u.Id == userId);
     }
 
     public async Task<User?> GetUserByEmail(string email)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        return await _context.Users
+            .Include(u => u.UserCourses)
+            .ThenInclude(uc => uc.Course)
+            .FirstOrDefaultAsync(u => u.Email == email);
     }
 
     public async Task<User> AddUserAsync(User user)
