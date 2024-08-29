@@ -1,33 +1,64 @@
+import Cookies from 'js-cookie';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Days as EnumDays } from 'types/enums';
-import AutofitGrid from 'components/AutofitGrid';
 import Page from 'components/Page';
-import { media } from 'utils/media';
-import Accordion from 'components/Accordion';
 import Button from 'components/Button';
 import RichText from 'components/RichText';
-import { times } from 'lodash';
-import Quote from 'components/Quote';
-import SectionTitle from 'components/SectionTitle';
-import { nextSevenDateFormatter } from 'utils/formatDate';
-import React, { useEffect, useState } from 'react';
 //burada kullanıcıdan data gelecek
-const sessionData = [
-  { session: 'Oturum 1', date: '2024-08-25', description: 'Açıklama 1' },
-  { session: 'Oturum 2', date: '2024-08-26', description: 'Açıklama 2' },
-  { session: 'Oturum 3', date: '2024-08-27', description: 'Açıklama 3' },
-];
-
+interface User {
+  name: string;
+  email: string;
+  age: number;
+  profilePhotoUrl: string;
+  isActive: boolean;
+  hobbies: string;
+  languageLevel: string; // veya uygun bir tip
+  userCourses: UserCourse[];
+}
+interface ApiResponse<T> {
+  data: T;
+  error: string;
+  isSuccess: boolean;
+}
+interface UserCourse {
+  courseId: string; 
+  createdDate: string; 
+  updateDate: string; 
+}
 export default function FeaturesPage() {
+  const [user, setUser] = useState<User | null>(null);
+  const [error, setError] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
-
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
-    console.log('userRole:', userRole);
-
-    if (userRole) {
+     if (userRole) {
       setRole(userRole);
     }
+    const fetchUserData = async () => {
+      const token = Cookies.get('token');
+      if (!token) {
+        setError('Token bulunamadı');
+        return;
+      }
+      try {
+        const response = await fetch('http://localhost:5199/api/Auth/get-logged-user', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const result: ApiResponse<User> = await response.json();
+        if (result.isSuccess) {
+          setUser(result.data);
+        } else {
+          setError(result.error);
+        }
+      } catch (error) {
+        setError('Bir hata oluştu');
+        console.error('API çağrısında bir hata oluştu:', error);
+      }
+    };
+
+    fetchUserData();
   }, []);
 
   return (
@@ -49,17 +80,20 @@ export default function FeaturesPage() {
                       alt="Profil Fotoğrafı"
                     />
                     <Button>Düzenle</Button>
-                    <Name>Adınız Soyadınız</Name>
-                    <Description>Buraya sstring bir ifade gelecek.</Description>
+                    {user && <Name>{user.name}</Name>}
+                    <Description>Buraya string bir ifade gelecek.</Description>
                   </LeftColumn>
                   <RightColumn>
                     <InfoBox>
                       <h2>Kişisel Bilgiler</h2>
                       <ul>
-                        <li>Yaş:</li>
-                        <li>Hobiler:</li>
-                        <li>Dil yeterlilik seviyesi:</li>
-                        <li>Telefon: +90 123 456 78 90</li>
+                        {user && (
+                          <>
+                            <li>Yaş: {user.age !=0 ? user.age :""}</li>
+                            <li>Hobiler: {user.hobbies}</li>
+                            <li>Dil yeterlilik seviyesi: {user.languageLevel}</li>
+                          </>
+                        )}
                       </ul>
                       <ButtonInfo>4 hakkınız kaldı</ButtonInfo>
                       <ButtonInfo>Aboneliğimi Duraklat</ButtonInfo>
@@ -67,28 +101,31 @@ export default function FeaturesPage() {
                   </RightColumn>
                 </ProfileWrapper>
                 <BottomSection>
-                    <Table>
+                   <Table>
                       <thead>
                         <tr>
                           <th>Katıldığım Oturumlar</th>
-                          <th>Tarih</th>
-                          <th>Açıklama</th>
+                            <th>Tarih</th>
+                            <th>Açıklama</th>
                         </tr>
                       </thead>
                       <tbody>
-                        {sessionData.map((item, index) => (
-                          <tr key={index}>
-                            <td>{item.session}</td>
-                            <td>{item.date}</td>
-                            <td>{item.description}</td>
-                          </tr>
-                        ))}
+                        {user && user.userCourses && user.userCourses.length > 0 ? (
+                          user.userCourses.map((course, index) => (
+                            <tr key={index}>
+                              <td>{course.courseId}</td>
+                              <td>{course.createdDate}</td>
+                              <td>{course.updateDate}</td>
+                              </tr>
+                        ))
+                        ) : (
+                        <tr>
+                          <td colSpan={3}>No courses available.</td>
+                        </tr>
+                        )}
                       </tbody>
                     </Table>
-                    
                     <ButtonWrapper><ButtonBottom>Tümünü Göster</ButtonBottom></ButtonWrapper>
-                
-                    
                 </BottomSection>
               </>
             )}
@@ -100,7 +137,6 @@ export default function FeaturesPage() {
             )}
           </>
         )}
-        
       </WholeFrame>
     </Page>
   );
@@ -118,7 +154,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  background-color: #f1d775;
+  background-color: #efcc63;
   border-radius: 3rem;
   border: 0.1rem solid;
 `;
@@ -153,6 +189,7 @@ const ProfilePicture = styled.img`
   border:0.4rem,solid;
   &:hover {
     transform: scale(1.1); 
+   
   }
    @media (max-width: 600px) {
       width: 10rem;
@@ -167,9 +204,6 @@ const Name = styled.h1`
   margin: 0.5rem;
   text-align: center;
   font-size: 2.5rem;
-    @media (max-width: 600px) {
-      font-size:2rem;
-    }
 `;
 
 //top profile- description
@@ -199,28 +233,19 @@ const InfoBox = styled.div`
 
   li{
       margin: 0.5rem 0;
-      font-size:1.5rem;
+      font-size:1.2rem;
     }
    }
    @media (max-width: 600px) {
       margin: 0 0 0.5rem 0;
-      h2{
-        font-size:1.4rem;
-        margin-bottom:0.5rem;
-      }
-      ul{
-        list-style-type: none;
-        padding: 0;
-        margin: 0;
-
       li{
-        margin: 0.5rem 0;
         font-size:1rem;
       }
-      
+      h2{
+        font-size:2rem;
+      }
     }
 `;
-
 const Button = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 1rem;
@@ -237,7 +262,6 @@ const Button = styled.button`
   
   @media (max-width: 600px) {
     margin-bottom: 0.5rem; 
-    font-size: 1rem;
   }
 `;
 const ButtonInfo = styled.button`
@@ -257,13 +281,13 @@ const ButtonInfo = styled.button`
   @media (max-width: 600px) {
     margin-bottom: 0.5rem; 
     font-size: 1rem;
-    width: 8rem;
+    width: 10rem;
   }
 `;
 //**bottom profile
 const BottomSection = styled.div`
   margin-top: 1rem;
-  background-color: #f1d775;
+  background-color: #efcc63;
   border-radius:3rem;
   border: 0.1rem solid;
   @media (max-width: 600px) {
