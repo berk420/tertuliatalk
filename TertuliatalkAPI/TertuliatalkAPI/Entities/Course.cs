@@ -4,14 +4,15 @@ namespace TertuliatalkAPI.Entities;
 
 public class Course
 {
-    public Course(string title, string description, int? maxParticipants,
+    public Course(string title, string description, string documentUrl, int? maxParticipants,
         DateTime startDate, TimeSpan duration, Guid instructorId)
     {
         Title = title;
         Description = description;
         Type = maxParticipants > 1 ? "Public" : "Private";
         MaxParticipants = maxParticipants == null ? 1 : maxParticipants;
-        StartDate = startDate;
+        DocumentUrl = documentUrl;
+        StartDate = startDate.ToUniversalTime();
         Duration = duration;
         InstructorId = instructorId;
     }

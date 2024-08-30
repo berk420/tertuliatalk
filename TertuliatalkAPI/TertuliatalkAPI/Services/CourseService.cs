@@ -1,5 +1,6 @@
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure;
 using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
@@ -14,17 +15,19 @@ public class CourseService : ICourseService
     private readonly ICourseRepository _courseRepository;
     private readonly IUserCourseRepository _userCourseRepository;
     private readonly IUserRepository _userRepository;
+    private readonly FileUploadService _fileUploadService;
 
     public CourseService(ILogger<CourseService> logger, IAuthService authService,
         IEmailService emailService, ICourseRepository courseRepository,
-        IUserCourseRepository userCourseRepository, IUserRepository userRepository)
+        IUserCourseRepository userCourseRepository, IUserRepository userRepository, FileUploadService fileUploadService)
     {
         _logger = logger;
         _authService = authService;
         _emailService = emailService;
-        _courseRepository = courseRepository;
-        _userCourseRepository = userCourseRepository;
         _userRepository = userRepository;
+        _courseRepository = courseRepository;
+        _fileUploadService = fileUploadService;
+        _userCourseRepository = userCourseRepository;
     }
 
     public async Task<List<Course>> GetAllCourses()
@@ -53,13 +56,17 @@ public class CourseService : ICourseService
     {
         var instructor = await _authService.GetLoggedInstructor();
 
+        string fileUrl = null;
+        if (request.Document != null)
+            fileUrl = await _fileUploadService.UploadFileAsync(request.Document);
+        
         var course = new Course(
             request.Title,
             request.Description,
+            fileUrl,
             request.MaxParticipants,
             request.StartDate,
             request.Duration,
-            // request.Document,
             instructor.Id
         );
 

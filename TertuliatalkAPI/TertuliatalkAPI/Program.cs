@@ -88,6 +88,9 @@ builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IInstructorRepository, IntructorRepository>();
 builder.Services.AddScoped<IUserCourseRepository, UserCourseRepository>();
 
+builder.Services.AddSingleton<FileUploadService>(sp => 
+    new FileUploadService("credentials.json", "1tK2kl2fK_FqU7nHN9zGbsiZVw9Ot1WtH", "Google Drive File Upload App"));
+
 
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

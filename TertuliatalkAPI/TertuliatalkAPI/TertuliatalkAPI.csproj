@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <PackageReference Include="BCrypt.Net-Next" Version="4.0.3"/>
+        <PackageReference Include="Google.Apis.Drive.v3" Version="1.68.0.3508" />
         <PackageReference Include="linq2db.PostgreSQL" Version="5.4.1"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.7"/>
         <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="8.0.0"/>
