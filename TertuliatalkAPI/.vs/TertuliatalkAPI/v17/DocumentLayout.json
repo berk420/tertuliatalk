@@ -11,12 +11,12 @@
       "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\entities\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\\u00E7\u0131nar\\onedrive\\masa\u00FCst\u00FC\\talkproject\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\\u00E7\u0131nar\\onedrive\\masa\u00FCst\u00FC\\talkproject\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\\u00E7\u0131nar\\onedrive\\masa\u00FCst\u00FC\\talkproject\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|solutionrelative:tertuliatalkapi\\controllers\\coursecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A9A0BE93-C87C-474D-8DC3-07D1C278658B}|TertuliatalkAPI\\TertuliatalkAPI.csproj|c:\\users\\\u00E7\u0131nar\\onedrive\\masa\u00FCst\u00FC\\talkproject\\tertuliatalk\\tertuliatalkapi\\tertuliatalkapi\\controllers\\weatherforecastcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -63,8 +63,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-27T22:59:58.84Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -77,8 +76,7 @@
               "ViewState": "AQIAACYAAAAAAAAAAAAgwC0AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-24T16:29:42.117Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Document",
@@ -91,86 +89,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABMAAAAXAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-27T22:58:42.292Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "IEntity.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\IEntity.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\IEntity.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\IEntity.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Entities\\IEntity.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T02:19:47.595Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Course.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\Course.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\Course.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\Course.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Entities\\Course.cs",
-              "ViewState": "AQIAABoAAAAAAAAAAAAswAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T02:19:46.342Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "WeatherForecastController.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T02:19:45.192Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\UserController.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\UserController.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\UserController.cs",
-              "ViewState": "AQIAAAYAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T02:19:42.419Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CourseController.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\CourseController.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\CourseController.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\CourseController.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\CourseController.cs",
-              "ViewState": "AQIAAA4AAAAAAAAAAAAAwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-28T02:19:38.218Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "User.cs",
-              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\User.cs",
-              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\User.cs",
-              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\User.cs",
-              "RelativeToolTip": "TertuliatalkAPI\\Entities\\User.cs",
-              "ViewState": "AQIAAAIAAAAAAAAAAAAxwB0AAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-27T23:00:10.572Z",
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -182,13 +101,86 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "IEntity.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\IEntity.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\IEntity.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\IEntity.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Entities\\IEntity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T02:19:47.595Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Course.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\Course.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\Course.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\Course.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Entities\\Course.cs",
+              "ViewState": "AQIAABoAAAAAAAAAAAAswAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T02:19:46.342Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "WeatherForecastController.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\WeatherForecastController.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T02:19:45.192Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\UserController.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\UserController.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\UserController.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAAB0AAAA2AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T02:19:42.419Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "CourseController.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\CourseController.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Controllers\\CourseController.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Controllers\\CourseController.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Controllers\\CourseController.cs",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAAwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-28T02:19:38.218Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "User.cs",
+              "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\User.cs",
+              "RelativeDocumentMoniker": "TertuliatalkAPI\\Entities\\User.cs",
+              "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Entities\\User.cs",
+              "RelativeToolTip": "TertuliatalkAPI\\Entities\\User.cs",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAowBwAAAAgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-08-27T23:00:10.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Program.cs",
               "RelativeDocumentMoniker": "TertuliatalkAPI\\Program.cs",
               "ToolTip": "C:\\Users\\\u00C7\u0131nar\\OneDrive\\Masa\u00FCst\u00FC\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Program.cs",
               "RelativeToolTip": "TertuliatalkAPI\\Program.cs",
-              "ViewState": "AQIAAD8AAAAAAAAAAAAAACQAAAADAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAACQAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-27T23:33:10.972Z",
               "EditorCaption": ""

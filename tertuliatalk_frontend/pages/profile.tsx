@@ -75,10 +75,14 @@ export default function FeaturesPage() {
               <>
                 <ProfileWrapper>
                   <LeftColumn>
-                    <ProfilePicture
-                      src="https://cdn.pixabay.com/photo/2021/06/04/10/29/guy-6309458_960_720.jpg"
-                      alt="Profil Fotoğrafı"
-                    />
+                   <ProfilePicture
+                      src={
+                        user?.profilePhotoUrl && user.profilePhotoUrl !== "null"
+                        ? user.profilePhotoUrl
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                        }
+                          alt="Profil Fotoğrafı"
+                          />
                     <Button>Düzenle</Button>
                     {user && <Name>{user.name}</Name>}
                     <Description>Buraya string bir ifade gelecek.</Description>
@@ -120,7 +124,7 @@ export default function FeaturesPage() {
                         ))
                         ) : (
                         <tr>
-                          <td colSpan={3}>No courses available.</td>
+                          <td colSpan={3}>Katıldığınız Oturum Bulunamadı.</td>
                         </tr>
                         )}
                       </tbody>
