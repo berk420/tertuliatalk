@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using StackExchange.Redis;
 using TertuliatalkAPI.Infrastructure.Interfaces;
 
@@ -19,14 +20,24 @@ public class RedisCacheService : IRedisCacheService
         var cachedValue = await db.StringGetAsync(key);
         if (!cachedValue.HasValue)
             return default;
+        
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+            PropertyNameCaseInsensitive = true
+        };
 
-        return JsonSerializer.Deserialize<T>(cachedValue);
+        return JsonSerializer.Deserialize<T>(cachedValue, options);
     }
 
     public async Task SetAsync<T>(string key, T value, TimeSpan expirationTime)
     {
         var db = _redis.GetDatabase();
-        var serializedValue = JsonSerializer.Serialize(value);
+        var options = new JsonSerializerOptions
+        {
+            ReferenceHandler = ReferenceHandler.Preserve,
+        };
+        var serializedValue = JsonSerializer.Serialize(value, options);
         await db.StringSetAsync(key, serializedValue, expirationTime);
     }
 
