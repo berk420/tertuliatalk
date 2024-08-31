@@ -115,11 +115,11 @@ export default function FeaturesPage() {
                       </thead>
                       <tbody>
                         {user && user.userCourses && user.userCourses.length > 0 ? (
-                          user.userCourses.map((course, index) => (
+                          user.userCourses.map((userCourse, index) => (
                             <tr key={index}>
-                              <td>{course.courseId}</td>
-                              <td>{course.createdDate}</td>
-                              <td>{course.updateDate}</td>
+                              <td>{userCourse.course.title}</td>
+                              <td>{userCourse.createdDate}</td>
+                              <td>{userCourse.course.description}</td>
                               </tr>
                         ))
                         ) : (
