@@ -1,6 +1,7 @@
-using Microsoft.EntityFrameworkCore;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
 
@@ -9,62 +10,67 @@ namespace TertuliatalkAPI.Services;
 public class CourseService : ICourseService
 {
     private readonly IAuthService _authService;
-    private readonly TertuliatalksDbContext _context;
     private readonly IEmailService _emailService;
     private readonly ILogger<CourseService> _logger;
-    private readonly IUserService _userService;
+    private readonly ICourseRepository _courseRepository;
+    private readonly IUserCourseRepository _userCourseRepository;
+    private readonly IUserRepository _userRepository;
+    private readonly FileUploadService _fileUploadService;
 
-    public CourseService(TertuliatalksDbContext context, ILogger<CourseService> logger, IAuthService authService,
-        IUserService userService, IEmailService emailService)
+    public CourseService(ILogger<CourseService> logger, IAuthService authService,
+        IEmailService emailService, ICourseRepository courseRepository,
+        IUserCourseRepository userCourseRepository, IUserRepository userRepository, FileUploadService fileUploadService)
     {
-        _context = context;
         _logger = logger;
         _authService = authService;
-        _userService = userService;
         _emailService = emailService;
+        _userRepository = userRepository;
+        _courseRepository = courseRepository;
+        _fileUploadService = fileUploadService;
+        _userCourseRepository = userCourseRepository;
     }
 
     public async Task<List<Course>> GetAllCourses()
     {
-        return await _context.Courses.Include(c => c.Instructor).Include(c => c.UserCourses).ToListAsync();
+        return await _courseRepository.GetAllCoursesAsync();
     }
 
     public async Task<Course> GetCourseById(Guid courseId)
     {
-        var course = await _context.Courses.Include(c => c.Instructor).Include(c => c.UserCourses)
-            .FirstOrDefaultAsync(c => c.Id == courseId);
+        var course = await _courseRepository.GetCourseByIdAsync(courseId);
         if (course == null)
             throw new NotFoundException($"Course with ID {courseId} not found");
 
         return course;
     }
 
-    public Task<List<Course>> GetCoursesByDateRange(DateTime startDate, DateTime endDate)
+    public async Task<List<Course>> GetCoursesByDateRange(DateTime startDate, DateTime endDate)
     {
         var utcStartDate = DateTime.SpecifyKind(startDate, DateTimeKind.Utc);
         var utcEndDate = DateTime.SpecifyKind(endDate, DateTimeKind.Utc);
 
-        return _context.Courses
-            .Where(course => course.StartDate >= utcStartDate && course.StartDate <= utcEndDate)
-            .ToListAsync();
+        return await _courseRepository.GetCoursesByDateRangeAsync(utcStartDate, utcEndDate);
     }
 
     public async Task<Course> CreateCourse(CreateCourseRequest request)
     {
         var instructor = await _authService.GetLoggedInstructor();
 
+        string fileUrl = null;
+        if (request.Document != null)
+            fileUrl = await _fileUploadService.UploadFileAsync(request.Document);
+        
         var course = new Course(
             request.Title,
             request.Description,
+            fileUrl,
             request.MaxParticipants,
             request.StartDate,
             request.Duration,
-            // request.Document,
             instructor.Id
         );
 
-        var newCourse = _context.Courses.Add(course).Entity;
-        await _context.SaveChangesAsync();
+        var newCourse = await _courseRepository.AddCourseAsync(course);
 
         return newCourse;
     }
@@ -78,8 +84,7 @@ public class CourseService : ICourseService
         if (course.InstructorId != instructor.Id)
             throw new UnauthorizedException("You are not authorized to access this course.");
 
-        _context.Courses.Remove(course);
-        await _context.SaveChangesAsync();
+        await _courseRepository.DeleteCourseAsync(course);
     }
 
     public async Task<Course> AddUserToCourse(Guid courseId)
@@ -102,10 +107,10 @@ public class CourseService : ICourseService
             UserId = user.Id,
             CourseId = course.Id
         };
-        _context.UserCourses.Add(userCourse);
+        await _userCourseRepository.AddUserCourseAsync(userCourse);
 
         course.Participants++;
-        await _context.SaveChangesAsync();
+        await _courseRepository.UpdateCourseAsync(course);
 
         await _emailService.SendCourseJoinEmailAsync(user.Name, user.Email, course.Title);
 
@@ -122,20 +127,19 @@ public class CourseService : ICourseService
         if (!hasJoinedCourse)
             throw new InvalidOperationException("User is not in the this course.");
 
-        var userCourse =
-            await _context.UserCourses.FirstOrDefaultAsync(uc => uc.UserId == user.Id && uc.CourseId == course.Id);
+        var userCourse = await _userCourseRepository.GetUserCourseAsync(user.Id, course.Id);
 
-        _context.UserCourses.Remove(userCourse);
+        await _userCourseRepository.DeleteUserCourseAsync(userCourse);
 
         course.Participants--;
-        await _context.SaveChangesAsync();
+        await _courseRepository.UpdateCourseAsync(course);
 
         return course;
     }
 
     public async Task<bool> HasUserJoinedInCourse(Guid courseId, Guid userId)
     {
-        var user = await _userService.GetUser(userId);
+        var user = await _userRepository.GetUserByIdAsync(userId);
         foreach (var userCourse in user.UserCourses)
             if (userCourse.CourseId == courseId)
                 return true;

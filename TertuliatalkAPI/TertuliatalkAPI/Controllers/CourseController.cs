@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Infrastructure;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
 
@@ -13,7 +14,7 @@ namespace TertuliatalkAPI.Controllers;
 public class CourseController : ControllerBase
 {
     private readonly ICourseService _courseService;
-
+    
     public CourseController(ICourseService courseService)
     {
         _courseService = courseService;
@@ -35,7 +36,7 @@ public class CourseController : ControllerBase
         return Ok(new ApiResponse<Course>(response));
     }
 
-    [HttpGet("getByDateRange")]
+    [HttpGet("get-by-date-range")]
     public async Task<ActionResult<ApiResponse<List<Course>>>> GetCourseByDateRange(DateTime startDate,
         DateTime endDate)
     {
@@ -46,7 +47,7 @@ public class CourseController : ControllerBase
     [HttpPost("create-course")]
     [Authorize(Roles = Roles.Instructor)]
     public async Task<ActionResult<ApiResponse<EntityEntry<Course>>>> CreateCourse(
-        [FromBody] CreateCourseRequest request)
+        [FromForm] CreateCourseRequest request)
     {
         var response = await _courseService.CreateCourse(request);
         return Ok(new ApiResponse<Course>(response));
