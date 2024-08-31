@@ -5223,23 +5223,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\USER\\.nuget\\packages\\": {},
+    "C:\\Users\\Çınar\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\source\\repos\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+      "projectUniqueName": "C:\\Users\\Çınar\\OneDrive\\Masaüstü\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
       "projectName": "TertuliatalkAPI",
-      "projectPath": "C:\\Users\\USER\\source\\repos\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
-      "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\source\\repos\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
+      "projectPath": "C:\\Users\\Çınar\\OneDrive\\Masaüstü\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+      "packagesPath": "C:\\Users\\Çınar\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Çınar\\OneDrive\\Masaüstü\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Çınar\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5248,6 +5248,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5260,6 +5261,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -5342,7 +5348,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.304/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eqkIU9wUc0D5r6Zc0Cjua3Mz2a0SJtSG1CYbQZUJ9uLd8kwdDWv4x1ExXH2D52H8tB+Uc/nH479ttDNaYAjQWg==",
+  "dgSpecHash": "8WWiqbtc0t6PDP0ADZ0JnPwzC4GfvXN7GgZlA2vpjE62x7C4kCTA1glcppqyFdj6FYFta42hMEiDpjxvi9O2Vw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\source\\repos\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
+  "projectFilePath": "C:\\Users\\Çınar\\OneDrive\\Masaüstü\\TalkProject\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\TertuliatalkAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\azure.core\\1.36.0\\azure.core.1.36.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\azure.identity\\1.10.4\\azure.identity.1.10.4.nupkg.sha512",
@@ -69,11 +69,9 @@
     "C:\\Users\\USER\\.nuget\\packages\\mono.texttemplating\\2.2.1\\mono.texttemplating.2.2.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\npgsql\\8.0.3\\npgsql.8.0.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\8.0.4\\npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\pipelines.sockets.unofficial\\2.2.8\\pipelines.sockets.unofficial.2.2.8.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\quartz\\3.13.0\\quartz.3.13.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\quartz.extensions.dependencyinjection\\3.13.0\\quartz.extensions.dependencyinjection.3.13.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\quartz.extensions.hosting\\3.13.0\\quartz.extensions.hosting.3.13.0.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\stackexchange.redis\\2.8.0\\stackexchange.redis.2.8.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore\\6.4.0\\swashbuckle.aspnetcore.6.4.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.4.0\\swashbuckle.aspnetcore.swagger.6.4.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.4.0\\swashbuckle.aspnetcore.swaggergen.6.4.0.nupkg.sha512",
