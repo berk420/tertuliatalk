@@ -1,18 +1,7 @@
-export const enum Days {
-  Monday = 'Pazartesi',
-  Tuesday = 'Salı',
-  Wednesday = 'Çarşamba',
-  Thursday = 'Perşembe',
-  Friday = 'Cuma',
-  Saturday = 'Cumartesi',
-  Sunday = 'Pazar',
-}
-
+export const Days = ['Pazartesi', 'Sali', 'Carsamba', 'Persembe', 'Cuma', 'Cumartesi', 'Pazar'];
 
 export const enum Roles {
-  INSTRUCTOR = "Instructor",
-  STUDENT = "Student",
-  ADMIN = "Admin",
+  INSTRUCTOR = 'Instructor',
+  STUDENT = 'Student',
+  ADMIN = 'Admin',
 }
-
-

@@ -14,6 +14,7 @@ export const nextSevenDateFormatter = (dateStr: string) => {
 
   const newDay = String(date.getDate()).padStart(2, '0');
   const newMonth = String(date.getMonth() + 1).padStart(2, '0');
+  const newYear = date.getFullYear();
 
-  return `${newDay}.${newMonth}`;
+  return `${newDay}.${newMonth}.${newYear}`;
 }

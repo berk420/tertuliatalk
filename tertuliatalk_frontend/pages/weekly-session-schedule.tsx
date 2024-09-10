@@ -1,28 +1,20 @@
+"use client"
 import styled from 'styled-components';
 import React, { useEffect, useState } from 'react';
-import { Days as EnumDays } from 'types/enums';
-import AutofitGrid from 'components/AutofitGrid';
 import Page from 'components/Page';
-import { media } from 'utils/media';
 import Accordion from 'components/Accordion';
 import Button from 'components/Button';
-import RichText from 'components/RichText';
 import { nextSevenDateFormatter } from 'utils/formatDate';
-import TeacherMeeting from 'views/SessionSchedule/TeacherMeeting';
 import StudentMeeting from 'views/SessionSchedule/StudentMeeting';
 import { weeksArray } from 'mocks/weeks';
 import { communityPrograms, nativePrograms, Program } from 'mocks/programs';
 
 
 export default function FeaturesPage() {
-  //const [expanded, setExpanded] = React.useState<string | false>(false);
-  const [programs, setPrograms] = React.useState<Program[]>(nativePrograms);
+  const [programs, setPrograms] = React.useState<Program[]>([]);
   const [weekIndex, setWeekIndex] = React.useState<number>(0);
 
-  //const handleChange =
-  //  (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-  //    setExpanded(isExpanded ? panel : false);
-  //  };
+
 
   const handleNextWeek = () => {
     if (weekIndex === weeksArray.length - 1) {
@@ -59,34 +51,34 @@ export default function FeaturesPage() {
       <WholeFrame>
         {role === null ? (
           <Wrapper>
-                <Header>
-                  <Session>
-                    <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
-                    <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
-                  </Session>
-                  <PassWeek>
-                    <Button onClick={handlePrevWeek}>önceki hafta</Button>
-                    <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
-                    <Button onClick={handleNextWeek}>sonraki hafta</Button>
-                  </PassWeek>
-                </Header>
-                <Days>
-                  {weeksArray[weekIndex] &&
-                    weeksArray[weekIndex].map((weeks, index) => (
-                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                        .filter((program) => program.id === weeks.id).length}`} key={index}>
-                        {programs &&
-                          programs
-                            .filter((program) => program.id === weeks.id)
-                            .map((program, index) => (
-                              <StudentMeeting key={index} index={index} program={program} />
-                            ))
-                        }
-                      </Accordion>)
+            <Header>
+              <Session>
+                <Button onClick={() => setPrograms(nativePrograms)}>Bireysel</Button>
+                <Button onClick={() => setPrograms(communityPrograms)}>Toplu</Button>
+              </Session>
+              <PassWeek>
+                <Button onClick={handlePrevWeek}>önceki hafta</Button>
+                <h1>{`Tarih: ${weeksArray[weekIndex][0].date} - ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}</h1>
+                <Button onClick={handleNextWeek}>sonraki hafta</Button>
+              </PassWeek>
+            </Header>
+            <Days>
+              {weeksArray[weekIndex] &&
+                weeksArray[weekIndex].map((weeks, index) => (
+                  <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
+                    .filter((program) => program.id === weeks.id).length}`} key={index}>
+                    {programs &&
+                      programs
+                        .filter((program) => program.id === weeks.id)
+                        .map((program, index) => (
+                          <StudentMeeting key={index} index={index} program={program} />
+                        ))
+                    }
+                  </Accordion>)
 
-                    )}
-                </Days>
-              </Wrapper>
+                )}
+            </Days>
+          </Wrapper>
         ) : (
           <>
             {role === "Instructor" && (
@@ -105,14 +97,8 @@ export default function FeaturesPage() {
                 <Days>
                   {weeksArray[weekIndex] &&
                     weeksArray[weekIndex].map((weeks, index) => (
-                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                        .filter((program) => program.id === weeks.id).length}`} key={index} setPrograms={setPrograms}>
-                        {programs &&
-                          programs
-                            .filter((program) => program.id === weeks.id)
-                            .map((program, index) => (
-                              <TeacherMeeting key={index} index={index} program={program} setPrograms={setPrograms}/>
-                            ))
+                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs.length}`} key={index} setPrograms={setPrograms}>
+                        {
                         }
                       </Accordion>
                     ))}
@@ -135,14 +121,8 @@ export default function FeaturesPage() {
                 <Days>
                   {weeksArray[weekIndex] &&
                     weeksArray[weekIndex].map((weeks, index) => (
-                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                        .filter((program) => program.id === weeks.id).length}`} key={index}>
-                        {programs &&
-                          programs
-                            .filter((program) => program.id === weeks.id)
-                            .map((program, index) => (
-                              <StudentMeeting key={index} index={index} program={program} />
-                            ))
+                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs.length}`} key={index}>
+                        {
                         }
                       </Accordion>)
 
@@ -166,20 +146,14 @@ export default function FeaturesPage() {
                 <Days>
                   {weeksArray[weekIndex] &&
                     weeksArray[weekIndex].map((weeks, index) => (
-                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs
-                        .filter((program) => program.id === weeks.id).length}`} key={index}>
-                        {programs &&
-                          programs
-                            .filter((program) => program.id === weeks.id)
-                            .map((program, index) => (
-                              <StudentMeeting key={index} index={index} program={program} />
-                            ))
+                      <Accordion title={weeks.day} subTitle={`Oturum Sayısı: ${programs.length}`} key={index}>
+                        {
                         }
                       </Accordion>)
 
                     )}
                 </Days>
-              </Wrapper>            )}
+              </Wrapper>)}
             {role === "SuperAdmin" && (
               <p>SuperAdmin</p>
             )}
