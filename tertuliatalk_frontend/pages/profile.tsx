@@ -68,8 +68,8 @@ export default function FeaturesPage() {
           <RichText>Lütfen giriş yapınız</RichText>
         ) : (
           <>
-            {role === "Teacher" && (
-              <RichText>Teacher</RichText>
+            {role === "Instructor" && (
+              <RichText>Instructor</RichText>
             )}
             {role === "Student" && (
               <>

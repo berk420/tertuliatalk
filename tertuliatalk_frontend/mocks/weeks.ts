@@ -14,7 +14,7 @@ let now = new Date();
 
 for (let i = 0; i < 7; i++) {
   week.push({
-    date: now.toLocaleDateString(),
+    date: now.toLocaleDateString().replaceAll('.', '-'),
     day: Days[i],
   });
   now = new Date(now.setDate(now.getDate() + 1));
@@ -22,7 +22,7 @@ for (let i = 0; i < 7; i++) {
 
 for (let i = 0; i < 7; i++) {
   week2.push({
-    date: now.toLocaleDateString(),
+    date: now.toLocaleDateString().replaceAll('.', '-'),
     day: Days[i],
   });
   now = new Date(now.setDate(now.getDate() + 1));
@@ -30,7 +30,7 @@ for (let i = 0; i < 7; i++) {
 
 for (let i = 0; i < 7; i++) {
   week3.push({
-    date: now.toLocaleDateString(),
+    date: now.toLocaleDateString().replaceAll('.', '-'),
     day: Days[i],
   });
   now = new Date(now.setDate(now.getDate() + 1));
@@ -38,13 +38,10 @@ for (let i = 0; i < 7; i++) {
 
 for (let i = 0; i < 7; i++) {
   week4.push({
-    date: now.toLocaleDateString(),
+    date: now.toLocaleDateString().replaceAll('.', '-'),
     day: Days[i],
   });
   now = new Date(now.setDate(now.getDate() + 1));
 }
-
-
-
 
 export const weeksArray = [week, week2, week3, week4];

@@ -6,7 +6,7 @@ export default function Login() {
     const router = useRouter();
     return (
         <>
-            <LoginSection onClose={() => router.push("/")}/>
+            <LoginSection onClose={() => router.push("/")} />
         </>
     );
 }

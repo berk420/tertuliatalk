@@ -23,7 +23,7 @@ import { useEffect } from 'react';
 
 const navItems: NavItems = [
   { title: 'Hizmet bilgilendirme', href: '/service-information' },
-  
+
   { title: 'Haftalık Oturum Programı', href: '/weekly-session-schedule' },
 
   { title: 'Paketler', href: '/packages' },
@@ -33,21 +33,13 @@ const navItems: NavItems = [
   { title: 'Kayıt ol', href: '/signup' },
 
   { title: 'Profil', href: '/profile' },
-  
-  { title: 'Giriş yap', href: '/login', outlined: true},
+
+  { title: 'Giriş yap', href: '/login', outlined: true },
 ];
 
 const TinaCMS = dynamic(() => import('tinacms'), { ssr: false });
 
 function MyApp({ Component, pageProps }: AppProps) {
-
-  useEffect(() => { // Token managment
-    return () => {
-      console.log('Web sitesi kapanıyor veya yeniden yükleniyor');
-      localStorage.setItem("userRole","User");
-
-    };
-  }, []); 
   return (
 
     <>

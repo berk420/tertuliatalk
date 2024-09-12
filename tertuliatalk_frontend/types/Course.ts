@@ -12,13 +12,18 @@ export type CreateCourse =  {
 
 
 export type Course = {
-    id: string,
-    title: string,
-    description: string,
-    type: string,
-    participants: number,
-    maxParticipant: number,
-    document: string,
-    startDate: string,
-    duration: string,
-}
+    id: string
+    title: string
+    description: string
+    type: string
+    status: string
+    participants: number
+    maxParticipants: number
+    documentUrl: string
+    duration: string
+    instructorId: string
+    createdDate: string
+    updatedDate: any
+    startDate: string
+    instructor: any
+  }

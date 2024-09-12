@@ -23,21 +23,24 @@ public class CourseRepository : ICourseRepository
 
     public async Task<Course?> GetCourseByIdAsync(Guid courseId)
     {
-        return await _context.Courses.Include(c => c.Instructor).Include(c => c.UserCourses)
+        return await _context.Courses.Include(c => c.Instructor)
+            .Include(c => c.UserCourses)
             .FirstOrDefaultAsync(c => c.Id == courseId);
     }
 
     public async Task<List<Course>> GetCoursesByDateRangeAsync(DateTime startDate, DateTime endDate)
     {
-       return await _context.Courses
-            .Where(course => course.StartDate >= startDate && course.StartDate <= endDate).ToListAsync();
+        return await _context.Courses
+            .Where(course => course.StartDate >= startDate && course.StartDate <= endDate)
+            .Include(c => c.Instructor)
+            .ToListAsync();
     }
 
     public async Task<Course> AddCourseAsync(Course course)
     {
         var newCourse = _context.Courses.Add(course).Entity;
         await _context.SaveChangesAsync();
-        
+
         return newCourse;
     }
 
