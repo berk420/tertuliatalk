@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Controllers;
 
@@ -29,5 +31,13 @@ public class UserController : ControllerBase
     {
         var response = await _userService.GetUser(id);
         return Ok(new ApiResponse<User?>(response));
+    }
+
+    [HttpPost("{id}")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<User>>> UpdateUser(Guid id, [FromBody] UserUpdateRequest userUpdateRequest)
+    {
+        var response = await _userService.UpdateUser(id, userUpdateRequest);
+        return Ok(new ApiResponse<User>(response));
     }
 }

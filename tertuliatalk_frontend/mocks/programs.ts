@@ -52,29 +52,4 @@ export const communityPrograms: Program[] = [
   },
 ];
 
-export var nativePrograms: Program[] = [
-  {
-    id: '28.2',
-    title: 'Individual Program1',
-    description: 'First Individual Program',
-    date: '2024-08-22',
-    time: '17:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: false,
-    isActive: false,
-  },
-  {
-    id: '28.2',
-    title: 'Individual Program2',
-    description: 'Second Individual Program',
-    date: '2024-07-11',
-    time: '18:00',
-    duration: '1 hour',
-    location: 'Zoom',
-    link: 'https://zoom.us/1234',
-    isCommunity: false,
-    isActive: true,
-  },
-];
+export var nativePrograms: Program[] = [];

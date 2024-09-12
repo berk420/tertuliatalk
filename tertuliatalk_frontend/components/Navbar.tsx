@@ -78,8 +78,6 @@ export default function Navbar({ items }: NavbarProps) {
   useEffect(() => {
     let role = localStorage.getItem('userRole');
     if (role) {
-      console.log('role:', role);
-      
       setRole(role);
     }
   }, []);
@@ -156,8 +154,6 @@ function NavItem({ href, title, outlined }: SingleNavItem) {
   useEffect(() => {
     let role = localStorage.getItem('userRole');
     if (role) {
-      console.log('role:', role);
-      
       setRole(role);
     }
   }, []);

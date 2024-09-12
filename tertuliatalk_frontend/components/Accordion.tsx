@@ -6,7 +6,7 @@ import RichText from './RichText';
 import { ColumnFlex, RowFlex } from 'pages/weekly-session-schedule';
 import { Roles } from 'types/enums';
 import { IoMdAdd } from "react-icons/io";
-import { Cursor } from 'views/SessionSchedule/StudentMeeting';
+import { Cursor } from 'views/SessionSchedule/Course';
 import MeetingAddForm from 'views/SessionSchedule/MeetingAddForm';
 
 interface AccordionProps {
@@ -89,7 +89,7 @@ export default function Accordion({ title, subTitle, isOpen, children, setProgra
         </Description>
       </Collapse>
       <Collapse isOpen={fromArea} duration={300}>
-        <MeetingAddForm setPrograms={setPrograms}/>
+        <MeetingAddForm setPrograms={setPrograms} />
       </Collapse>
     </AccordionWrapper>
   );

@@ -1,57 +1,49 @@
-import { ImBin } from "react-icons/im";
 import * as React from 'react';
 import styled from 'styled-components';
 import RichText from 'components/RichText';
 import Button from 'components/Button';
-import { Roles } from "types/enums";
+import { Course } from "types/Course";
 
-type Program = {
-  id: string;
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  duration: string;
-  location: string;
-  link: string;
-  isCommunity: boolean;
-  isActive: boolean;  /* -> this prop is used to show the active programs 
-                            if we create cron jobs that run every hour in the backend, we can handle this.
-                        */
-};
 
-export default function StudentMeeting({ index, program }: { index: number, program: Program }) {
+
+export default function CourseCard({ index, course }: { index: number, course: Course }) {
   const downloadPdf = () => {
     const link = document.createElement('a');
-    link.href = 'http://localhost:3000/example.pdf';
+    link.href = course.documentUrl;
     link.download = 'example';
     link.click();
   }
+
+  const today = new Date().toISOString().split('T')[0];
+  const utcDateTimeString = `${today}T${course.startDate.split('T')[1]}`;
+
+  const utcDate = new Date(utcDateTimeString);
+  course.startDate = utcDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
   return (
     <Meetings key={index}>
       <Container>
         <FlexBetween>
           <TitleDescription>
-            <h2>{program.title}</h2>
-            <p>{program.description}</p>
+            <h2>{course.title}</h2>
+            <p>{course.description}</p>
           </TitleDescription>
           <ColumnFlex>
             <FlexAlignCenter>
-              <RichText>{program.time} /&nbsp;</RichText>
-              <RichText>{program.duration}</RichText>
+              <RichText>{`${parseInt(course.duration.split(':')[0], 10)} Saat`} /&nbsp;</RichText>
+              <RichText>{course.startDate}</RichText>
             </FlexAlignCenter>
             <FlexAlignCenter>
-              <Location>{program.location}</Location>
-              <CustomCircle>2/4</CustomCircle>
+              <Location>{course.instructor.name}</Location>
+              <CustomCircle>{`${course.participants}/${course.maxParticipants}`}</CustomCircle>
             </FlexAlignCenter>
           </ColumnFlex>
         </FlexBetween>
         <FlexCenterBetween>
-          <Button onClick={downloadPdf} disabled={!program.isActive}>
+          <Button onClick={downloadPdf} disabled={course.status === 'Finished' || course.documentUrl === null}>
             Metaryali indir
           </Button>
-          <Button disabled={!program.isActive}>
+          <Button disabled={course.status === 'Finished'}>
             Randevu Oluştur
           </Button>
         </FlexCenterBetween>
@@ -112,7 +104,6 @@ gap: 1rem;
 
 const Location = styled.strong`
 color: black;
-  margin-top: 0.5rem;
 `;
 
 
