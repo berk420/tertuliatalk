@@ -165,7 +165,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  background-color: #efcc63;
+  background-color: #ff7516;
   border-radius: 3rem;
   border: 0.1rem solid;
 `;
@@ -298,7 +298,7 @@ const ButtonInfo = styled.button`
 //**bottom profile
 const BottomSection = styled.div`
   margin-top: 1rem;
-  background-color: #efcc63;
+  background-color: #ff7516;
   border-radius:3rem;
   border: 0.1rem solid;
   @media (max-width: 600px) {

@@ -56,7 +56,7 @@ const EditModal: React.FC<EditModalProps> = ({ showModal, closeModal }) => {
       <ModalContent>
      
         <h2>Kullanıcı Bilgilerini Düzenle</h2>
-        
+
         {/* Kullanıcı Adı Değiştir */}
         <InputContainer>
           <label>Kullanıcı Adı Değiştir:</label>
@@ -140,7 +140,7 @@ const ModalContainer = styled.div<{ showModal: boolean }>`
 `;
 
 const ModalContent = styled.div`
-  background: #efcc63;
+  background: #f8efcc;
   padding: 20px;
   border-radius: 1rem;
   width: 25%;
