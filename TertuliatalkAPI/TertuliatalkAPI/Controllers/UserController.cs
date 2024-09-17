@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Controllers;
 

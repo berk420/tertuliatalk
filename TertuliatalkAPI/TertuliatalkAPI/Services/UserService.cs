@@ -3,6 +3,7 @@ using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Services;
 
@@ -42,4 +43,9 @@ public class UserService : IUserService
         
         return user;
     }
+    public async Task UpdateUserAsync(User user)
+    {
+        await _userRepository.UpdateUserAsync(user);
+    }
+
 }

@@ -4,7 +4,8 @@ import styled from 'styled-components';
 import Page from 'components/Page';
 import Button from 'components/Button';
 import RichText from 'components/RichText';
-//burada kullanıcıdan data gelecek
+import EditModal from './edit-modal'; 
+
 interface User {
   name: string;
   email: string;
@@ -25,10 +26,15 @@ interface UserCourse {
   createdDate: string; 
   updateDate: string; 
 }
+
 export default function FeaturesPage() {
   const [user, setUser] = useState<User | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [role, setRole] = useState<string | null>(null);
+   const [showModal, setShowModal] = useState(false); // Modal state'i
+
+  const openModal = () => setShowModal(true); // Modalı açma fonksiyonu
+  const closeModal = () => setShowModal(false); // Modalı kapatma fonksiyonu
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
      if (userRole) {
@@ -83,7 +89,8 @@ export default function FeaturesPage() {
                         }
                           alt="Profil Fotoğrafı"
                           />
-                    <Button>Düzenle</Button>
+                    <Button onClick={openModal}>Düzenle</Button>
+                    <EditModal showModal={showModal} closeModal={closeModal} />
                     {user && <Name>{user.name}</Name>}
                     <Description>Buraya string bir ifade gelecek.</Description>
                   </LeftColumn>

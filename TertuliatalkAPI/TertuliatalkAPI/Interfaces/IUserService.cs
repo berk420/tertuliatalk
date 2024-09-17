@@ -8,4 +8,5 @@ public interface IUserService
     Task<List<User>> GetUsers();
     Task<User?> GetUser(Guid id);
     Task<User?> GetUserByEmail(string email);
+    Task UpdateUserAsync(User user);
 }

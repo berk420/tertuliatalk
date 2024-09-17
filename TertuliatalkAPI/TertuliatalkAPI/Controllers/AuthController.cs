@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using System.Security.Claims;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
+using TertuliatalkAPI.Models.DTOs;
 
 namespace TertuliatalkAPI.Controllers;
 
@@ -59,4 +61,15 @@ public class AuthController : ControllerBase
         var response = await _authService.GetLoggedInstructor();
         return Ok(new ApiResponse<Instructor>(response));
     }
+    [HttpPut("update-user")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<User>>> UpdateUser([FromBody] UpdateUserRequest request)
+    {
+        if (request == null)
+            return BadRequest("Request body cannot be null");
+
+        var user = await _authService.UpdateUser(request);
+        return Ok(new ApiResponse<User>(user));
+    }
+
 }

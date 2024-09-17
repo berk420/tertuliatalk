@@ -4,6 +4,7 @@ using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
+using TertuliatalkAPI.Models.DTOs;
 
 namespace TertuliatalkAPI.Services;
 
@@ -117,4 +118,30 @@ public class AuthService : IAuthService
 
         return instructor;
     }
+    public async Task<User> UpdateUser(UpdateUserRequest request)
+    {
+        var userClaim = _httpContextAccessor.HttpContext?.User;
+        var email = userClaim?.FindFirst(ClaimTypes.Email)?.Value;
+        if (email == null)
+            throw new UnauthorizedAccessException("User email is not available in token");
+
+        var user = await _userRepository.GetUserByEmail(email);
+        if (user == null)
+            throw new NotFoundException("User not found");
+
+        // Güncellemeleri yap
+        user.Name = request.Name ?? user.Name;
+        user.Age = request.Age ?? user.Age;
+        user.Hobbies = request.Hobbies ?? user.Hobbies;
+        user.LanguageLevel = request.LanguageLevel ?? user.LanguageLevel;
+        user.ProfilePhotoUrl = request.ProfilePhotoUrl ?? user.ProfilePhotoUrl;
+
+        // Diðer alanlarý güncelleyin
+
+        await _userRepository.UpdateUserAsync(user);
+
+        return user;
+    }
+
+
 }
