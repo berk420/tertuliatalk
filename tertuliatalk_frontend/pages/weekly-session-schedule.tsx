@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Page from 'components/Page';
 import Accordion from 'components/Accordion';
 import Button from 'components/Button';
-import { convertToISODate, nextSevenDateFormatter } from 'utils/formatDate';
+import { convertToISODate } from 'utils/formatDate';
 import CourseCard from 'views/SessionSchedule/Course';
 import { weeksArray } from 'mocks/weeks';
 import { getCourses } from 'services/CourseService';
@@ -62,9 +62,10 @@ export default function FeaturesPage() {
           </Session>
           <PassWeek>
             <Button onClick={() => handleWeekChange('prev')}>önceki hafta</Button>
-            <h1>{`Tarih: ${weeksArray[weekIndex][0].date} / ${nextSevenDateFormatter(
-              weeksArray[weekIndex][0].date
-            )}`}</h1>
+            <h1>
+  {`Tarih: ${weeksArray[weekIndex][0].date} / ${nextSevenDateFormatter(weeksArray[weekIndex][0].date)}`}
+</h1>
+
             <Button onClick={() => handleWeekChange('next')}>sonraki hafta</Button>
           </PassWeek>
         </Header>
@@ -76,7 +77,7 @@ export default function FeaturesPage() {
               subTitle={`Oturum Sayısı: ${filteredCourses(week.date).length}`}
             >
               {filteredCourses(week.date).map((course, index) => (
-                <CourseCard key={index} course={course} />
+                <CourseCard key={index} course={course} index={0} />
               ))}
             </Accordion>
           ))}
@@ -92,12 +93,18 @@ export default function FeaturesPage() {
   );
 }
 
+const nextSevenDateFormatter = (date: string): string => {
+  const currentDate = new Date(date); // String formatını Date objesine çevir
+  currentDate.setDate(currentDate.getDate() + 7); // 7 gün ekle
+  return currentDate.toLocaleDateString(); // Tarihi formatla (MM/DD/YYYY)
+};
+
+
 // Styled Components
 const Days = styled.div`
   border-radius: 1rem;
   display: flex;
   padding: 1rem;
-  background-color: #f5f5dc;
   width: 100%;
   height: 100%;
   flex-direction: column;
@@ -107,7 +114,6 @@ const Days = styled.div`
 const Header = styled.div`
   border-radius: 1rem;
   display: flex;
-  background-color: #f5f5dc;
   padding: 1rem;
   gap: 1rem;
   width: 100%;
@@ -137,7 +143,7 @@ const PassWeek = styled.div`
 
 const WholeFrame = styled.div`
   border-radius: 1rem;
-  background-color: #f4a460;
+  background-color: #f2f2f2;
   width: 100%;
   height: 100%;
 `;
@@ -146,7 +152,7 @@ const Wrapper = styled.div`
   border-radius: 1rem;
   display: flex;
   flex-direction: column;
-  background-color: #f5f5dc;
+  background-color: #f2f2f2;
   width: 100%;
   height: 100%;
   & > *:not(:first-child) {

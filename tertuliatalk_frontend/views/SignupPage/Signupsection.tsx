@@ -51,9 +51,7 @@ export default function SignupSection() {
   return (
     <Container>
       <Card>
-        <Row>
-          <a>Google Icon (google ile kayıt ol)</a>
-        </Row>
+
         <Row>
           {
             exampleData ? (
@@ -64,7 +62,7 @@ export default function SignupSection() {
                 </DataWrapper>
               ))
             ) : (
-              <h1>isLoading...</h1>
+              <h1></h1>
             )
           }
         </Row>

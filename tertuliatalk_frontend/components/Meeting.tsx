@@ -27,7 +27,7 @@ type User = {
 
 const user: User = {
   id: '1',
-  role: Roles.TEACHER,
+  role: Roles.ADMIN,
 }
 
 export const Meeting = ({ index, program }: { index: number, program: Program }) => {

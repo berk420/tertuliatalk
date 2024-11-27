@@ -29,7 +29,7 @@ type User = {
 
 const user: User = {
   id: '1',
-  role: Roles.TEACHER,
+  role: Roles.INSTRUCTOR,
 }
 
 export default function TeacherMeeting({ index, program, setPrograms }: { index: number, program: Program, setPrograms: any }) {

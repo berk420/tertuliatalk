@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 import Page from 'components/Page';
 import { media } from 'utils/media';
-import FeaturesGallery from 'views/HomePage/FeaturesGallery';
 import AutofitGrid from 'components/AutofitGrid';
 
 
@@ -37,7 +36,6 @@ export default function FeaturesPage() {
             </Card>
 
           </CustomAutofitGrid>
-        <FeaturesGallery />
 
       </Wrapper>
     </Page>

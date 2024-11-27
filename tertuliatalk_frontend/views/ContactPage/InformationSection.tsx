@@ -7,11 +7,6 @@ export default function InformationSection() {
       <p>
         <span>Email:</span> tertuliatalks@gmail.com
       </p>
-
-      <h3>Sosyal medya </h3>
-      <p>
-        <span>null:</span> null
-      </p>
     </Wrapper>
   );
 }

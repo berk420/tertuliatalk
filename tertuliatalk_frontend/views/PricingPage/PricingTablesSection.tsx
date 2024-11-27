@@ -13,7 +13,7 @@ export default function PricingTablesSection() {
           title="Deneme"
           description="TertuliaTalks'un sunduğu imkanları tek bir oturum ile deneyin."
           benefits={[
-            'null', 
+            'Ek materyaller',
           ]}
           isOutlined
         >
@@ -26,7 +26,7 @@ export default function PricingTablesSection() {
           dil becerilerinizi düzenli olarak 
           geliştirin."
           benefits={[
-            'null', 
+            'Ek materyaller', 
           ]}        >
           680TL<span>/oturum</span>
         </PricingCard>
@@ -35,7 +35,7 @@ export default function PricingTablesSection() {
           title="Standart Plan"
           description="Daha yoğun bir programla her hafta iki oturum yaparak hızla ilerleyin."
           benefits={[
-            'null', 
+            'Ek materyaller', 
           ]}
         >
           1280TL<span>/oturum</span>
@@ -46,7 +46,7 @@ export default function PricingTablesSection() {
           description="Kişiselleştirilmiş derslerle ihtiyaçlarınıza özel çalışın.
 Özel Programlar: Talep ve oturum sıklığına göre fiyatlandırılır - Kişisel veya Sektörel ihtiyaçlarınıza özel programlar oluşturun."
           benefits={[
-            'null', 
+            'Ek materyaller', 
           ]}
         >
           420TL<span>/oturum</span>

@@ -65,13 +65,71 @@ export default function FeaturesPage() {
     <Page title="Profil ekranı">
       <WholeFrame>
         {role === null ? (
-          <RichText>Lütfen giriş yapınız</RichText>
-        ) : (
+            <>
+            <ProfileWrapper>
+              <LeftColumn>
+                <ProfilePicture
+                  src={
+                    user?.profilePhotoUrl && user.profilePhotoUrl !== "null"
+                    ? user.profilePhotoUrl
+                      : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    }
+                      alt="Profil Fotoğrafı"
+                      />
+                <Button>Düzenle</Button>
+                {user && <Name>{user.name}</Name>}
+                <Description>Buraya string bir ifade gelecek.</Description>
+              </LeftColumn>
+              <RightColumn>
+                <InfoBox>
+                  <h2>Kişisel Bilgiler</h2>
+                  <ul>
+                    {user && (
+                      <>
+                        <li>Yaş: {user.age !=0 ? user.age :""}</li>
+                        <li>Hobiler: {user.hobbies}</li>
+                        <li>Dil yeterlilik seviyesi: {user.languageLevel}</li>
+                      </>
+                    )}
+                  </ul>
+                  <ButtonInfo>4 hakkınız kaldı</ButtonInfo>
+                  <ButtonInfo>Aboneliğimi Duraklat</ButtonInfo>
+                </InfoBox>
+              </RightColumn>
+            </ProfileWrapper>
+            <BottomSection>
+                <Table>
+                  <thead>
+                    <tr>
+                      <th>Katıldığım Oturumlar</th>
+                        <th>Tarih</th>
+                        <th>Açıklama</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {user && user.userCourses && user.userCourses.length > 0 ? (
+                      user.userCourses.map((userCourse, index) => (
+                        <tr key={index}>
+                          <td>{userCourse.courseId}</td>
+                          <td>{userCourse.createdDate}</td>
+                          <td>{userCourse.courseId}</td>
+                          </tr>
+                    ))
+                    ) : (
+                    <tr>
+                      <td colSpan={3}>Katıldığınız Oturum Bulunamadı.</td>
+                    </tr>
+                    )}
+                  </tbody>
+                </Table>
+                <ButtonWrapper><ButtonBottom>Tümünü Göster</ButtonBottom></ButtonWrapper>
+            </BottomSection>
+            </>) : (
           <>
             {role === "Instructor" && (
               <RichText>Instructor</RichText>
             )}
-            {role === "Student" && (
+            {role === "User" && (
               <>
                 <ProfileWrapper>
                   <LeftColumn>
@@ -117,9 +175,9 @@ export default function FeaturesPage() {
                         {user && user.userCourses && user.userCourses.length > 0 ? (
                           user.userCourses.map((userCourse, index) => (
                             <tr key={index}>
-                              <td>{userCourse.course.title}</td>
+                              <td>{userCourse.courseId}</td>
                               <td>{userCourse.createdDate}</td>
-                              <td>{userCourse.course.description}</td>
+                              <td>{userCourse.courseId}</td>
                               </tr>
                         ))
                         ) : (
@@ -134,8 +192,67 @@ export default function FeaturesPage() {
               </>
             )}
             {role === "User" && (
-              <RichText>Lütfen kayıt olunuz</RichText>
-            )}
+              <>
+              <ProfileWrapper>
+                <LeftColumn>
+                 <ProfilePicture
+                    src={
+                      user?.profilePhotoUrl && user.profilePhotoUrl !== "null"
+                      ? user.profilePhotoUrl
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      }
+                        alt="Profil Fotoğrafı"
+                        />
+                  <Button>Düzenle</Button>
+                  {user && <Name>{user.name}</Name>}
+                  <Description>Buraya string bir ifade gelecek.</Description>
+                </LeftColumn>
+                <RightColumn>
+                  <InfoBox>
+                    <h2>Kişisel Bilgiler</h2>
+                    <ul>
+                      {user && (
+                        <>
+                          <li>Yaş: {user.age !=0 ? user.age :""}</li>
+                          <li>Hobiler: {user.hobbies}</li>
+                          <li>Dil yeterlilik seviyesi: {user.languageLevel}</li>
+                        </>
+                      )}
+                    </ul>
+                    <ButtonInfo>4 hakkınız kaldı</ButtonInfo>
+                    <ButtonInfo>Aboneliğimi Duraklat</ButtonInfo>
+                  </InfoBox>
+                </RightColumn>
+              </ProfileWrapper>
+
+              <BottomSection>
+                 <Table>
+                    <thead>
+                      <tr>
+                        <th>Katıldığım Oturumlar</th>
+                          <th>Tarih</th>
+                          <th>Açıklama</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {user && user.userCourses && user.userCourses.length > 0 ? (
+                        user.userCourses.map((userCourse, index) => (
+                          <tr key={index}>
+                            <td>{userCourse.courseId}</td>
+                            <td>{userCourse.createdDate}</td>
+                            <td>{userCourse.courseId}</td>
+                            </tr>
+                      ))
+                      ) : (
+                      <tr>
+                        <td colSpan={3}>Katıldığınız Oturum Bulunamadı.</td>
+                      </tr>
+                      )}
+                    </tbody>
+                  </Table>
+                  <ButtonWrapper><ButtonBottom>Tümünü Göster</ButtonBottom></ButtonWrapper>
+              </BottomSection>
+            </>            )}
             {role === "SuperAdmin" && (
               <RichText>SuperAdmin</RichText>
             )}
@@ -158,7 +275,7 @@ const ProfileWrapper = styled.div`
   display: flex;
   gap: 2rem;
   padding: 2rem;
-  background-color: #efcc63;
+  background-color: #f2f2f2;
   border-radius: 3rem;
   border: 0.1rem solid;
 `;
@@ -219,7 +336,6 @@ const Description = styled.p`
 
 //top profile- infobox
 const InfoBox = styled.div`
-  background-color: #f8efcc;
   padding: 2rem;
   border-radius: 3rem;
   height:100%;
@@ -250,37 +366,18 @@ const InfoBox = styled.div`
       }
     }
 `;
-const Button = styled.button`
-  padding: 0.5rem 1rem;
-  border-radius: 1rem;
-  border: none;
-  background-color: #2e2d28;
-  cursor: pointer;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #f8efcc;
-  margin:1rem;
-  &:hover {
-    background-color: #2e2d28;
-  }
-  
-  @media (max-width: 600px) {
-    margin-bottom: 0.5rem; 
-  }
-`;
+
+
 const ButtonInfo = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: none;
-  background-color: #2e2d28;
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: bold;
-  color: #f8efcc;
   margin:1rem 1rem 0 0;
-  &:hover {
-    background-color: #2e2d28;
-  }
+  background-color: #999999;
+
   
   @media (max-width: 600px) {
     margin-bottom: 0.5rem; 
@@ -291,7 +388,7 @@ const ButtonInfo = styled.button`
 //**bottom profile
 const BottomSection = styled.div`
   margin-top: 1rem;
-  background-color: #efcc63;
+  background-color: #f2f2f2;
   border-radius:3rem;
   border: 0.1rem solid;
   @media (max-width: 600px) {
@@ -308,7 +405,6 @@ const ButtonBottom = styled.button`
   padding: 0.5rem 1rem;
   border-radius: 1rem;
   border: none;
-  background-color: #2e2d28;
   cursor: pointer;
   font-size: 1.5rem;
   font-weight: bold;
@@ -331,7 +427,6 @@ const Table = styled.table`
   td {
     padding: 1rem;
     border: none;
-    background-color: #f8efcc;
     border-radius:2rem;
     font-size: 1.3rem;
   }
