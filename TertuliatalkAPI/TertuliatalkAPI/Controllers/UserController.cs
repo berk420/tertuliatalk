@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Base;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
 using TertuliatalkAPI.Interfaces;
+using TertuliatalkAPI.Models;
 
 namespace TertuliatalkAPI.Controllers;
 
@@ -11,7 +13,7 @@ namespace TertuliatalkAPI.Controllers;
 public class UserController : ControllerBase
 {
     private readonly IUserService _userService;
-    
+
     public UserController(IUserService userService)
     {
         _userService = userService;
@@ -25,14 +27,17 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<ApiResponse<User>>> GetUser(Guid id)
+    public async Task<ActionResult<ApiResponse<User?>>> GetUser(Guid id)
     {
         var response = await _userService.GetUser(id);
+        return Ok(new ApiResponse<User?>(response));
+    }
 
-        if (response == null)
-            return NotFound(new ApiResponse<User>("User not found."));
-
+    [HttpPost("{id}")]
+    [Authorize]
+    public async Task<ActionResult<ApiResponse<User>>> UpdateUser(Guid id, [FromBody] UserUpdateRequest userUpdateRequest)
+    {
+        var response = await _userService.UpdateUser(id, userUpdateRequest);
         return Ok(new ApiResponse<User>(response));
     }
-    
 }

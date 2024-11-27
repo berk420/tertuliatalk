@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using TertuliatalkAPI.Entities;
+using TertuliatalkAPI.Exceptions;
+using TertuliatalkAPI.Infrastructure.Repositories.Interfaces;
 using TertuliatalkAPI.Interfaces;
 using TertuliatalkAPI.Models;
 
@@ -8,38 +9,61 @@ namespace TertuliatalkAPI.Services;
 
 public class UserService : IUserService
 {
-    private readonly ApplicationDbContext _context;
+    private readonly IUserRepository _userRepository;
+    private readonly IAuthService _authService;
 
-    public UserService(ApplicationDbContext context)
+    public UserService(IUserRepository userRepository, IAuthService authService)
     {
-        _context = context;
+        _userRepository = userRepository;
+        _authService = authService;
     }
 
     public async Task<User> AddUser(User user)
     {
-        var newUser = _context.Users.Add(user).Entity;
-        await _context.SaveChangesAsync();
-        
-        return newUser;
+        return await _userRepository.AddUserAsync(user);
     }
 
     public async Task<List<User>> GetUsers()
     {
-        return await _context.Users.ToListAsync();
+        return await _userRepository.GetAllUsersAsync();
     }
 
-    public async Task<User> GetUser(Guid id)
+    public async Task<User?> GetUser(Guid id)
     {
-        return await _context.Users.FindAsync(id);
+        var user =  await _userRepository.GetUserByIdAsync(id);
+        if (user == null)
+            throw new NotFoundException($"User with ID {id} not found");
+
+        return user;
     }
 
-    public async Task<User> GetUserByEmail(string email)
+    public async Task<User?> GetUserByEmail(string email)
     {
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        var user = await _userRepository.GetUserByEmail(email);
+        if (user == null)
+            throw new NotFoundException($"User with Email {email} not found");
+        
+        return user;
     }
+    
+    public async Task<User> UpdateUser(Guid Id, UserUpdateRequest userUpdateRequest)
+    {
+        var authUser = _authService.GetLoggedUser().Result;
+        if (authUser.Id != Id)
+            throw new UnauthorizedException("You are not authorized to update this user's information.");
 
-    public async Task<User> GetUserByEmailAndPassword(string email, string password)
-    { 
-        return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
+        var user = await _userRepository.GetUserByIdAsync(Id);
+        if (user == null)
+            throw new NotFoundException($"User with Email {Id} not found");
+
+        user.Name = userUpdateRequest.Name;
+        user.Email = userUpdateRequest.Email;
+        user.Age = userUpdateRequest.Age;
+        user.Hobbies = userUpdateRequest.Hobbies;
+        user.LanguageLevel = userUpdateRequest.LanguageLevel;
+
+        await _userRepository.UpdateUserAsync(user);
+
+        return user;
     }
 }

@@ -5,29 +5,33 @@ import Button from 'components/Button';
 import Container from 'components/Container';
 import Input from 'components/Input';
 import { getWeatherForecast } from 'services/weatherForecastService';
-import { getUserData,signIn } from 'services/AuthService';
+import { getUserData,signIn, signUp } from 'services/AuthService';
 import Logo from '../../components/Logo';
 import { useRouter } from 'next/router';
 import { da } from 'date-fns/locale';
+import { set } from 'lodash';
 
 export default function SignupSection() {
-  const [email, setEmail] = useState<string >("test");
-  const [password, setPassword] = useState<string >("test");
+  const [name, setName] = useState<string >("");
+  const [email, setEmail] = useState<string >("");
+  const [password, setPassword] = useState<string >("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [exampleData, setExampleData] = useState<[] | null>(null)
   const router = useRouter();
 
   const handleButtonClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
-    console.log(`Email: ${email}\nPassword: ${password}`);
     if (email && password) {
+      setIsLoading(true);
       try {
-        const res = await signIn(email, password);
+        const res = await signUp(name, email, password);
         console.log("data from backend: ", res); // login success
-        router.push('/');
+        router.push('/login');
       }
       catch (error) {
         console.log(error);
       }
+      setIsLoading(false);
     }
   }
 
@@ -47,10 +51,29 @@ export default function SignupSection() {
   return (
     <Container>
       <Card>
+
         <Row>
-          <a>Google Icon (google ile kayıt ol)</a>
+          {
+            exampleData ? (
+              exampleData?.map((data: any, index: number) => (
+                <DataWrapper key={index}>
+                  <p>{data.name}</p>
+                  <p>{data.email}</p>
+                </DataWrapper>
+              ))
+            ) : (
+              <h1></h1>
+            )
+          }
         </Row>
-       
+        <Row>
+          <CustomInput
+            value={name}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => setName(e.target.value)}
+            placeholder="Adinizi giriniz..."
+            required
+          />
+        </Row>
         <Row>
           <CustomInput
             value={email}
@@ -69,8 +92,8 @@ export default function SignupSection() {
           />
         </Row>
         <Row>
-          <CustomButton as="button" type="submit" onClick={handleButtonClick}>
-            Submit
+          <CustomButton as="button" type="submit" onClick={handleButtonClick} disabled={isLoading}>
+            {isLoading ? 'Yükleniyor...' : "Kayıt Ol"}
           </CustomButton>
         </Row>
       </Card>
@@ -122,6 +145,7 @@ const CustomButton = styled(Button)`
 `;
 
 const CustomInput = styled(Input)`
+  color: white;
   width: 60%;
 
   ${media('<=tablet')} {

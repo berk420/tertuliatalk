@@ -27,7 +27,7 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
   const [signInError, setSignInError] = useState<string | null>(null)
   const [loading, setLoading] = useState<boolean>(false);
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInput>();
-  
+
   useEscClose({ onClose });
 
   useEffect(() => { // scroll event disable
@@ -47,7 +47,7 @@ export default function LoginSection({ onClose }: NewsletterModalProps) {
 
     if (email && password) {
       // backend login proccess
-      try { 
+      try {
         setLoading(true);
         const response = await signIn(email, password);
 

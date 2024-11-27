@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import NextLink from 'next/link';
 import styled from 'styled-components';
 import Button from 'components/Button';
 import ButtonGroup from 'components/ButtonGroup';
 import Container from 'components/Container';
-import OverTitle from 'components/OverTitle';
 import { useNewsletterModalContext } from 'contexts/newsletter-modal.context';
 import { media } from 'utils/media';
+import FeaturesGallery from 'views/HomePage/FeaturesGallery';
 
 export default function Hero() {
   const { setIsModalOpened } = useNewsletterModalContext();
@@ -14,7 +13,6 @@ export default function Hero() {
 
   useEffect(() => {
     const userRole = localStorage.getItem('userRole');
-
     if (userRole) {
       setRole(userRole);
     }
@@ -22,112 +20,79 @@ export default function Hero() {
 
   return (
     <HeroWrapper>
-      <Contents>
-        <Heading>TertuliaTalks'a Hoş Geldiniz!</Heading>
+      <Heading>TertuliaTalks'a Hoş Geldiniz!</Heading>
 
+      <Contents>
         {role === null ? (
           <Description>
-              TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
-              </Description>
+            TertuliaTalks size rahat ve interaktif bir ortamda İngilizce iletişim
+            becerilerinizi geliştirmek için eşsiz bir fırsat sunuyor.
+          </Description>
         ) : (
           <>
-            {role === "Teacher" && (
-              <Description>Teacher</Description>
-            )}
-            {role === "Student" && (
-              <Description>Student</Description>
-            )}
-            {role === "User" && (
-              <Description>User</Description>
-            )}
-            {role === "SuperAdmin" && (
-              <Description>SuperAdmin</Description>
-            )}
-              {/* Uncomment below if needed
-              <CustomButtonGroup>
-                <Button onClick={() => setIsModalOpened(true)}>
-                  Formu doldur<span>&rarr;</span>
-                </Button>
-              </CustomButtonGroup>
-              */}
+            {role === 'Teacher' && <Description>Teacher</Description>}
+            {role === 'Student' && <Description>Student</Description>}
+            {role === 'User' && <Description>User</Description>}
+            {role === 'SuperAdmin' && <Description>SuperAdmin</Description>}
           </>
         )}
-
-
       </Contents>
-      <ImageContainer>
-        {/* Add HeroIllustration or any other illustration if needed */}
-      </ImageContainer>
+
+      <FeaturesGalleryWrapper>
+        <FeaturesGallery />
+      </FeaturesGalleryWrapper>
     </HeroWrapper>
   );
 }
 
 const HeroWrapper = styled(Container)`
   display: flex;
-  padding-top: 5rem;
+  flex-direction: column; /* Alt alta sıralama için */
+  align-items: center;
+  padding-top: 4rem;
 
   ${media('<=desktop')} {
-    padding-top: 1rem;
-    flex-direction: column;
-    align-items: center;
+    padding-top: 2rem;
+  }
+`;
+
+const Heading = styled.h1`
+  font-size: 3.6rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+
+  ${media('<=tablet')} {
+    font-size: 2.8rem;
+    text-align: center;
   }
 `;
 
 const Contents = styled.div`
-  flex: 1;
+  width: 100%;
   max-width: 60rem;
+  text-align: center;
+  margin-bottom: 22rem;
 
   ${media('<=desktop')} {
-    max-width: 100%;
-  }
-`;
-
-const CustomButtonGroup = styled(ButtonGroup)`
-  margin-top: 4rem;
-`;
-
-const ImageContainer = styled.div`
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
-  align-items: flex-start;
-
-  svg {
-    max-width: 45rem;
-  }
-
-  ${media('<=desktop')} {
-    margin-top: 2rem;
-    justify-content: center;
-    svg {
-      max-width: 80%;
-    }
+    max-width: 90%;
   }
 `;
 
 const Description = styled.p`
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   opacity: 0.8;
-  line-height: 1.6;
+  line-height: 1.5;
 
   ${media('<=desktop')} {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
   }
 `;
 
-const CustomOverTitle = styled(OverTitle)`
-  margin-bottom: 2rem;
-`;
+const FeaturesGalleryWrapper = styled.div`
+  width: 100%;
+  margin-top: 2rem;
 
-const Heading = styled.h1`
-  font-size: 7.2rem;
-  font-weight: bold;
-  line-height: 1.1;
-  margin-bottom: 4rem;
-  letter-spacing: -0.03em;
-
-  ${media('<=tablet')} {
-    font-size: 4.6rem;
-    margin-bottom: 2rem;
+  ${media('<=desktop')} {
+    margin-top: 1.5rem;
   }
 `;

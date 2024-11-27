@@ -6,32 +6,25 @@ import { nativePrograms } from 'mocks/programs';
 import { Program } from '../../mocks/programs';
 import { Times, weeksArray } from 'mocks/weeks';
 import { Days as EnumDays } from 'types/enums';
-
-type MeetingAddFormProps = {
-  title: string;
-  description: string;
-  time: string;
-  limit: number;
-}
+import { CreateCourse } from 'types/Course';
+import { addCourse } from 'services/CourseService';
 
 export default function MeetingAddForm({ setPrograms }: { setPrograms: any }) {
   const formRef = React.useRef<HTMLFormElement>(null);
-  const { register, handleSubmit, formState: { errors } } = useForm();
   const [status, setStatus] = useState<boolean>(false);
+  const { register, handleSubmit, formState: { errors } } = useForm();
 
-  const onSubmit: SubmitHandler<any> = (data: MeetingAddFormProps) => {
+  const onSubmit: SubmitHandler<any> = async (data: CreateCourse) => {
+  
+    console.log(data);
+
+    //const response = await addCourse(data);
+  
+  
+  
+  
     setStatus(true);
-    nativePrograms.push({
-      id: '28.2',
-      title: data.title,
-      description: data.description,
-      date: '2024-08-22',
-      time: data.time,
-      duration: '1 hour',
-      location: 'Zoom',
-      isActive: true,
-    } as Program);
-    setPrograms([...nativePrograms]);
+  
     // use real api to post data
     formRef.current?.reset();
     setStatus(false);
@@ -58,21 +51,21 @@ export default function MeetingAddForm({ setPrograms }: { setPrograms: any }) {
       </DescriptionWrapper>
 
       <TimeWrapper>
-        <Label htmlFor="time">Saat</Label>
+        <Label htmlFor="duration">Saat</Label>
         <Input
           type="time"
-          id="time"
-          {...register('time', { required: true })}
+          id="duration"
+          {...register('duration', { required: true })}
         />
         {errors.time && <ErrorMessage>Saat zorunludur</ErrorMessage>}
       </TimeWrapper>
 
       <QuotaWrapper>
-        <Label htmlFor="limit">Kontenjan</Label>
+        <Label htmlFor="maxParticipant">Kontenjan</Label>
         <Input
           type="number"
-          id="limit"
-          {...register('limit', { required: true, min: 1 })}
+          id="maxParticipant"
+          {...register('maxParticipant', { required: true, min: 1 })}
         />
         {errors.quota && <ErrorMessage>Kontenjan zorunludur ve en az 2 olmalıdır</ErrorMessage>}
       </QuotaWrapper>
