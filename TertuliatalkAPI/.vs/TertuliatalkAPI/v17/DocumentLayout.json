@@ -50,7 +50,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 11,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
@@ -98,6 +98,10 @@
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
               "$type": "Document",
@@ -179,7 +183,7 @@
               "RelativeDocumentMoniker": "TertuliatalkAPI\\Program.cs",
               "ToolTip": "C:\\Users\\berk\\Desktop\\tt\\tertuliatalk\\TertuliatalkAPI\\TertuliatalkAPI\\Program.cs",
               "RelativeToolTip": "TertuliatalkAPI\\Program.cs",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAACQAAAADAAAA",
+              "ViewState": "AQIAAC0AAAAAAAAAAAAAADcAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-27T23:33:10.972Z",
               "EditorCaption": ""

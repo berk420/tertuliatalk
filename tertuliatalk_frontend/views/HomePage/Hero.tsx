@@ -47,7 +47,7 @@ export default function Hero() {
 
 const HeroWrapper = styled(Container)`
   display: flex;
-  flex-direction: column; /* Alt alta sıralama için */
+  flex-direction: column;
   align-items: center;
   padding-top: 4rem;
 
@@ -71,7 +71,7 @@ const Contents = styled.div`
   width: 100%;
   max-width: 60rem;
   text-align: center;
-  margin-bottom: 22rem;
+  margin-bottom: 10rem;
 
   ${media('<=desktop')} {
     max-width: 90%;
@@ -91,8 +91,19 @@ const Description = styled.p`
 const FeaturesGalleryWrapper = styled.div`
   width: 100%;
   margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   ${media('<=desktop')} {
+    flex-direction: column;
     margin-top: 1.5rem;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  ${media('<=tablet')} {
+    padding: 0.5rem;
+    gap: 0.8rem;
   }
 `;
