@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import Collapse from 'components/Collapse';
 import Container from 'components/Container';
-import OverTitle from 'components/OverTitle';
 import SectionTitle from 'components/SectionTitle';
 import ThreeLayersCircle from 'components/ThreeLayersCircle';
 import { media } from 'utils/media';
@@ -11,40 +10,34 @@ import { media } from 'utils/media';
 const TABS = [
   {
     title: 'TertuliaTalks Nedir?',
-
     imageUrl: '/tt_information_1.jpeg',
     baseColor: '255,165,0',
     secondColor: '255,140,0',
   },
   {
     title: 'TertuliaTalks nasıl çalışır?',
-
     imageUrl: '/tt_information_2.jpeg',
     baseColor: '255,165,0',
     secondColor: '255,140,0',
   },
   {
     title: 'TertuliaTalks kimler faydalanabilir?',
-
     imageUrl: '/tt_information_3.jpeg',
     baseColor: '255,165,0',
     secondColor: '255,140,0',
   },
   {
     title: 'TertuliaTalks oturumlarında hangi konular ele alınıyor?',
-
     imageUrl: '/tt_information_4.jpeg',
     baseColor: '255,165,0',
     secondColor: '255,140,0',
   },
   {
     title: 'TertuliaTalks ile dil becerilerimi nasıl geliştirebilirim?',
-
     imageUrl: '/tt_information_5.jpeg',
     baseColor: '255,165,0',
     secondColor: '255,140,0',
   },
-  
 ];
 
 export default function FeaturesGallery() {
@@ -56,7 +49,13 @@ export default function FeaturesGallery() {
 
     return (
       <ImageContainer key={singleTab.title} isActive={isActive}>
-        <NextImage src={singleTab.imageUrl} alt={singleTab.title} layout="fill" objectFit="contain" priority={isFirst} />
+        <NextImage
+          src={singleTab.imageUrl}
+          alt={singleTab.title}
+          layout="fill"
+          objectFit="contain"
+          priority={isFirst}
+        />
       </ImageContainer>
     );
   });
@@ -68,17 +67,14 @@ export default function FeaturesGallery() {
       <Tab isActive={isActive} key={idx} onClick={() => handleTabClick(idx)}>
         <TabTitleContainer>
           <CircleContainer>
-            <ThreeLayersCircle baseColor={isActive ? 'transparent' : singleTab.baseColor} secondColor={singleTab.secondColor} />
+            <ThreeLayersCircle
+              baseColor={isActive ? 'transparent' : singleTab.baseColor}
+              secondColor={singleTab.secondColor}
+            />
           </CircleContainer>
           <h4>{singleTab.title}</h4>
         </TabTitleContainer>
-        <Collapse isOpen={isActive} duration={300}>
-        {/*}
-          <TabContent>
-            <div dangerouslySetInnerHTML={{ __html: singleTab.description }}></div>
-          </TabContent>
-          */}
-        </Collapse>
+        <Collapse isOpen={isActive} duration={300}></Collapse>
       </Tab>
     );
   });
@@ -115,6 +111,7 @@ const GalleryWrapper = styled.div`
 
   ${media('<=desktop')} {
     flex-direction: column;
+    width: 100%;
   }
 `;
 
@@ -144,8 +141,10 @@ const ImageContainer = styled.div<{ isActive: boolean }>`
   position: relative;
   overflow: hidden;
   border-radius: 0.8rem;
-  flex: ${(p) => (p.isActive ? '2' : '0')};
+  flex: ${(p) => (p.isActive ? '1' : '0')};
+  max-height: ${(p) => (p.isActive ? '60vh' : '0')};
   box-shadow: var(--shadow-md);
+  transition: flex 0.5s ease, max-height 0.5s ease;
 
   &:before {
     display: block;
@@ -162,8 +161,8 @@ const ImageContainer = styled.div<{ isActive: boolean }>`
     left: 0;
   }
 
-  ${media('<=desktop')} {
-    width: ${(p) => (p.isActive ? '100%' : '0')};
+  ${media('<=tablet')} {
+    max-height: ${(p) => (p.isActive ? '40vh' : '0')};
   }
 `;
 
@@ -192,23 +191,6 @@ const TabTitleContainer = styled.div`
 
   h4 {
     flex: 1;
-  }
-`;
-
-const TabContent = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-weight: normal;
-  margin-top: 0.5rem;
-  font-size: 1.5rem;
-  padding-left: calc(5rem + 1.5rem);
-
-  ${media('<=tablet')} {
-    padding-left: calc(4rem + 1.25rem);
-  }
-
-  p {
-    font-weight: normal;
   }
 `;
 
